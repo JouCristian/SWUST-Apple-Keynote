@@ -1,3 +1,9 @@
+<p align="center">
+  <a href="https://joucristian.github.io/SWUST-Apple-Keynote/">
+    <img src="docs/banner.svg" alt="SWUST Apple Keynote — Motion with Meaning" width="100%">
+  </a>
+</p>
+
 <div align="center">
 
 # SWUST Apple Keynote
