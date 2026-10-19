@@ -1,20 +1,74 @@
-# swust-apple-keynote
+<div align="center">
+
+# SWUST Apple Keynote
+
+### Motion with Meaning.
 
 **Turn technical ideas into interactive, offline HTML presentations.**
 
-A reusable agent Skill with an Apple Keynote-inspired visual language: confident typography, generous space, restrained glass, and motion that explains relationships. It combines content planning, editable native web sources, a stateful animation runtime, and browser quality checks. The first public version is **v1.0.0**; earlier development labels were private iterations, not GitHub releases.
+A reusable Codex Skill for expressive technical storytelling — combining cinematic typography, meaningful motion, interactive diagrams, and browser-based visual quality checks.
 
-[简体中文](README.zh-CN.md) · [Showcase](dist/swust-keynote-showcase.html) · [Motion playground](dist/motion-playground.html) · [License](LICENSE)
+<p>
+  <a href="https://github.com/JouCristian/SWUST-Apple-Keynote/releases/latest"><img src="https://img.shields.io/badge/release-v1.0.0-007AFF?style=flat-square" alt="Release v1.0.0"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-30363D?style=flat-square" alt="MIT License"></a>
+  <img src="https://img.shields.io/badge/output-offline%20HTML-30363D?style=flat-square" alt="Offline HTML">
+  <img src="https://img.shields.io/badge/powered%20by-Codex%20Skill-30363D?style=flat-square" alt="Codex Skill">
+</p>
 
-## See the real Showcase
+<p>
+  <a href="https://joucristian.github.io/SWUST-Apple-Keynote/"><img src="https://img.shields.io/badge/OPEN_LIVE_SHOWCASE-007AFF?style=for-the-badge" alt="Open Live Showcase"></a>
+  <a href="https://github.com/JouCristian/SWUST-Apple-Keynote/releases/latest"><img src="https://img.shields.io/badge/DOWNLOAD_RELEASE-22272E?style=for-the-badge" alt="Download release"></a>
+</p>
 
-These are browser captures of the rebuilt v1.0.0 offline Showcase, not mockups. Download or clone the repository and open the HTML locally; GitHub's source viewer does not run it.
+[简体中文](README.zh-CN.md) &nbsp;·&nbsp; [Motion Playground](https://joucristian.github.io/SWUST-Apple-Keynote/motion-playground.html) &nbsp;·&nbsp; [Glass Material Lab](https://joucristian.github.io/SWUST-Apple-Keynote/glass-material-lab.html) &nbsp;·&nbsp; [Documentation](SKILL.md)
 
-![Motion with meaning: the opening scene](docs/screenshots/showcase-intro.png)
-![Persistent object identity and a bounded morphing panel](docs/screenshots/showcase-identity.png)
-![Result settlement: state commits, then graphics and text settle](docs/screenshots/showcase-settlement.png)
+<sub>Independent, Apple-inspired design research · Not affiliated with Apple.</sub>
 
-The 15-scene [Living Showcase](dist/swust-keynote-showcase.html) lets you drag springs, reverse SVG paths, interrupt transitions, compare authored timing, and inspect result feedback. [Glass Material Lab](dist/glass-material-lab.html) separates stable frosted glass from experimental optics. [Inside a Git Commit](dist/inside-a-git-commit.html) is an illustrative teaching demo, not a Git client.
+</div>
+
+---
+
+## See it in motion
+
+**An interactive design system, not just a collection of slides.** Explore the real 15-scene Showcase in your browser — no installation required.
+
+<p align="center">
+  <a href="https://joucristian.github.io/SWUST-Apple-Keynote/">
+    <img src="docs/screenshots/showcase-intro.png" alt="SWUST Keynote Lab: Motion with Meaning — opening scene" width="100%">
+  </a>
+</p>
+
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <a href="https://joucristian.github.io/SWUST-Apple-Keynote/">
+        <img src="docs/screenshots/showcase-identity.png" alt="Shared-element identity and bounded morphing panel" width="100%">
+      </a>
+      <br><strong>Shared Element Continuity</strong><br>
+      <sub>One object. Many forms. Natural transitions.</sub>
+    </td>
+    <td width="50%" align="center">
+      <a href="https://joucristian.github.io/SWUST-Apple-Keynote/">
+        <img src="docs/screenshots/showcase-settlement.png" alt="Result settlement with coordinated feedback" width="100%">
+      </a>
+      <br><strong>Motion with Meaning</strong><br>
+      <sub>Correct state changes, fluid visual settlement.</sub>
+    </td>
+  </tr>
+</table>
+
+<sub>Images are real browser captures of the v1.0.0 Showcase, not mockups. Animations and interactions run in the live demos; GitHub's README cannot execute the presentation itself.</sub>
+
+### Live experiences
+
+| Experience | Explore |
+| :-- | :-- |
+| **SWUST Keynote Lab** · 15-scene interactive design showcase | [Launch Showcase ↗](https://joucristian.github.io/SWUST-Apple-Keynote/) |
+| **Motion Playground** · Springs, easing, morphing, path drawing | [Try Motion Playground ↗](https://joucristian.github.io/SWUST-Apple-Keynote/motion-playground.html) |
+| **Glass Material Lab** · Frosted, optical, experimental refraction | [Explore Glass Lab ↗](https://joucristian.github.io/SWUST-Apple-Keynote/glass-material-lab.html) |
+| **Inside a Git Commit** · Interactive technical teaching demo | [Explore Git Demo ↗](https://joucristian.github.io/SWUST-Apple-Keynote/inside-a-git-commit.html) |
+
+> **First public release: v1.0.0.** Previous version numbers were internal development iterations, not published GitHub releases.
 
 ## Core capabilities
 
@@ -30,7 +84,7 @@ The 15-scene [Living Showcase](dist/swust-keynote-showcase.html) lets you drag s
 Clone the repository **directly into the Skill directory**. Replace `YOUR_GITHUB_OWNER` with the owner of the repository after it is published:
 
 ```sh
-git clone https://github.com/YOUR_GITHUB_OWNER/swust-apple-keynote.git .agents/skills/swust-apple-keynote
+git clone https://github.com/JouCristian/SWUST-Apple-Keynote.git .agents/skills/swust-apple-keynote
 ```
 
 The root `SKILL.md` must end up at `.agents/skills/swust-apple-keynote/SKILL.md`; no wrapper directory is needed. Alternatively, extract `swust-apple-keynote-v1.0.0-slim.zip` into `.agents/skills/`. The ZIP contains exactly one top-level `swust-apple-keynote/` directory. It includes all sources, four offline demos, these screenshots, documentation and tests; no browser binaries or development dependencies are bundled.
