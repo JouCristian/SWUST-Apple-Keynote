@@ -1,10 +1,16 @@
+<p align="center">
+  <a href="https://joucristian.github.io/SWUST-Apple-Keynote/">
+    <img src="docs/banner.svg" alt="SWUST Apple Keynote — Motion with Meaning 品牌横幅" width="100%">
+  </a>
+</p>
+
 # swust-apple-keynote
 
 **把技术内容制作成可交互、可离线分享的 HTML 演示。**
 
 这是一个可复用的 Agent Skill：采用 Apple Keynote 启发的排版、留白与克制玻璃材质，让动效解释对象关系。它提供内容规划、可编辑原生网页源码、有状态动画运行时和浏览器质量检查。首个公开版本为 **v1.0.0**，此前版本号仅属于内部迭代，不代表已发布的 GitHub Releases。
 
-[English](README.md) · [完整 Showcase](dist/swust-keynote-showcase.html) · [许可证](LICENSE)
+[English](README.md) · [在线 Showcase](https://joucristian.github.io/SWUST-Apple-Keynote/) · [Motion Playground](https://joucristian.github.io/SWUST-Apple-Keynote/motion-playground.html) · [Glass Lab](https://joucristian.github.io/SWUST-Apple-Keynote/glass-material-lab.html) · [许可证](LICENSE)
 
 ## 真实演示
 
@@ -27,10 +33,10 @@
 
 ## 安装
 
-发布后将 `YOUR_GITHUB_OWNER` 替换成真实仓库所有者，直接 clone 到 Skill 路径：
+直接 clone 到项目的 Skill 路径：
 
 ```sh
-git clone https://github.com/YOUR_GITHUB_OWNER/swust-apple-keynote.git .agents/skills/swust-apple-keynote
+git clone https://github.com/JouCristian/SWUST-Apple-Keynote.git .agents/skills/swust-apple-keynote
 ```
 
 最终应存在 `.agents/skills/swust-apple-keynote/SKILL.md`。也可把 `swust-apple-keynote-v1.0.0-slim.zip` 解压到 `.agents/skills/`，ZIP 已包含单层 `swust-apple-keynote/`。不需要额外套一层仓库目录。
