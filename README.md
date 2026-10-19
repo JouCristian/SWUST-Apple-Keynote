@@ -1,24 +1,17 @@
 <p align="center">
   <a href="https://joucristian.github.io/SWUST-Apple-Keynote/">
-    <img src="docs/banner.svg" alt="SWUST Apple Keynote — Motion with Meaning" width="100%">
+    <img src="docs/brand-banner.png" alt="SWUST Apple Keynote — deep blue liquid glass brand banner" width="100%">
   </a>
 </p>
 
-<div align="center">
-
 # SWUST Apple Keynote
 
-### Motion with Meaning.
-
-**Turn technical ideas into interactive, offline HTML presentations.**
-
-A reusable Codex Skill for expressive technical storytelling — combining cinematic typography, meaningful motion, interactive diagrams, and browser-based visual quality checks.
+A reusable Codex Skill for interactive, offline HTML presentations — with meaningful motion and browser-based quality checks.
 
 <p>
   <a href="https://github.com/JouCristian/SWUST-Apple-Keynote/releases/latest"><img src="https://img.shields.io/badge/release-v1.0.0-007AFF?style=flat-square" alt="Release v1.0.0"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-30363D?style=flat-square" alt="MIT License"></a>
   <img src="https://img.shields.io/badge/output-offline%20HTML-30363D?style=flat-square" alt="Offline HTML">
-  <img src="https://img.shields.io/badge/powered%20by-Codex%20Skill-30363D?style=flat-square" alt="Codex Skill">
 </p>
 
 <p>
@@ -28,57 +21,44 @@ A reusable Codex Skill for expressive technical storytelling — combining cinem
 
 [简体中文](README.zh-CN.md) &nbsp;·&nbsp; [Motion Playground](https://joucristian.github.io/SWUST-Apple-Keynote/motion-playground.html) &nbsp;·&nbsp; [Glass Material Lab](https://joucristian.github.io/SWUST-Apple-Keynote/glass-material-lab.html) &nbsp;·&nbsp; [Documentation](SKILL.md)
 
-<sub>Independent, Apple-inspired design research · Not affiliated with Apple.</sub>
+## See It in Motion
 
-</div>
-
----
-
-## See it in motion
-
-**An interactive design system, not just a collection of slides.** Explore the real 15-scene Showcase in your browser — no installation required.
+Three real Chrome interaction captures. Click any GIF to try the corresponding scene.
 
 <p align="center">
-  <a href="https://joucristian.github.io/SWUST-Apple-Keynote/#7">
-    <img src="docs/screenshots/shared-element-demo.gif" alt="Scene 7: the same shared element expands and returns to its compact state" width="960">
+  <a href="https://joucristian.github.io/SWUST-Apple-Keynote/#1">
+    <img src="docs/screenshots/showcase-intro-demo.gif" alt="Introduction — live cover and focus interaction, scene 1" width="100%">
   </a>
-  <br><sub>Shared Element Transition · Real-time Chrome recording · Click to try scene 7.</sub>
-</p>
-
-<p align="center">
-  <a href="https://joucristian.github.io/SWUST-Apple-Keynote/">
-    <img src="docs/screenshots/showcase-intro.png" alt="SWUST Keynote Lab: Motion with Meaning — opening scene" width="100%">
-  </a>
+  <br><strong>Introduction</strong><br>
+  <sub>The introduction, then a focused idea.</sub>
 </p>
 
 <table>
   <tr>
     <td width="50%" align="center">
-      <a href="https://joucristian.github.io/SWUST-Apple-Keynote/">
-        <img src="docs/screenshots/showcase-identity.png" alt="Shared-element identity and bounded morphing panel" width="100%">
+      <a href="https://joucristian.github.io/SWUST-Apple-Keynote/#7">
+        <img src="docs/screenshots/shared-element-demo.gif" alt="Shared Element — expand and return, scene 7" width="100%">
       </a>
-      <br><strong>Shared Element Continuity</strong><br>
-      <sub>One object. Many forms. Natural transitions.</sub>
+      <br><strong>Shared Element</strong><br>
+      <sub>One object expands and returns.</sub>
     </td>
     <td width="50%" align="center">
-      <a href="https://joucristian.github.io/SWUST-Apple-Keynote/">
-        <img src="docs/screenshots/showcase-settlement.png" alt="Result settlement with coordinated feedback" width="100%">
+      <a href="https://joucristian.github.io/SWUST-Apple-Keynote/#10">
+        <img src="docs/screenshots/result-settlement-demo.gif" alt="Result Settlement — coordinated line, arrow and text feedback, scene 10" width="100%">
       </a>
-      <br><strong>Motion with Meaning</strong><br>
-      <sub>Correct state changes, fluid visual settlement.</sub>
+      <br><strong>Result Settlement</strong><br>
+      <sub>Lines, arrows and text settle after the event.</sub>
     </td>
   </tr>
 </table>
 
-<sub>Images are real browser captures of the v1.0.0 Showcase, not mockups. Animations and interactions run in the live demos; GitHub's README cannot execute the presentation itself.</sub>
-
-### Live experiences
+## Live Experiences
 
 | Experience | Explore |
 | :-- | :-- |
 | **SWUST Keynote Lab** · 15-scene interactive design showcase | [Launch Showcase ↗](https://joucristian.github.io/SWUST-Apple-Keynote/) |
-| **Motion Playground** · Springs, easing, morphing, path drawing | [Try Motion Playground ↗](https://joucristian.github.io/SWUST-Apple-Keynote/motion-playground.html) |
-| **Glass Material Lab** · Frosted, optical, experimental refraction | [Explore Glass Lab ↗](https://joucristian.github.io/SWUST-Apple-Keynote/glass-material-lab.html) |
+| **Motion Playground** · Springs, easing, morphing and path drawing | [Try Motion Playground ↗](https://joucristian.github.io/SWUST-Apple-Keynote/motion-playground.html) |
+| **Glass Material Lab** · Frosted, optical and experimental refraction | [Explore Glass Lab ↗](https://joucristian.github.io/SWUST-Apple-Keynote/glass-material-lab.html) |
 | **Inside a Git Commit** · Interactive technical teaching demo | [Explore Git Demo ↗](https://joucristian.github.io/SWUST-Apple-Keynote/inside-a-git-commit.html) |
 
 > **First public release: v1.0.0.** Previous version numbers were internal development iterations, not published GitHub releases.

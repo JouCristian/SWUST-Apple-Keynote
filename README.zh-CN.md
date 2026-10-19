@@ -1,33 +1,67 @@
 <p align="center">
   <a href="https://joucristian.github.io/SWUST-Apple-Keynote/">
-    <img src="docs/banner.svg" alt="SWUST Apple Keynote — Motion with Meaning 品牌横幅" width="100%">
+    <img src="docs/brand-banner.png" alt="SWUST Apple Keynote — deep blue liquid glass brand banner" width="100%">
   </a>
 </p>
 
-# swust-apple-keynote
+# SWUST Apple Keynote
 
-**把技术内容制作成可交互、可离线分享的 HTML 演示。**
+用于制作交互式、可离线分享的 HTML 演示的 Codex Skill，让动效解释内容，并通过浏览器质量检查。
 
-这是一个可复用的 Agent Skill：采用 Apple Keynote 启发的排版、留白与克制玻璃材质，让动效解释对象关系。它提供内容规划、可编辑原生网页源码、有状态动画运行时和浏览器质量检查。首个公开版本为 **v1.0.0**，此前版本号仅属于内部迭代，不代表已发布的 GitHub Releases。
+<p>
+  <a href="https://github.com/JouCristian/SWUST-Apple-Keynote/releases/latest"><img src="https://img.shields.io/badge/release-v1.0.0-007AFF?style=flat-square" alt="Release v1.0.0"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-30363D?style=flat-square" alt="MIT License"></a>
+  <img src="https://img.shields.io/badge/output-offline%20HTML-30363D?style=flat-square" alt="Offline HTML">
+</p>
 
-[English](README.md) · [在线 Showcase](https://joucristian.github.io/SWUST-Apple-Keynote/) · [Motion Playground](https://joucristian.github.io/SWUST-Apple-Keynote/motion-playground.html) · [Glass Lab](https://joucristian.github.io/SWUST-Apple-Keynote/glass-material-lab.html) · [许可证](LICENSE)
+<p>
+  <a href="https://joucristian.github.io/SWUST-Apple-Keynote/"><img src="https://img.shields.io/badge/OPEN_LIVE_SHOWCASE-007AFF?style=for-the-badge" alt="Open Live Showcase"></a>
+  <a href="https://github.com/JouCristian/SWUST-Apple-Keynote/releases/latest"><img src="https://img.shields.io/badge/DOWNLOAD_RELEASE-22272E?style=for-the-badge" alt="Download release"></a>
+</p>
 
-## 真实演示
+[English](README.md) &nbsp;·&nbsp; [Motion Playground](https://joucristian.github.io/SWUST-Apple-Keynote/motion-playground.html) &nbsp;·&nbsp; [Glass Material Lab](https://joucristian.github.io/SWUST-Apple-Keynote/glass-material-lab.html) &nbsp;·&nbsp; [Documentation](SKILL.md)
 
-以下图片来自重新构建的 v1.0.0 Showcase 浏览器截图。下载仓库后直接打开 HTML；GitHub 源码页面不会运行演示。
+## 动态演示
+
+三段真实 Chrome 交互录制。点击任意 GIF，直接体验对应页面。
 
 <p align="center">
-  <a href="https://joucristian.github.io/SWUST-Apple-Keynote/#7">
-    <img src="docs/screenshots/shared-element-demo.gif" alt="第 7 页共享元素：同一对象从收起到展开，再完整收回" width="960">
+  <a href="https://joucristian.github.io/SWUST-Apple-Keynote/#1">
+    <img src="docs/screenshots/showcase-intro-demo.gif" alt="Introduction — live cover and focus interaction, scene 1" width="100%">
   </a>
-  <br><sub>Shared Element Transition · Chrome 真实录屏 · 点击体验在线第 7 页。</sub>
+  <br><strong>Introduction</strong><br>
+  <sub>封面与想法聚焦</sub>
 </p>
 
-![以对象连续性解释动效](docs/screenshots/showcase-intro.png)
-![可中断的对象形变与安全空间](docs/screenshots/showcase-identity.png)
-![动作完成后的文字与线条收尾](docs/screenshots/showcase-settlement.png)
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <a href="https://joucristian.github.io/SWUST-Apple-Keynote/#7">
+        <img src="docs/screenshots/shared-element-demo.gif" alt="Shared Element — expand and return, scene 7" width="100%">
+      </a>
+      <br><strong>Shared Element</strong><br>
+      <sub>同一对象，展开再收回。</sub>
+    </td>
+    <td width="50%" align="center">
+      <a href="https://joucristian.github.io/SWUST-Apple-Keynote/#10">
+        <img src="docs/screenshots/result-settlement-demo.gif" alt="Result Settlement — coordinated line, arrow and text feedback, scene 10" width="100%">
+      </a>
+      <br><strong>Result Settlement</strong><br>
+      <sub>事件提交后，线条、箭头与文字连续收尾。</sub>
+    </td>
+  </tr>
+</table>
 
-[15 页 Living Showcase](dist/swust-keynote-showcase.html) 可体验 Spring 拖拽、Bézier 时间曲线、共享对象、SVG 路径、可中断形变和状态收尾。[Motion Playground](dist/motion-playground.html) 提供组件实验；[Glass Material Lab](dist/glass-material-lab.html) 对比玻璃等级；[Git 教学示例](dist/inside-a-git-commit.html) 展示内容驱动的讲解方式，不执行 Git 命令。
+## 在线体验
+
+| 演示 | 体验 |
+| :-- | :-- |
+| **SWUST Keynote Lab** · 15 页交互式设计演示 | [体验 Showcase ↗](https://joucristian.github.io/SWUST-Apple-Keynote/) |
+| **Motion Playground** · Spring、缓动、形变和路径绘制 | [打开 Playground ↗](https://joucristian.github.io/SWUST-Apple-Keynote/motion-playground.html) |
+| **Glass Material Lab** · 磨砂、光学和实验性折射 | [探索 Glass Lab ↗](https://joucristian.github.io/SWUST-Apple-Keynote/glass-material-lab.html) |
+| **Inside a Git Commit** · 交互式技术教学示例 | [打开 Git Demo ↗](https://joucristian.github.io/SWUST-Apple-Keynote/inside-a-git-commit.html) |
+
+> **首个公开版本：v1.0.0。** 此前版本号仅属于内部迭代，不代表已发布的 GitHub Releases。
 
 ## 核心能力
 
