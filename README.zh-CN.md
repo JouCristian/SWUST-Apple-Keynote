@@ -16,6 +16,13 @@
 
 以下图片来自重新构建的 v1.0.0 Showcase 浏览器截图。下载仓库后直接打开 HTML；GitHub 源码页面不会运行演示。
 
+<p align="center">
+  <a href="https://joucristian.github.io/SWUST-Apple-Keynote/#7">
+    <img src="docs/screenshots/shared-element-demo.gif" alt="第 7 页共享元素：同一对象从收起到展开，再完整收回" width="960">
+  </a>
+  <br><sub>Shared Element Transition · Chrome 真实录屏 · 点击体验在线第 7 页。</sub>
+</p>
+
 ![以对象连续性解释动效](docs/screenshots/showcase-intro.png)
 ![可中断的对象形变与安全空间](docs/screenshots/showcase-identity.png)
 ![动作完成后的文字与线条收尾](docs/screenshots/showcase-settlement.png)

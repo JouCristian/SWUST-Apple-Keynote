@@ -39,6 +39,13 @@ A reusable Codex Skill for expressive technical storytelling — combining cinem
 **An interactive design system, not just a collection of slides.** Explore the real 15-scene Showcase in your browser — no installation required.
 
 <p align="center">
+  <a href="https://joucristian.github.io/SWUST-Apple-Keynote/#7">
+    <img src="docs/screenshots/shared-element-demo.gif" alt="Scene 7: the same shared element expands and returns to its compact state" width="960">
+  </a>
+  <br><sub>Shared Element Transition · Real-time Chrome recording · Click to try scene 7.</sub>
+</p>
+
+<p align="center">
   <a href="https://joucristian.github.io/SWUST-Apple-Keynote/">
     <img src="docs/screenshots/showcase-intro.png" alt="SWUST Keynote Lab: Motion with Meaning — opening scene" width="100%">
   </a>
