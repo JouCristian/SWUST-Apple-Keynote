@@ -1,0 +1,680 @@
+{
+  "version": "1.0.0",
+  "date": "2026-10-19",
+  "publication": "NOT_PUBLISHED",
+  "engineering": "PASS",
+  "showcase": {
+    "verifiedScenes": 15,
+    "checks": {
+      "meaning": true,
+      "content": true,
+      "clarity": true,
+      "material": true,
+      "physics": true,
+      "timing": true,
+      "identity": true,
+      "camera": true,
+      "growth": true,
+      "settlement": true,
+      "response": true,
+      "state": true,
+      "pressure": true,
+      "access": true,
+      "evolve": true,
+      "lifecycleAndPressure": true
+    },
+    "artifactSha256": "597bd2e0387535d0ec69b0ba83e1c60e18a3e44b1a78aaabaffe9a35916a16c1"
+  },
+  "legacyChecks": {
+    "playgroundResponsive": true,
+    "springParametersAndRetarget": true,
+    "dragFollowReleaseCancel": true,
+    "persistentMorphAndCapsule": true,
+    "segmentedKeyboardAndSceneRecipes": true,
+    "svgReverseAndReset": true,
+    "validStateMachine": true,
+    "missingImageAndShaderFallback": true,
+    "hiddenDocumentStopsScheduling": true,
+    "reducedMotion": true,
+    "completionSettlementAndRapidRetarget": true,
+    "sharedObjectIdentityAndMidflightContinuity": true,
+    "gitSnapshotSemanticsAndReset": true,
+    "terminalClipboardSuccessAndFailure": true,
+    "historyAndBranchInvariants": true,
+    "buttonSpaceDoesNotNavigate": true,
+    "boundedSharedRegistryAndIdle": true
+  },
+  "visualFixtures": {
+    "checks": {
+      "interactiveContrast": true,
+      "spatialCollision": true,
+      "geometricAlignment": true,
+      "materialFidelity": true,
+      "parameterPixels": true,
+      "performanceBounded": true,
+      "contextLossFallback": true,
+      "zoomAndKeyboard": true,
+      "accessibility": true,
+      "missingTextureFallback": true,
+      "webglUnavailable": true,
+      "offline": true
+    },
+    "contrastStates": 220,
+    "geometryRecords": 33,
+    "compatibility": [
+      {
+        "name": "msedge",
+        "version": "155.0.4283.62",
+        "svg": "SVG",
+        "advanced": "WebGL",
+        "missingInput": "Frosted Fallback",
+        "pixelChecks": {
+          "SVG": {
+            "mean": 3.6463842162910893,
+            "changed": 11814,
+            "count": 97079
+          },
+          "WebGL": {
+            "mean": 3.762564509316996,
+            "changed": 12455,
+            "count": 97079
+          }
+        }
+      },
+      {
+        "name": "firefox",
+        "status": "unavailable / not tested",
+        "reason": "browserType.launch: Executable doesn't exist at [ENV:BROWSER_CACHE]"
+      },
+      {
+        "name": "webkit",
+        "status": "unavailable / not tested",
+        "reason": "browserType.launch: Executable doesn't exist at [ENV:BROWSER_CACHE]"
+      }
+    ],
+    "artifactHashes": {
+      "swust-keynote-showcase.html": "597bd2e0387535d0ec69b0ba83e1c60e18a3e44b1a78aaabaffe9a35916a16c1",
+      "glass-material-lab.html": "94317f2673758c63e2b911b90fe414bac62eb7072911baed388ee74f35f92422"
+    }
+  },
+  "seededClassifierChecks": {
+    "normalButton": true,
+    "lowContrast": true,
+    "gradientReview": true,
+    "disabledNotAAFailure": true,
+    "illegalTextCollision": true,
+    "miscenteredCapsule": true,
+    "legitimateNestedCard": true,
+    "cleanPage": true,
+    "normalPage": true,
+    "stateReset": true,
+    "noDetectorError": true,
+    "noShowcaseIDsInCore": true,
+    "toolErrorIsNotPass": true
+  },
+  "hygieneChecks": {
+    "findPaths": true,
+    "relativeProjectPath": true,
+    "externalEnvironmentLabel": true,
+    "crossPlatformRedaction": true,
+    "rescanClean": true,
+    "secretDetectedWithoutValue": true,
+    "base64NotAPath": true,
+    "inventoryExact": true,
+    "inventoryDetectsChangedBytes": true,
+    "inventoryDetectsUnlisted": true,
+    "inventoryDetectsMissing": true
+  },
+  "originalPreservation": {
+    "files": 474,
+    "sha256Comparison": "PASS",
+    "added": [],
+    "removed": [],
+    "modified": []
+  },
+  "zipInstallChecks": {
+    "crc": true,
+    "manifestAndSHA256": true,
+    "noCache": true,
+    "publicRepositoryHashes": true,
+    "stagedInventoryExact": true,
+    "archivePrivacy": true,
+    "skillResources": true,
+    "canonicalSkillInstall": true,
+    "buildAll": true,
+    "newTopicScaffoldBuild": true,
+    "freshUniversalRuntime": true,
+    "postExecutionPrivacy": true
+  },
+  "archiveHashLocation": "Adjacent ZIP receipt and verification report; omitted here to avoid a self-hash cycle.",
+  "generic": {
+    "swust-keynote-showcase": {
+      "status": "REVIEW",
+      "artifactSha256": "597bd2e0387535d0ec69b0ba83e1c60e18a3e44b1a78aaabaffe9a35916a16c1",
+      "engineHashes": {
+        "visual-quality.cjs": "c2b6c7a28832966a61fd887c34b247f84c9efa284b9ad62b05476ba2f4d67ecc",
+        "validate-browser.cjs": "f797d0053b1138061fe3746cb0e795da0cb62784424e64be1c3c12518b57e5b3"
+      },
+      "viewports": [
+        [
+          1920,
+          1080
+        ],
+        [
+          1366,
+          768
+        ],
+        [
+          960,
+          640
+        ]
+      ],
+      "gates": [
+        {
+          "gate": 1,
+          "name": "Interactive Contrast",
+          "status": "REVIEW",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 483,
+            "PASS": 212,
+            "SKIP": 0
+          }
+        },
+        {
+          "gate": 2,
+          "name": "Text Readability",
+          "status": "REVIEW",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 282,
+            "PASS": 0,
+            "SKIP": 0
+          }
+        },
+        {
+          "gate": 3,
+          "name": "Spatial Collision",
+          "status": "PASS",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 0,
+            "PASS": 45,
+            "SKIP": 0
+          }
+        },
+        {
+          "gate": 4,
+          "name": "Geometric Alignment",
+          "status": "REVIEW",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 12,
+            "PASS": 0,
+            "SKIP": 0
+          }
+        },
+        {
+          "gate": 5,
+          "name": "Motion Continuity",
+          "status": "REVIEW",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 1,
+            "PASS": 0,
+            "SKIP": 0
+          }
+        },
+        {
+          "gate": 6,
+          "name": "Material Fidelity",
+          "status": "REVIEW",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 3,
+            "PASS": 0,
+            "SKIP": 0
+          }
+        },
+        {
+          "gate": 7,
+          "name": "Responsive Safety",
+          "status": "PASS",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 0,
+            "PASS": 45,
+            "SKIP": 0
+          }
+        },
+        {
+          "gate": 8,
+          "name": "Accessibility",
+          "status": "PASS",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 0,
+            "PASS": 173,
+            "SKIP": 0
+          }
+        },
+        {
+          "gate": 9,
+          "name": "Runtime & Performance",
+          "status": "PASS",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 0,
+            "PASS": 1,
+            "SKIP": 0
+          }
+        }
+      ]
+    },
+    "motion-playground": {
+      "status": "REVIEW",
+      "artifactSha256": "db85bb16d747447b602697f87def32d3aa96a723a4f1da9a1a351b348d096e7c",
+      "engineHashes": {
+        "visual-quality.cjs": "c2b6c7a28832966a61fd887c34b247f84c9efa284b9ad62b05476ba2f4d67ecc",
+        "validate-browser.cjs": "f797d0053b1138061fe3746cb0e795da0cb62784424e64be1c3c12518b57e5b3"
+      },
+      "viewports": [
+        [
+          1920,
+          1080
+        ],
+        [
+          1366,
+          768
+        ],
+        [
+          960,
+          640
+        ]
+      ],
+      "gates": [
+        {
+          "gate": 1,
+          "name": "Interactive Contrast",
+          "status": "REVIEW",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 6,
+            "PASS": 156,
+            "SKIP": 0
+          }
+        },
+        {
+          "gate": 2,
+          "name": "Text Readability",
+          "status": "REVIEW",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 141,
+            "PASS": 0,
+            "SKIP": 0
+          }
+        },
+        {
+          "gate": 3,
+          "name": "Spatial Collision",
+          "status": "PASS",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 0,
+            "PASS": 3,
+            "SKIP": 0
+          }
+        },
+        {
+          "gate": 4,
+          "name": "Geometric Alignment",
+          "status": "REVIEW",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 3,
+            "PASS": 0,
+            "SKIP": 0
+          }
+        },
+        {
+          "gate": 5,
+          "name": "Motion Continuity",
+          "status": "REVIEW",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 1,
+            "PASS": 0,
+            "SKIP": 0
+          }
+        },
+        {
+          "gate": 6,
+          "name": "Material Fidelity",
+          "status": "SKIP",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 0,
+            "PASS": 0,
+            "SKIP": 1
+          }
+        },
+        {
+          "gate": 7,
+          "name": "Responsive Safety",
+          "status": "PASS",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 0,
+            "PASS": 3,
+            "SKIP": 0
+          }
+        },
+        {
+          "gate": 8,
+          "name": "Accessibility",
+          "status": "PASS",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 0,
+            "PASS": 41,
+            "SKIP": 0
+          }
+        },
+        {
+          "gate": 9,
+          "name": "Runtime & Performance",
+          "status": "PASS",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 0,
+            "PASS": 1,
+            "SKIP": 0
+          }
+        }
+      ]
+    },
+    "inside-a-git-commit": {
+      "status": "REVIEW",
+      "artifactSha256": "7170b26c35c821696940766c3e447525ff8a0200052e1f2b1ec3012c166ceb53",
+      "engineHashes": {
+        "visual-quality.cjs": "c2b6c7a28832966a61fd887c34b247f84c9efa284b9ad62b05476ba2f4d67ecc",
+        "validate-browser.cjs": "f797d0053b1138061fe3746cb0e795da0cb62784424e64be1c3c12518b57e5b3"
+      },
+      "viewports": [
+        [
+          1920,
+          1080
+        ],
+        [
+          1366,
+          768
+        ],
+        [
+          960,
+          640
+        ]
+      ],
+      "gates": [
+        {
+          "gate": 1,
+          "name": "Interactive Contrast",
+          "status": "REVIEW",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 187,
+            "PASS": 52,
+            "SKIP": 0
+          }
+        },
+        {
+          "gate": 2,
+          "name": "Text Readability",
+          "status": "REVIEW",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 51,
+            "PASS": 0,
+            "SKIP": 0
+          }
+        },
+        {
+          "gate": 3,
+          "name": "Spatial Collision",
+          "status": "PASS",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 0,
+            "PASS": 18,
+            "SKIP": 0
+          }
+        },
+        {
+          "gate": 4,
+          "name": "Geometric Alignment",
+          "status": "SKIP",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 0,
+            "PASS": 0,
+            "SKIP": 1
+          }
+        },
+        {
+          "gate": 5,
+          "name": "Motion Continuity",
+          "status": "REVIEW",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 1,
+            "PASS": 0,
+            "SKIP": 0
+          }
+        },
+        {
+          "gate": 6,
+          "name": "Material Fidelity",
+          "status": "SKIP",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 0,
+            "PASS": 0,
+            "SKIP": 1
+          }
+        },
+        {
+          "gate": 7,
+          "name": "Responsive Safety",
+          "status": "PASS",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 0,
+            "PASS": 18,
+            "SKIP": 0
+          }
+        },
+        {
+          "gate": 8,
+          "name": "Accessibility",
+          "status": "PASS",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 0,
+            "PASS": 60,
+            "SKIP": 0
+          }
+        },
+        {
+          "gate": 9,
+          "name": "Runtime & Performance",
+          "status": "PASS",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 0,
+            "PASS": 1,
+            "SKIP": 0
+          }
+        }
+      ]
+    },
+    "glass-material-lab": {
+      "status": "REVIEW",
+      "artifactSha256": "94317f2673758c63e2b911b90fe414bac62eb7072911baed388ee74f35f92422",
+      "engineHashes": {
+        "visual-quality.cjs": "c2b6c7a28832966a61fd887c34b247f84c9efa284b9ad62b05476ba2f4d67ecc",
+        "validate-browser.cjs": "f797d0053b1138061fe3746cb0e795da0cb62784424e64be1c3c12518b57e5b3"
+      },
+      "viewports": [
+        [
+          1920,
+          1080
+        ],
+        [
+          1366,
+          768
+        ],
+        [
+          960,
+          640
+        ]
+      ],
+      "gates": [
+        {
+          "gate": 1,
+          "name": "Interactive Contrast",
+          "status": "PASS",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 0,
+            "PASS": 36,
+            "SKIP": 0
+          }
+        },
+        {
+          "gate": 2,
+          "name": "Text Readability",
+          "status": "REVIEW",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 36,
+            "PASS": 0,
+            "SKIP": 0
+          }
+        },
+        {
+          "gate": 3,
+          "name": "Spatial Collision",
+          "status": "PASS",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 0,
+            "PASS": 3,
+            "SKIP": 0
+          }
+        },
+        {
+          "gate": 4,
+          "name": "Geometric Alignment",
+          "status": "SKIP",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 0,
+            "PASS": 0,
+            "SKIP": 1
+          }
+        },
+        {
+          "gate": 5,
+          "name": "Motion Continuity",
+          "status": "REVIEW",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 1,
+            "PASS": 0,
+            "SKIP": 0
+          }
+        },
+        {
+          "gate": 6,
+          "name": "Material Fidelity",
+          "status": "REVIEW",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 9,
+            "PASS": 0,
+            "SKIP": 0
+          }
+        },
+        {
+          "gate": 7,
+          "name": "Responsive Safety",
+          "status": "PASS",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 0,
+            "PASS": 3,
+            "SKIP": 0
+          }
+        },
+        {
+          "gate": 8,
+          "name": "Accessibility",
+          "status": "PASS",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 0,
+            "PASS": 10,
+            "SKIP": 0
+          }
+        },
+        {
+          "gate": 9,
+          "name": "Runtime & Performance",
+          "status": "PASS",
+          "counts": {
+            "ERROR": 0,
+            "FAIL": 0,
+            "REVIEW": 0,
+            "PASS": 1,
+            "SKIP": 0
+          }
+        }
+      ]
+    }
+  }
+}

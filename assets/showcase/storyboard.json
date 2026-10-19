@@ -1,0 +1,328 @@
+{
+  "title": "SWUST Keynote Lab",
+  "subtitle": "Motion with Meaning",
+  "canvas": [
+    1920,
+    1080
+  ],
+  "audience": "presentation authors, designers and technical teachers",
+  "durationMinutes": 15,
+  "slides": [
+    {
+      "id": "meaning",
+      "type": "concept",
+      "goal": "Object identity gives motion meaning",
+      "contentRole": "Motion with Meaning",
+      "primaryObject": "meaning-study",
+      "layout": "cinematic type",
+      "interactionType": "focus shared object",
+      "precedingRelationship": "chapter-boundary",
+      "followingRelationship": "process-next",
+      "transitionIntent": "scene-reset",
+      "sharedElementIdentifiers": [
+        "lab-idea"
+      ],
+      "resultSettlement": {
+        "trigger": "actual component state change",
+        "visual": "Object relocates continuously",
+        "interruptible": true
+      },
+      "source": "existing Skill core + explicit authored deterministic examples",
+      "visualQuality": {
+        "contrast": "paired five-state colors; no text opacity"
+      }
+    },
+    {
+      "id": "content",
+      "type": "interactive",
+      "goal": "Content relationship selects composition",
+      "contentRole": "Content Becomes Experience",
+      "primaryObject": "content-study",
+      "layout": "content-aware modes",
+      "interactionType": "three content modes",
+      "precedingRelationship": "process-next",
+      "followingRelationship": "process-next",
+      "transitionIntent": "shared",
+      "sharedElementIdentifiers": [],
+      "resultSettlement": {
+        "trigger": "actual component state change",
+        "visual": "Concept, process and comparison use different layouts",
+        "interruptible": true
+      },
+      "source": "existing Skill core + explicit authored deterministic examples"
+    },
+    {
+      "id": "clarity",
+      "type": "concept",
+      "goal": "Hierarchy reduces reading effort",
+      "contentRole": "Clarity Is the Interface",
+      "primaryObject": "clarity-study",
+      "layout": "typographic comparison",
+      "interactionType": "before/after",
+      "precedingRelationship": "process-next",
+      "followingRelationship": "process-next",
+      "transitionIntent": "spatial-slide",
+      "sharedElementIdentifiers": [],
+      "resultSettlement": {
+        "trigger": "actual component state change",
+        "visual": "Same facts remain readable with deliberate hierarchy",
+        "interruptible": true
+      },
+      "source": "existing Skill core + explicit authored deterministic examples"
+    },
+    {
+      "id": "material",
+      "type": "interactive",
+      "goal": "Material separates controls from content",
+      "contentRole": "Material Has Meaning",
+      "primaryObject": "material-study",
+      "layout": "material study",
+      "interactionType": "material/blur/opacity",
+      "precedingRelationship": "chapter-boundary",
+      "followingRelationship": "process-next",
+      "transitionIntent": "scene-reset",
+      "sharedElementIdentifiers": [],
+      "resultSettlement": {
+        "trigger": "actual component state change",
+        "visual": "Readable Stable/Enhanced; conditional procedural WebGL",
+        "interruptible": true
+      },
+      "source": "existing Skill core + explicit authored deterministic examples",
+      "visualQuality": {
+        "texture": "explicit registered 1000x450 calibration Canvas",
+        "renderers": [
+          "Frosted Fallback",
+          "SVG",
+          "WebGL"
+        ],
+        "parameters": [
+          "distortion",
+          "blur",
+          "aberration",
+          "opacity",
+          "rim"
+        ]
+      }
+    },
+    {
+      "id": "physics",
+      "type": "interactive",
+      "goal": "Direct manipulation preserves velocity",
+      "contentRole": "Motion Should Feel Physical",
+      "primaryObject": "physics-study",
+      "layout": "open physics track",
+      "interactionType": "drag/release/k/c/m",
+      "precedingRelationship": "process-next",
+      "followingRelationship": "process-next",
+      "transitionIntent": "spatial-slide",
+      "sharedElementIdentifiers": [],
+      "resultSettlement": {
+        "trigger": "actual component state change",
+        "visual": "Actual damping and trajectory change",
+        "interruptible": true
+      },
+      "source": "existing Skill core + explicit authored deterministic examples"
+    },
+    {
+      "id": "timing",
+      "type": "interactive",
+      "goal": "Authored time and stateful physics differ",
+      "contentRole": "Timing Creates Emotion",
+      "primaryObject": "timing-study",
+      "layout": "four aligned timing lanes",
+      "interactionType": "replay and bezier controls",
+      "precedingRelationship": "process-next",
+      "followingRelationship": "process-next",
+      "transitionIntent": "spatial-slide",
+      "sharedElementIdentifiers": [],
+      "resultSettlement": {
+        "trigger": "actual component state change",
+        "visual": "Equal displacement; distinct trajectories",
+        "interruptible": true
+      },
+      "source": "existing Skill core + explicit authored deterministic examples"
+    },
+    {
+      "id": "identity",
+      "type": "interactive",
+      "goal": "One object survives expansion",
+      "contentRole": "Identity Creates Continuity",
+      "primaryObject": "identity-study",
+      "layout": "single morph surface",
+      "interactionType": "expand/reverse",
+      "precedingRelationship": "process-next",
+      "followingRelationship": "process-next",
+      "transitionIntent": "shared",
+      "sharedElementIdentifiers": [],
+      "resultSettlement": {
+        "trigger": "actual component state change",
+        "visual": "DOM identity, position, size and radius persist",
+        "interruptible": true
+      },
+      "source": "existing Skill core + explicit authored deterministic examples",
+      "visualQuality": {
+        "layout": "independent expansion track + explanatory column",
+        "safety": "RAF viewport rectangles through reverse/burst"
+      }
+    },
+    {
+      "id": "camera",
+      "type": "interactive",
+      "goal": "Content relationships choose camera behavior",
+      "contentRole": "A Camera with Intent",
+      "primaryObject": "camera-study",
+      "layout": "spatial camera canvas",
+      "interactionType": "four semantic relationships",
+      "precedingRelationship": "process-next",
+      "followingRelationship": "process-next",
+      "transitionIntent": "shared",
+      "sharedElementIdentifiers": [
+        "camera-a",
+        "camera-b"
+      ],
+      "resultSettlement": {
+        "trigger": "actual component state change",
+        "visual": "Distinct shared geometry/focus/chapter behavior",
+        "interruptible": true
+      },
+      "source": "existing Skill core + explicit authored deterministic examples"
+    },
+    {
+      "id": "growth",
+      "type": "interactive",
+      "goal": "Visible growth explains order",
+      "contentRole": "Information Can Grow",
+      "primaryObject": "growth-study",
+      "layout": "process graph",
+      "interactionType": "next/previous/reset",
+      "precedingRelationship": "process-next",
+      "followingRelationship": "process-next",
+      "transitionIntent": "spatial-slide",
+      "sharedElementIdentifiers": [],
+      "resultSettlement": {
+        "trigger": "actual component state change",
+        "visual": "Stable SVG grows and reverses",
+        "interruptible": true
+      },
+      "source": "existing Skill core + explicit authored deterministic examples"
+    },
+    {
+      "id": "settlement",
+      "type": "interactive",
+      "goal": "Semantic event and visual settlement are separate",
+      "contentRole": "The Motion Continues After Arrival",
+      "primaryObject": "settlement-study",
+      "layout": "paired event comparison",
+      "interactionType": "replay/interrupt/reverse/reset",
+      "precedingRelationship": "chapter-boundary",
+      "followingRelationship": "process-next",
+      "transitionIntent": "scene-reset",
+      "sharedElementIdentifiers": [],
+      "resultSettlement": {
+        "trigger": "actual component state change",
+        "visual": "After interpolates line/head/text/result after commit",
+        "interruptible": true
+      },
+      "source": "existing Skill core + explicit authored deterministic examples"
+    },
+    {
+      "id": "response",
+      "type": "interactive",
+      "goal": "Feedback belongs to the action",
+      "contentRole": "Interfaces Respond",
+      "primaryObject": "response-study",
+      "layout": "open control studies",
+      "interactionType": "press/segment/slider/capsule/card",
+      "precedingRelationship": "process-next",
+      "followingRelationship": "process-next",
+      "transitionIntent": "spatial-slide",
+      "sharedElementIdentifiers": [],
+      "resultSettlement": {
+        "trigger": "actual component state change",
+        "visual": "Each control produces immediate meaningful feedback",
+        "interruptible": true
+      },
+      "source": "existing Skill core + explicit authored deterministic examples",
+      "visualQuality": {
+        "alignment": "compact-height header slot; <=2 logical px gap asymmetry",
+        "emphasis": "separate halo; foreground alpha 1"
+      }
+    },
+    {
+      "id": "state",
+      "type": "interactive",
+      "goal": "Only valid edges change the model",
+      "contentRole": "State Is the Source of Truth",
+      "primaryObject": "state-study",
+      "layout": "state graph",
+      "interactionType": "ready/start/complete/reset",
+      "precedingRelationship": "process-next",
+      "followingRelationship": "process-next",
+      "transitionIntent": "spatial-slide",
+      "sharedElementIdentifiers": [],
+      "resultSettlement": {
+        "trigger": "actual component state change",
+        "visual": "Illegal actions rejected; visual feedback follows model",
+        "interruptible": true
+      },
+      "source": "existing Skill core + explicit authored deterministic examples"
+    },
+    {
+      "id": "pressure",
+      "type": "interactive",
+      "goal": "Newest intent retargets the same state",
+      "contentRole": "Fluid, Even Under Pressure",
+      "primaryObject": "pressure-study",
+      "layout": "retarget track",
+      "interactionType": "four targets and bounded burst",
+      "precedingRelationship": "process-next",
+      "followingRelationship": "process-next",
+      "transitionIntent": "spatial-slide",
+      "sharedElementIdentifiers": [],
+      "resultSettlement": {
+        "trigger": "actual component state change",
+        "visual": "Position/velocity continuous; no queue",
+        "interruptible": true
+      },
+      "source": "existing Skill core + explicit authored deterministic examples"
+    },
+    {
+      "id": "access",
+      "type": "interactive",
+      "goal": "Accessibility is an operating mode",
+      "contentRole": "Performance Is Part of Design",
+      "primaryObject": "access-study",
+      "layout": "accessibility console",
+      "interactionType": "reduced/static/opaque/sample",
+      "precedingRelationship": "process-next",
+      "followingRelationship": "process-next",
+      "transitionIntent": "spatial-slide",
+      "sharedElementIdentifiers": [],
+      "resultSettlement": {
+        "trigger": "actual component state change",
+        "visual": "Correct stable state without decorative work",
+        "interruptible": true
+      },
+      "source": "existing Skill core + explicit authored deterministic examples"
+    },
+    {
+      "id": "evolve",
+      "type": "concept",
+      "goal": "Capabilities evolve through evidence",
+      "contentRole": "Designed to Evolve",
+      "primaryObject": "evolve-study",
+      "layout": "closing workflow",
+      "interactionType": "replay workflow/revisit",
+      "precedingRelationship": "chapter-boundary",
+      "followingRelationship": "end",
+      "transitionIntent": "scene-reset",
+      "sharedElementIdentifiers": [],
+      "resultSettlement": {
+        "trigger": "actual component state change",
+        "visual": "A six-stage workflow connects evidence back to design",
+        "interruptible": true
+      },
+      "source": "existing Skill core + explicit authored deterministic examples"
+    }
+  ]
+}

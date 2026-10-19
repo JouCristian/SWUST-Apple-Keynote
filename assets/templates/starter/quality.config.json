@@ -1,0 +1,10 @@
+{
+  "pages": ".stage > .scene",
+  "navigation": {"type":"keynote"},
+  "viewports": [[1920,1080],[1366,768],[960,640]],
+  "minFontSize": 24,
+  "minControlFontSize": 12,
+  "states": [],
+  "allowOverlap": [],
+  "alignments": []
+}

@@ -1,0 +1,9 @@
+{
+  "pages": "[data-qa-page]",
+  "navigation": {"type": "function", "function": "lesson.go"},
+  "viewports": [[1920,1080],[1366,768],[960,640]],
+  "states": [
+    {"name":"capture-once","page":0,"actions":[{"type":"click","selector":"#sensor-start"}],"expect":[{"selector":"#sensor-start","attribute":"data-clicks","value":"1"}]},
+    {"name":"reverse-and-reset","page":4,"sampleMs":450,"actions":[{"type":"click","selector":"#sensor-forward"},{"type":"wait","ms":80},{"type":"click","selector":"#sensor-reverse"},{"type":"wait","ms":60},{"type":"click","selector":"#sensor-reset"}],"expect":[{"selector":"#sensor-sample","attribute":"data-status","value":"idle"}]}
+  ]
+}

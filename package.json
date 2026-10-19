@@ -1,0 +1,11 @@
+{
+  "name": "swust-apple-keynote",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Development tools only; shipped HTML has no npm runtime dependencies.",
+  "license": "MIT",
+  "devDependencies": {
+    "playwright": "1.62.1",
+    "pngjs": "7.0.0"
+  }
+}

@@ -1,0 +1,17 @@
+qa/
+node_modules/
+.venv/
+__pycache__/
+*.py[cod]
+*.zip
+*.receipt.json
+*.verification.json
+*.log
+*.tmp
+*.bak
+.cache/
+.DS_Store
+Thumbs.db
+.env
+.env.*
+!.env.example

@@ -1,0 +1,15 @@
+{
+  "title":"Inside a Git Commit",
+  "audience":"具有基础命令行经验的 Git 初学者",
+  "goal":"通过快照、历史与引用理解提交，并区分本地提交与推送",
+  "durationMinutes":8,
+  "source":"本次新编排；Git 概念参照原教学稿，所有对象 ID 为示意，不使用真实命令输出",
+  "slides":[
+    {"id":"intro","type":"cinematic","goal":"提出一个提交保存了什么","contentRole":"question","primaryObject":"snapshot","precedingRelationship":"start","followingRelationship":"overview-to-detail","interactionType":"none","transitionIntent":"soft-fade","sharedElementIdentifiers":["snapshot"]},
+    {"id":"zones","type":"process","goal":"区分三个区域","contentRole":"overview","primaryObject":"snapshot","precedingRelationship":"overview-to-detail","followingRelationship":"overview-to-detail","interactionType":"node-inspector","transitionIntent":"shared","sharedElementIdentifiers":["snapshot"]},
+    {"id":"add","type":"terminal-flow","goal":"add 是执行时刻的快照","contentRole":"operation","primaryObject":"snapshot","precedingRelationship":"overview-to-detail","followingRelationship":"cause-to-effect","interactionType":"stepper","transitionIntent":"shared","sharedElementIdentifiers":["snapshot"]},
+    {"id":"commit","type":"timeline","goal":"新提交连接到旧历史","contentRole":"effect","primaryObject":"commit","precedingRelationship":"cause-to-effect","followingRelationship":"focus-shift","interactionType":"timeline-stepper","transitionIntent":"path-draw","sharedElementIdentifiers":["snapshot","head"]},
+    {"id":"references","type":"architecture-focus","goal":"HEAD 指向当前分支，分支指向提交","contentRole":"reference-model","primaryObject":"head","precedingRelationship":"focus-shift","followingRelationship":"local-to-remote","interactionType":"branch-selection","transitionIntent":"shared","sharedElementIdentifiers":["head"]},
+    {"id":"push","type":"spatial-summary","goal":"分享已有历史，本地仍然保留","contentRole":"summary","primaryObject":"snapshot","precedingRelationship":"local-to-remote","followingRelationship":"end","interactionType":"flow-replay","transitionIntent":"parallax","sharedElementIdentifiers":["snapshot"]}
+  ]
+}

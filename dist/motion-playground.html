@@ -1,0 +1,542 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Motion Playground · SWUST Apple Keynote</title><style>
+:root{--background:#f5f5f7;--surface:#fff;--text:#1d1d1f;--muted:#626269;--accent:#007aff;--link:#005fc7;--divider:#d9dbe1;--radius:28px;--ease-smooth:cubic-bezier(.16,1,.3,1);--ease-emphasized:cubic-bezier(.22,1,.36,1);--ease-in-out:cubic-bezier(.65,0,.35,1);--font:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei UI",sans-serif;--mono:ui-monospace,"Cascadia Code",Consolas,monospace}
+.state-text-stack{display:inline-grid;vertical-align:top;min-width:0}.state-text-current,.state-text-previous{grid-area:1/1;white-space:inherit}.state-text-current{opacity:1}.state-text-previous{opacity:0;pointer-events:none}
+.reduce-motion *,.reduce-motion *:before,.reduce-motion *:after{animation:none!important;transition:none!important}
+*{box-sizing:border-box}html,body{margin:0;font-family:var(--font);color:var(--text);background:var(--background)}button,input,select{font:inherit}button{cursor:pointer;color:inherit;touch-action:manipulation}button:disabled{opacity:.38;cursor:default}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--accent);outline-offset:5px}button{border:1px solid var(--divider);background:var(--surface);border-radius:12px;padding:11px 18px;transition:background-color 180ms,color 180ms,box-shadow 180ms,scale 120ms var(--ease-smooth)}button:hover:not(:disabled){background:#e9f2ff}button:active:not(:disabled){scale:.975}button.primary{background:#006bd6;color:white;border-color:transparent}p,h1,h2,h3,figure{margin:0}p{line-height:1.55}code,pre{font-family:var(--mono)}.blue{color:var(--link)}.muted{color:var(--muted)}.eyebrow{font-size:23px;letter-spacing:3px;text-transform:uppercase;font-weight:600;color:var(--muted)}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}[hidden]{display:none!important}
+.theme-dark{--background:#101114;--surface:#1d2026;--text:#f5f5f7;--muted:#b5b7bf;--accent:#72b6ff;--link:#72b6ff;--divider:#3d424b;background:var(--background);color:var(--text)}.theme-spatial{--background:#e9eef5;--surface:#fafdff;--muted:#525967;--divider:#c8d0db;background:var(--background)}
+.deck-viewport{position:fixed;inset:0;overflow:hidden;background:#dfe1e6}.stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;margin:-540px 0 0 -960px;transform-origin:center;overflow:hidden;background:var(--background)}.scene{position:absolute;inset:0;padding:106px 112px 130px;background:var(--background);visibility:hidden;isolation:isolate;overflow:hidden}.scene:first-child{visibility:visible}.scene h1{font-size:156px;line-height:1.08;letter-spacing:-7px;font-weight:650}.scene h2{font-size:78px;line-height:1.25;letter-spacing:-2.5px;font-weight:650}.scene h3{font-size:38px;line-height:1.35}.scene p{font-size:32px}.scene .lead{font-size:32px;color:var(--muted);margin-top:24px;max-width:1430px}.scene .eyebrow{margin-bottom:26px}.scene .body{margin-top:66px}.scene .caption{font-size:25px;color:var(--muted)}.split{display:grid;grid-template-columns:1fr 1fr;gap:76px}.open-column{border-top:2px solid var(--divider);padding-top:32px}.stack{display:grid;gap:24px}.scene button{font-size:26px;padding:15px 24px}.scene code{font-size:.93em}.deck-brand{position:absolute;right:112px;top:43px;font-size:22px;letter-spacing:2px;font-weight:650}
+.glass{background:rgba(250,252,255,.88);border:1px solid #ffffffc4;box-shadow:0 8px 32px #172c4912,inset 0 1px 0 #fff9;border-radius:24px;color:#1d1d1f}.glass-enhanced{position:relative;isolation:isolate;background:rgba(246,251,255,.76);box-shadow:0 14px 38px #163a5c25,inset 0 1px 1px white}.glass-enhanced:before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;background:radial-gradient(ellipse at var(--light-x,30%) var(--light-y,10%),#fff9,transparent 60%);opacity:.8}.glass-enhanced:after{content:"";position:absolute;inset:0;border-radius:inherit;border:1px solid #fff8;pointer-events:none;filter:url(#optical-edge);opacity:.22;background:linear-gradient(130deg,transparent 30%,#fff6 50%,transparent 70%);z-index:-1}@supports(backdrop-filter:blur(1px)){.glass{backdrop-filter:blur(16px) saturate(1.25);background:rgba(250,252,255,.7)}}.opaque .glass{backdrop-filter:none;background:#fafdff}.opaque .glass:after{display:none}
+.deck-controls{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:50;display:flex;gap:6px;align-items:center;padding:7px 12px;border-radius:24px;max-width:calc(100vw - 20px)}.deck-controls button{border:0;background:transparent;font-size:13px;padding:9px 11px;min-height:36px;white-space:nowrap}.deck-controls button:hover{background:#007aff13}.deck-controls output{font:13px var(--mono);padding:0 8px;white-space:nowrap}.deck-progress{position:fixed;bottom:0;left:0;height:3px;width:100%;background:var(--accent);transform-origin:left;z-index:60}.shared-layer{position:absolute;inset:0;pointer-events:none;z-index:12}.shared-object{position:absolute;left:0;top:0;overflow:hidden;display:flex;align-items:center;justify-content:center;transform-origin:0 0}.shared-object.snapshot{background:#007aff;color:white;font:600 31px var(--mono);box-shadow:0 20px 42px #007aff21}.shared-object.head{background:#1d1d1f;color:white;font:26px var(--mono)}[data-shared]{color:transparent!important;background:transparent!important;border-color:transparent!important;box-shadow:none!important}[data-shared]>*{visibility:hidden}
+.terminal{background:#191c22;color:#f2f5fa;border:1px solid #363b45;border-radius:24px;overflow:hidden}.terminal-header{display:flex;align-items:center;gap:9px;border-bottom:1px solid #373c46;padding:17px 24px;font-size:22px;color:#bcc1cb}.terminal-header .lights{letter-spacing:5px;color:#9298a2;font-size:16px}.terminal-header button{margin-left:auto;font-size:20px;padding:7px 13px;background:#2c3038;color:white;border-color:#555c68}.terminal pre{padding:30px;font-size:30px;line-height:1.65;margin:0;white-space:pre-wrap;overflow-wrap:anywhere}.terminal .command{color:#8cc4ff}.terminal .arg{color:#eed39c}.terminal .expected{padding:20px 30px;border-top:1px solid #373c46;color:#bcc1cb;font-size:24px}.terminal .copy-status{color:#a4d5ff;font-size:20px;margin-left:auto}
+.segments{display:flex;position:relative;isolation:isolate;gap:4px;padding:4px;background:#e7e9ef;border-radius:16px;width:max-content}.segments button{position:relative;z-index:1;background:transparent;border:0}.segment-ink{position:absolute;left:0;top:4px;bottom:4px;background:white;border-radius:12px;box-shadow:0 2px 8px #151d3312;z-index:0}.segments button[aria-checked=true]{color:#005fc7}.stepper{display:flex;align-items:center;gap:12px}.stepper output{font:24px var(--mono);min-width:95px;text-align:center}.morph-host{position:relative;height:300px}.morph-surface{position:absolute;left:0;top:0;overflow:hidden;border-radius:28px;background:#fff;box-shadow:0 15px 45px #11234012;border:1px solid var(--divider);padding:24px;transform-origin:0 0}.morph-surface button{padding:10px 16px}.morph-detail{font-size:17px;margin-top:16px;line-height:1.6;color:var(--muted)}.image-placeholder{border:1px dashed #9aa5b7;border-radius:24px;display:grid;place-content:center;text-align:center;gap:12px;min-height:230px;background:#edf1f7;color:#525967}.image-placeholder img{width:100%;height:100%;object-fit:contain}.image-placeholder img[hidden]{display:none}.image-placeholder .fallback{padding:24px}
+dialog{border:1px solid #cbd0d8;border-radius:24px;background:#fafdff;color:#1d1d1f;max-width:min(860px,94vw);width:100%;max-height:86vh;padding:28px;box-shadow:0 25px 100px #17253d33}dialog::backdrop{background:#10162080}dialog header{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:24px}dialog h2{font-size:27px}dialog p{font-size:18px}.directory{display:grid;grid-template-columns:1fr 1fr;gap:12px}.directory button{text-align:left;line-height:1.4}.notes-grid{display:grid;gap:20px}.notes-grid strong{display:block;color:#005fc7;font:14px var(--mono);margin-bottom:6px}.dialog-foot{color:#626269;margin-top:22px;font-size:14px}#toast{position:fixed;left:50%;bottom:85px;transform:translateX(-50%);background:#1d1d1f;color:white;border-radius:14px;padding:12px 20px;z-index:100;max-width:90vw}
+/* Interactive Contrast Integrity: paired states; never fade the whole control. */
+:root{--control-height:56px;--control-pad-x:22px;--inner-pad:16px;--capsule-height:90px;--control-bg:#fff;--control-fg:#26374c;--control-hover-bg:#e8f2ff;--control-hover-fg:#0055b8;--control-active-bg:#d6e8ff;--control-active-fg:#004a9e}
+button:not(:disabled){color:var(--control-fg)}
+button:hover:not(:disabled),button:focus-visible:not(:disabled){background:var(--control-hover-bg);color:var(--control-hover-fg)}
+button:active:not(:disabled){background:var(--control-active-bg);color:var(--control-active-fg)}
+button.primary:not(:disabled){background:#005fcc;color:#fff;border-color:transparent}
+button.primary:hover:not(:disabled),button.primary:focus-visible:not(:disabled){background:#004fae;color:#fff}
+button.primary:active:not(:disabled){background:#00418f;color:#fff}
+button:disabled{opacity:1;background:#edf0f4;color:#596575;border-color:#d0d7e1;cursor:not-allowed}
+.theme-dark{--control-fg:#f5f5f7;--control-hover-bg:#dbeaff;--control-hover-fg:#004a9e}
+.terminal-header button:not(:disabled){background:#2c3038;color:white}
+.terminal-header button:hover:not(:disabled),.terminal-header button:focus-visible:not(:disabled){background:#dbeaff;color:#004a9e}
+.segments button:not(:disabled){color:#33455b}
+.segments button:hover:not(:disabled),.segments button:focus-visible:not(:disabled){background:#e8f2ff;color:#0055b8}
+.morph-surface{padding:0;display:block}
+.morph-control-slot{height:calc(var(--morph-header) - 2px);display:flex;align-items:center;justify-content:center;width:100%}
+.morph-control-slot>button{flex:none;min-height:var(--control-height);line-height:1.2;margin:0;padding:12px var(--control-pad-x);white-space:nowrap}
+.morph-detail{flex:none;margin:0;width:100%}
+.morph-surface .morph-detail{position:absolute;top:calc(var(--morph-header) + 8px);left:var(--inner-pad);width:calc(100% - 2 * var(--inner-pad));margin:0}
+.static *{animation:none!important;transition:none!important}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.glass-enhanced:before{background:linear-gradient(135deg,#fff5,transparent)}}@media(prefers-reduced-transparency:reduce){.glass{background:#fafdff;backdrop-filter:none}}@media(max-width:700px){.deck-controls{gap:0;padding:5px}.deck-controls button{font-size:12px;padding:8px}.deck-controls .secondary{display:none}.directory{grid-template-columns:1fr}}@media print{.deck-viewport,.stage{position:static;transform:none!important;margin:0;overflow:visible;height:auto}.scene{position:relative;visibility:visible!important;opacity:1!important;transform:none!important;break-after:page;width:1920px;height:1080px}.deck-controls,.deck-progress,dialog,.shared-layer{display:none!important}[data-shared]{color:var(--link)!important;border:1px solid var(--divider)!important}[data-shared]>*{visibility:visible}@page{size:16in 9in;margin:0}}
+
+</style><style>
+html{scroll-behavior:smooth}.lab-header{display:flex;justify-content:space-between;align-items:center;padding:26px 5vw;border-bottom:1px solid var(--divider);gap:20px}.lab-header a{font:12px var(--mono);letter-spacing:1px;color:var(--text);text-decoration:none}.lab-header button{font-size:13px;margin-left:6px}.lab{max-width:1360px;margin:auto;padding:0 60px}.lab-intro{padding:100px 0 70px}.lab-intro h1{font-size:clamp(50px,6.5vw,96px);letter-spacing:-4px;font-weight:650;line-height:1.12;margin:22px 0 30px}.lab-intro p{font-size:25px;color:var(--muted)}.lab-index{display:flex;gap:26px;margin-top:38px;flex-wrap:wrap}.lab a{color:var(--link);text-decoration:none}.lab-section{padding:60px 0 70px;border-top:1px solid var(--divider);scroll-margin-top:20px}.section-heading{margin-bottom:42px}.section-heading>span{font:12px var(--mono);letter-spacing:2px;color:var(--muted)}.section-heading h2{font-size:40px;letter-spacing:-1px;margin:16px 0}.section-heading p{font-size:18px;color:var(--muted)}.fine{font-size:15px;color:var(--muted);line-height:1.6;margin-top:22px}.spring-layout{display:grid;grid-template-columns:1.7fr 1fr;gap:70px}.drag-track{height:180px;border-radius:24px;position:relative;background:white;border:1px solid var(--divider);margin-top:18px}.drag-knob{width:90px;height:90px;border-radius:26px;background:#007aff;color:white;position:absolute;left:0;top:44px;display:grid;place-items:center;font-size:30px;touch-action:none;user-select:none;cursor:grab;box-shadow:0 14px 32px #007aff22}.drag-knob[data-dragging=true]{cursor:grabbing;background:#0067d1}.track-label{position:absolute;bottom:14px;font:10px var(--mono);color:#626269;letter-spacing:2px}.track-label.start{left:20px}.track-label.end{right:20px}.readout{display:flex;justify-content:space-between;align-items:center;margin-top:20px;font:14px var(--mono)}.parameters{display:grid;gap:24px}.parameters label{font-size:17px;display:block}.parameters label output{float:right;font-family:var(--mono);color:var(--link)}.parameters input{display:block;width:100%;margin:14px 0 0;accent-color:#007aff}.parameters>output{font:14px var(--mono);color:var(--muted)}.bezier-row{display:grid;grid-template-columns:240px 1fr;gap:35px;align-items:center;margin:26px 0}.bezier-row strong{font-size:16px}.bezier-row small{display:block;font:11px var(--mono);color:var(--muted);margin-top:8px}.bezier-track{height:40px;background:#e4e8ef;position:relative;border-radius:20px}.bezier-dot{position:absolute;left:0;width:40px;height:40px;border-radius:50%;background:#007aff}.glass-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.material-scene{height:240px;position:relative;border-radius:28px;overflow:hidden;display:grid;place-items:center;background:repeating-linear-gradient(125deg,#ceddf0 0 22px,#789ecb 22px 25px,#a6c2e2 25px 70px)}.material{width:82%;height:140px;border-radius:24px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:15px}.material b{font-size:24px}.material span{font-size:13px}.material.plain{background:#fffc;border:1px solid white}.shader-scene canvas{width:100%;height:100%;object-fit:cover}.shader-scene>span{position:absolute;bottom:15px;font-size:11px;background:#fafdffe8;padding:8px 10px;border-radius:8px;max-width:90%}.measure{display:flex;gap:20px;align-items:center;margin-top:25px;font-size:14px}.shared-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px}.shared-grid .morph-host{margin-top:20px}.morph-surface h3{font-size:30px;margin:4px 0 12px}.shared-grid .fine{margin-top:0}#scene-frame{margin:30px 0 24px;border-radius:24px;overflow:hidden;background:#e8edf5;width:100%;aspect-ratio:1100/430;position:relative}#scene-stage{position:absolute;width:1100px;height:430px;transform-origin:0 0;overflow:hidden}.mini-scene{position:absolute;inset:0;padding:50px 60px;background:#e8edf5;visibility:hidden}.mini-scene:first-child{visibility:visible}.mini-scene .eyebrow{font-size:14px}.mini-scene h3{font-size:46px;letter-spacing:-1.5px;line-height:1.15;margin-top:24px}.mini-scene p{position:absolute;bottom:50px;font-size:20px;color:var(--muted)}.mini-anchor{position:absolute;right:80px;top:130px;width:260px;height:150px;border-radius:25px}.mini-scene.detail{background:#fafdff}.mini-scene.detail .mini-anchor{left:60px;top:170px;width:460px;height:190px}.mini-scene.detail p{left:590px;bottom:145px}#path-demo{width:100%;height:auto;margin:10px 0 24px}#path-demo path{stroke-width:4;fill:none}.path-base{stroke:#d1d9e6}.path-active{stroke:#007aff}#path-demo text{font:19px var(--mono);fill:#1d1d1f}.machine{display:flex;align-items:center;gap:24px;margin:22px 0}.machine button[aria-current=true]{background:#005fcc;color:white;border-color:#005fcc}footer{padding:30px 0 60px;font:12px/2.5 var(--mono);color:var(--muted)}@media(max-width:900px){.lab{padding:0 25px}.lab-intro{padding-top:70px}.lab-intro h1{letter-spacing:-2px}.spring-layout,.shared-grid{grid-template-columns:1fr;gap:35px}.glass-grid{grid-template-columns:1fr 1fr}.bezier-row{grid-template-columns:190px 1fr;gap:18px}.lab-header{padding:18px 24px}.lab-header a{max-width:160px;line-height:1.5}.segments{max-width:100%;flex-wrap:wrap}.stepper{flex-wrap:wrap}.measure{flex-wrap:wrap}.section-heading h2{font-size:32px}.lab-intro .eyebrow{font-size:15px}}@media(max-width:520px){.glass-grid{grid-template-columns:1fr}.lab-header button{font-size:11px;padding:8px}.bezier-row{grid-template-columns:1fr}.machine{gap:8px}.machine button{padding:10px}.material-scene{height:200px}}
+.arrival-comparison{display:grid;grid-template-columns:1fr 1fr;gap:50px;margin-bottom:30px}.arrival-example{border-top:1px solid var(--divider);padding-top:20px}.arrival-example header{display:flex;justify-content:space-between;gap:20px;font-size:16px}.arrival-example strong{font:18px var(--mono)}.arrival-example svg{width:100%;height:220px}.arrival-example svg text{font:20px var(--mono)}.arrival-example p{font-size:16px;text-align:center;min-height:30px}@media(max-width:700px){.arrival-comparison{grid-template-columns:1fr;gap:30px}}
+
+</style></head><body>
+<svg width="0" height="0" aria-hidden="true" style="position:absolute"><defs><filter id="optical-edge"><feTurbulence baseFrequency=".015" numOctaves="1" seed="4" result="noise"/></feturbulence><feDisplacementMap in="SourceGraphic" in2="noise" scale="5"/></fedisplacementmap></filter></defs></svg>
+<header class="lab-header"><a href="inside-a-git-commit.html">SWUST / MOTION SYSTEM 1.0.0</a><div><button id="reduce" aria-pressed="false">减少动态效果</button><button id="opaque" aria-pressed="false">不透明材质</button></div></header>
+<main class="lab"><div class="lab-intro"><span class="eyebrow">A STUDY IN CONTINUITY</span><h1>Motion, with meaning.</h1><p>调节。拖动。中断。返回。<br>让运动的区别，变得可以理解。</p><nav class="lab-index"><a href="#spring-panel">Spring</a><a href="#bezier-panel">Bézier</a><a href="#glass-panel">Glass</a><a href="#shared-panel">Shared</a><a href="#scene-panel">Scenes</a><a href="#path-panel">SVG</a><a href="#settlement-panel">Settlement</a></nav></div>
+<section id="spring-panel" class="lab-section"><div class="section-heading"><span>01 / DIRECT MANIPULATION</span><h2>你改变方向，它跟上。</h2><p>拖动蓝色对象，松手后吸附到近端。左右键同样可用。</p></div><div class="spring-layout"><div><div class="drag-track"><span class="track-label start">START</span><span class="track-label end">TARGET</span><div id="drag-knob" class="drag-knob">↔</div></div><div class="readout"><output id="spring-state">x 0 / v 0</output><button id="spring-reset">重置</button></div><p class="fine">释放速度会进入物理计算；再次拖动可立即接管。参数调整会改变实际运动。</p></div><div class="parameters"><label for="stiffness">Stiffness <output id="stiffness-value">210</output><input id="stiffness" type="range" min="50" max="500" value="210"></label><label for="damping">Damping <output id="damping-value">28</output><input id="damping" type="range" min="5" max="60" value="28"></label><label for="mass">Mass <output id="mass-value">1</output><input id="mass" type="range" min="0.5" max="3" step="0.1" value="1"></label><output id="damping-ratio"></output></div></div></section>
+<section id="bezier-panel" class="lab-section"><div class="section-heading"><span>02 / AUTHORED TIMING</span><h2>同一段路，不同的节奏。</h2><p>同时播放，观察起步与停靠。这里比较预设曲线。</p></div><div id="bezier-tracks"></div><button id="bezier-play">同时播放 / 反向</button></section>
+<section id="glass-panel" class="lab-section"><div class="section-heading"><span>03 / MATERIAL & LIGHT</span><h2>内容在前，材质退后。</h2><p>CSS 近似与独立 Shader 示例。移动指针观察高光。</p></div><div class="glass-grid"><div class="material-scene"><div class="material plain"><b>Plain</b><span>普通透明</span></div></div><div class="material-scene"><div class="material glass"><b>Stable</b><span>Backdrop blur</span></div></div><div class="material-scene"><div class="material glass glass-enhanced"><b>Enhanced</b><span>边缘与高光近似</span></div></div><div class="material-scene shader-scene"><canvas id="refraction" width="480" height="320" aria-label="自有程序背景的折射示意"></canvas><span id="shader-status"></span></div></div><div class="measure"><button id="measure">采样一次帧间隔</button><output id="performance-result">尚未测量</output></div><p class="fine">只绘制自有程序背景，不对网页正文做真实折射。帧间隔是当前环境的调度样本，不能证明普遍达到 60fps。</p></section>
+<section id="shared-panel" class="lab-section"><div class="section-heading"><span>04 / PERSISTENT IDENTITY</span><h2>还是那个对象。</h2><p>小卡片与详情共用同一个节点，连续点击可以改变目标。</p></div><div class="shared-grid"><div><div class="morph-host" id="shared-card"><article class="morph-surface"><button aria-expanded="false">展开详情 ↗</button><div class="morph-detail"><h3>Staging Area</h3><p>选择下一次提交的快照。对象身份、位置、尺寸和透明度连续变化。</p></div></article></div></div><div><p class="fine">MORPHING CAPSULE / 按需展开状态</p><div class="morph-host" id="capsule"><article class="morph-surface glass"><button aria-expanded="false">查看状态 ↗</button><div class="morph-detail"><h3>Snapshot ready.</h3><p>状态胶囊只在需要解释时展开，详情始终属于原来的控件。</p></div></article></div></div></div></section>
+<section id="scene-panel" class="lab-section"><div class="section-heading"><span>05 / SCENE CONTINUITY</span><h2>转场可以被打断。</h2><p>选择模式，再连续切换或反向。聚焦画面后可用左右键，Home 重置。</p></div><div id="transition-select" class="segments" aria-label="转场类型"><button>Fade</button><button>Morph</button><button>Push</button><button>Zoom</button><button>Spatial Shift</button></div><div id="scene-frame" tabindex="0" role="group" aria-label="场景测试画布，左右键切换，Home 重置"><div id="scene-stage"><section class="mini-scene" data-title="Overview"><span class="eyebrow">OVERVIEW</span><h3>One object.<br>Two perspectives.</h3><div class="mini-anchor" data-shared="lab-object" data-shared-class="snapshot">SNAPSHOT</div><p>概览中的快照</p></section><section class="mini-scene detail" data-title="Detail"><span class="eyebrow">DETAIL</span><h3>Keep the identity.</h3><div class="mini-anchor" data-shared="lab-object" data-shared-class="snapshot">SNAPSHOT</div><p>深入对象，展开它的意义。</p></section></div></div><div class="stepper"><button id="scene-prev">← 返回</button><button id="scene-next">进入详情 →</button><button id="scene-burst">Rapid Retarget</button><button id="scene-reset">重置</button><output id="scene-state">Overview</output></div></section>
+<section id="path-panel" class="lab-section"><div class="section-heading"><span>06 / INFORMATION GROWTH</span><h2>让关系逐步显现。</h2><p>路径先建立连接，节点再获得焦点。返回会沿原路径恢复预览。</p></div><svg id="path-demo" viewBox="0 0 1000 220" role="img" aria-label="IF 到 WB 五阶段流水线示意"><path class="path-base" d="M80 110H920"/></path><path class="path-active" d="M80 110H920"/></path><g id="path-nodes"></g></svg><div class="stepper"><button id="path-prev">← 上一步</button><output id="path-count">0 / 4</output><button id="path-next">下一步 →</button><button id="path-reset">重置</button></div><p id="path-description" class="fine" aria-live="polite"></p></section>
+<section class="lab-section"><div class="section-heading"><span>07 / VALID STATE CHANGES</span><h2>交互也要讲逻辑。</h2><p>只允许待处理 → 执行中 → 完成，重置后重新开始。</p></div><div class="machine"><button data-state-node="idle">待处理</button><span>→</span><button data-state-node="running">执行中</button><span>→</span><button data-state-node="done">完成</button></div><p id="machine-detail" class="fine" aria-live="polite"></p><div class="stepper"><button id="machine-start">开始</button><button id="machine-finish">完成</button><button id="machine-reset">重置</button></div></section>
+<section id="settlement-panel" class="lab-section"><div class="section-heading"><span>08 / RESULT SETTLEMENT</span><h2>The motion continues after arrival.</h2><p>Same event, same semantic commit. Compare the final color, arrow and text feedback.</p></div><div id="settlement-comparison" class="arrival-comparison"></div><div class="stepper"><button id="settlement-replay">Replay</button><button id="settlement-interrupt">Interrupt</button><button id="settlement-reverse">Reverse</button><button id="settlement-reset">Reset</button></div><p class="fine">Shared core: Settlement / mountArrivalComparison. Reverse is a preview, not a real-world undo.</p><p class="fine"><a href="swust-keynote-showcase.html">Open SWUST Keynote Lab →</a></p></section><footer>SWUST APPLE KEYNOTE · HTML / CSS / SVG / STATEFUL PHYSICS<br><a href="inside-a-git-commit.html">打开 Inside a Git Commit →</a></footer></main>
+<script>
+/* Stateful scalar springs. No dependencies, no perpetual idle loop. */
+(() => {
+  const K = globalThis.Keynote = globalThis.Keynote || {};
+  const active = new Set();
+  let raf = 0, last = 0;
+  const preference = matchMedia('(prefers-reduced-motion: reduce)');
+  K.reduced = () => preference.matches || document.documentElement.classList.contains('static') || document.documentElement.classList.contains('reduce-motion');
+  K.setReducedMotion=on=>{document.documentElement.classList.toggle('reduce-motion',Boolean(on));if(K.reduced()){K.settleSprings();K.cancelAnimations?.()}document.dispatchEvent(new Event('keynote-motion-change'))};
+  function tick(now) {
+    raf = 0;
+    const dt = Math.min((now - (last || now - 16.67)) / 1000, .04);
+    last = now;
+    const renders = new Set(), rests = [];
+    for (const s of [...active]) {
+      s.integrate(dt);
+      renders.add(s.onUpdate);
+      if (s.settled()) {
+        s.x = s.target; s.v = 0; active.delete(s);
+        rests.push(s.onRest);
+      }
+    }
+    renders.forEach(fn => fn()); rests.forEach(fn => fn());
+    if (active.size) raf = requestAnimationFrame(tick); else last = 0;
+  }
+  class Spring {
+    constructor({value=0, stiffness=210, damping=28, mass=1, onUpdate=()=>{}, onRest=()=>{}}={}) {
+      this.x=value; this.v=0; this.target=value;
+      this.onUpdate=onUpdate; this.onRest=onRest;
+      this.configure({stiffness,damping,mass});
+    }
+    configure({stiffness=this.stiffness,damping=this.damping,mass=this.mass}) {
+      if (![stiffness,damping,mass].every(n=>Number.isFinite(n)&&n>0)) throw Error('Spring parameters must be positive finite numbers');
+      Object.assign(this,{stiffness,damping,mass});
+    }
+    integrate(dt) {
+      const count=Math.ceil(dt/(1/240)), h=dt/count;
+      for(let i=0;i<count;i++) {
+        this.v += (-this.stiffness*(this.x-this.target)-this.damping*this.v)/this.mass*h;
+        this.x += this.v*h;
+      }
+    }
+    settled() { return Math.abs(this.x-this.target)<.001 && Math.abs(this.v)<.005; }
+    retarget(value, velocity) {
+      if(!Number.isFinite(value)) throw Error('Invalid spring target');
+      this.target=value;
+      if(velocity!==undefined) this.v=velocity;
+      if(K.reduced()||document.hidden) return this.jump(value);
+      active.add(this); if(!raf) raf=requestAnimationFrame(tick);
+      return this;
+    }
+    jump(value) { active.delete(this); this.x=this.target=value;this.v=0;this.onUpdate();this.onRest();return this; }
+    stop() { active.delete(this); return this; }
+    destroy() { this.stop(); this.onUpdate=this.onRest=()=>{}; }
+  }
+  K.Spring=Spring;
+  K.springStats=()=>({active:active.size,raf:!!raf});
+  K.settleSprings=()=>{
+    const list=[...active];active.clear();cancelAnimationFrame(raf);raf=0;last=0;
+    list.forEach(s=>s.jump(s.target));
+  };
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)K.settleSprings()});
+  preference.addEventListener('change',()=>{if(K.reduced())K.settleSprings();document.dispatchEvent(new Event('keynote-motion-change'))});
+})();
+
+</script><script>
+(() => {
+  const K=globalThis.Keynote;
+  K.ease={smooth:'cubic-bezier(.16,1,.3,1)',emphasized:'cubic-bezier(.22,1,.36,1)',inOut:'cubic-bezier(.65,0,.35,1)'};
+  const animations=new Set();
+  K.animate=(element,frames,options={})=>{
+    if(!element||K.reduced()||document.hidden||!element.animate)return null;
+    const a=element.animate(frames,{duration:380,easing:K.ease.smooth,fill:'backwards',...options});
+    animations.add(a);a.finished.then(()=>{animations.delete(a);a.cancel()},()=>animations.delete(a));return a;
+  };
+  K.cancelAnimations=(root)=>{for(const a of [...animations])if(!root||root.contains(a.effect?.target)){a.cancel();animations.delete(a)}};
+  K.recipes=['soft-fade','cross-dissolve','shared','morph','push-in','pull-back','spatial-slide','focus-shift','camera-pan','camera-zoom','stagger','path-draw','parallax','scene-reset','reverse'];
+  K.sceneRelationships={'overview-detail':'push-in','detail-overview':'pull-back','process-next':'spatial-slide','chapter-boundary':'scene-reset','focus-transfer':'focus-shift'};
+  function recipe(name,d=1){
+    const r={x:0,y:0,s:1,ox:0,oy:0,os:1,k:105,c:23};
+    if(name==='soft-fade')Object.assign(r,{k:190,c:28});
+    if(['spatial-slide','reverse'].includes(name))Object.assign(r,{x:d*150,ox:-d*100});
+    if(name==='camera-pan')Object.assign(r,{x:d*300,ox:-d*220});
+    if(['shared','morph'].includes(name))Object.assign(r,{y:12,oy:-8});
+    if(name==='focus-shift')Object.assign(r,{x:d*64,ox:-d*32,k:160,c:28});
+    if(['push-in','camera-zoom'].includes(name))Object.assign(r,{s:.92,os:1.07});
+    if(name==='pull-back')Object.assign(r,{s:1.08,os:.94});
+    if(name==='parallax')Object.assign(r,{x:d*90,ox:-d*90});
+    if(name==='scene-reset')Object.assign(r,{y:20,oy:-12,k:80,c:20});
+    return r;
+  }
+  function layoutRect(el,root){
+    let x=0,y=0,n=el;
+    while(n&&n!==root){x+=n.offsetLeft;y+=n.offsetTop;n=n.offsetParent}
+    return {x,y,w:el.offsetWidth,h:el.offsetHeight};
+  }
+  class SharedLayer {
+    constructor(root,onRest=()=>{}){this.root=root;root.dataset.sceneRoot='true';this.onRest=onRest;this.objects=new Map();this.layer=document.createElement('div');this.layer.className='shared-layer';this.layer.setAttribute('aria-hidden','true');root.append(this.layer)}
+    target(slide,instant=false){
+      const present=new Set();
+      for(const anchor of slide.querySelectorAll('[data-shared]')){
+        if(anchor.closest('[data-scene-root]')!==this.root)continue;
+        const id=anchor.dataset.shared;present.add(id);
+        let object=this.objects.get(id);
+        const rect=layoutRect(anchor,this.root);
+        const radius=parseFloat(getComputedStyle(anchor).borderRadius)||24;
+        if(!object){
+          const node=document.createElement('div');node.className='shared-object '+(anchor.dataset.sharedClass||'');
+          node.innerHTML=anchor.innerHTML;node.dataset.identity=id;this.layer.append(node);
+          object={node,values:{},content:anchor.innerHTML};
+          const render=()=>{const s=object.values;if(!s.a)return;Object.assign(node.style,{transform:`translate(${s.x.x}px,${s.y.x}px)`,width:`${s.w.x}px`,height:`${s.h.x}px`,borderRadius:`${s.r.x}px`,opacity:Math.max(0,Math.min(1,s.a.x)),visibility:s.a.x<.003?'hidden':'visible'})};
+          for(const [key,value]of Object.entries({...rect,r:radius,a:0}))object.values[key]=new K.Spring({value,onUpdate:render,onRest:this.onRest});
+          this.objects.set(id,object);
+        }
+        if(object.content!==anchor.innerHTML){object.content=anchor.innerHTML;object.node.innerHTML=anchor.innerHTML}
+        const alpha=anchor.dataset.sharedVisible==='false'?0:Math.max(0,Math.min(1,Number(anchor.dataset.sharedOpacity??1)));
+        for(const [key,val]of Object.entries({...rect,r:radius,a:alpha}))object.values[key][instant?'jump':'retarget'](val);
+      }
+      for(const [id,object]of this.objects)if(!present.has(id))object.values.a[instant?'jump':'retarget'](0);
+    }
+    destroy(){for(const o of this.objects.values())Object.values(o.values).forEach(s=>s.destroy());this.layer.remove();this.root.removeAttribute('data-scene-root')}
+  }
+  class SceneMotion {
+    constructor(root,slides){
+      this.root=root;this.slides=slides;this.current=0;this.state='Idle';this.shared=new SharedLayer(root,()=>this.checkRest());
+      this.items=slides.map((el,i)=>{
+        const item={el,values:{},text:[...el.querySelectorAll('h1,h2,.lead,[data-scene-text]')].filter(n=>!n.closest('[data-shared]')&&n.closest('[data-scene-root]')===root)};
+        const render=()=>{
+          const v=item.values;if(!v.a)return;
+          el.style.transform=`translate(${v.x.x}px,${v.y.x}px) scale(${v.s.x})`;
+          el.style.opacity=Math.max(0,Math.min(1,v.a.x));
+          el.style.visibility=(i===this.current||v.a.x>.003)?'visible':'hidden';
+          item.text.forEach(n=>n.style.opacity=Math.max(0,Math.min(1,v.t.x)));
+        };
+        const rest=()=>this.checkRest();
+        for(const [key,value]of Object.entries({x:0,y:0,s:1,t:i===0?1:0,a:i===0?1:0}))item.values[key]=new K.Spring({value,stiffness:105,damping:23,onUpdate:render,onRest:rest});
+        return item;
+      });
+      this.go(0,'soft-fade',true);
+    }
+    checkRest(){if(this.items?.every(it=>Object.values(it.values).every(s=>s.settled()))&&[...this.shared.objects.values()].every(o=>Object.values(o.values).every(s=>s.settled()))){this.state='Active';this.items.forEach((it,j)=>it.el.dataset.sceneState=j===this.current?'Active':'Idle')}}
+    go(n,name='cross-dissolve',instant=false){
+      name=K.sceneRelationships[name]||name;this.lastRecipe=name;
+      n=Math.max(0,Math.min(this.items.length-1,n));const old=this.current,d=n>=old?1:-1;
+      if(this.state!=='Active'&&this.state!=='Idle')this.state='Interrupted';
+      this.current=n;this.state='Entering';
+      const r=recipe(name,d),incoming=this.items[n];
+      if(old!==n)K.settleFeedback?.(this.items[old].el);
+      K.cancelAnimations(this.root);
+      if(incoming.values.a.x<.003&&!instant){incoming.values.x.jump(r.x);incoming.values.y.jump(r.y);incoming.values.s.jump(r.s)}
+      this.items.forEach((item,i)=>{
+        item.el.inert=i!==n;item.el.setAttribute('aria-hidden',String(i!==n));item.el.style.zIndex=i===n?'2':'1';
+        item.el.dataset.sceneState=i===n?'Entering':'Exiting';
+        const targets={x:i===n?0:r.ox,y:i===n?0:r.oy,s:i===n?1:r.os,t:i===n?1:0,a:i===n?1:0};
+        for(const [key,val]of Object.entries(targets)){
+          // Clear outgoing text early while the shared object continues its journey.
+          item.values[key].configure(key==='t'?(i===n?{stiffness:95,damping:24}:{stiffness:1400,damping:70}):key==='a'&&i!==n?{stiffness:600,damping:45}:{stiffness:r.k,damping:r.c});
+          item.values[key][instant?'jump':'retarget'](val);
+        }
+      });
+      this.shared.target(incoming.el,instant);
+      if(name==='stagger')incoming.el.querySelectorAll('[data-reveal]').forEach((el,i)=>K.animate(el,[{opacity:0,transform:'translateY(18px)'},{opacity:1,transform:'none'}],{duration:400,delay:Math.min(i*75,300)}));
+      if(name==='parallax')incoming.el.querySelectorAll('[data-layer]').forEach(el=>K.animate(el,[{transform:`translateX(${d*Number(el.dataset.layer)*50}px)`},{transform:'none'}],{duration:700}));
+      if(name==='path-draw')incoming.el.querySelectorAll('path[data-reveal-path]').forEach(p=>K.animate(p,[{strokeDasharray:p.getTotalLength(),strokeDashoffset:p.getTotalLength()},{strokeDasharray:p.getTotalLength(),strokeDashoffset:0}],{duration:700}));
+      if(instant||K.reduced())this.state='Active';
+    }
+    destroy(){K.cancelAnimations(this.root);this.items.forEach(it=>Object.values(it.values).forEach(s=>s.destroy()));this.shared.destroy()}
+  }
+  K.SceneMotion=SceneMotion;K.SharedLayer=SharedLayer;
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)K.cancelAnimations()});
+  document.addEventListener('keynote-motion-change',()=>{if(K.reduced())K.cancelAnimations()});
+})();
+
+</script><script>
+/* Result feedback uses the existing Spring scheduler. Semantic commit never waits for it. */
+(() => {
+  const K=globalThis.Keynote, owners=new Set(), clamp=n=>Math.max(0,Math.min(1,n));
+  const color=value=>{
+    if(Array.isArray(value))return value;
+    if(/^#[0-9a-f]{6}$/i.test(value))return [1,3,5].map(i=>parseInt(value.slice(i,i+2),16));
+    throw Error('Color bindings require #RRGGBB or RGB arrays');
+  };
+  K.interpolateColor=(a,b,p)=>{a=color(a);b=color(b);return `rgb(${a.map((n,i)=>Math.round(n+(b[i]-n)*clamp(p))).join(', ')})`};
+  class TextCrossfade {
+    constructor(host){
+      this.root=this.host=host;this.value=host.textContent;this.animations=[];this.revision=0;
+      this.stack=document.createElement('span');this.stack.className='state-text-stack';
+      this.current=document.createElement('span');this.previous=document.createElement('span');
+      this.current.className='state-text-current';this.previous.className='state-text-previous';
+      [this.current,this.previous].forEach(n=>n.setAttribute('aria-hidden','true'));
+      this.current.textContent=this.value;this.stack.append(this.previous,this.current);host.replaceChildren(this.stack);
+      host.dataset.value=this.value;host.setAttribute('aria-label',this.value);owners.add(this);
+    }
+    set(value,{instant=false}={}){
+      value=String(value);if(value===this.value){if(instant)this.settle();return}
+      const a=Number(getComputedStyle(this.current).opacity),b=Number(getComputedStyle(this.previous).opacity);
+      const old=b>a?this.previous.textContent:this.current.textContent,alpha=Math.max(a,b);
+      this.settle();this.value=value;this.host.dataset.value=value;this.host.setAttribute('aria-label',value);this.current.textContent=value;
+      if(instant||K.reduced()||document.hidden)return;
+      this.previous.textContent=old;
+      this.animations=[K.animate(this.previous,[{opacity:alpha},{opacity:0}],{duration:150}),K.animate(this.current,[{opacity:0},{opacity:1}],{duration:280,easing:K.ease.emphasized})].filter(Boolean);
+      const revision=this.revision;Promise.allSettled(this.animations.map(a=>a.finished)).then(()=>{if(revision===this.revision)this.onRest?.()});
+    }
+    settle(){this.revision++;this.animations.forEach(a=>a.cancel());this.animations=[];this.previous.textContent=''}
+    get active(){return this.animations.some(a=>a.playState==='running')}
+    destroy(){this.settle();owners.delete(this);this.host.textContent=this.value;this.host.removeAttribute('aria-label')}
+  }
+  K.mountText=(host)=>new TextCrossfade(host);
+  K.mountVisual=(root,bindings,{initial=0}={})=>{
+    const render=()=>{const p=clamp(spring.x);bindings.forEach(({elements,property,from,to})=>{
+      const value=typeof from==='number'?from+(to-from)*p:K.interpolateColor(from,to,p);
+      (Array.isArray(elements)?elements:[elements]).forEach(el=>{if(el)el.style[property]=String(value)});
+    })};
+    const spring=new K.Spring({value:initial,stiffness:240,damping:32,onUpdate:render});
+    const api={root,spring,set(p,{instant=false}={}){spring[instant?'jump':'retarget'](clamp(p))},settle(){spring.jump(spring.target)},get active(){return !spring.settled()},destroy(){spring.destroy();owners.delete(api)}};
+    owners.add(api);render();return api;
+  };
+  class Settlement {
+    constructor({root,text,bindings=[],initial='Ready',onCommit=()=>{}}){
+      this.root=root;this.text=K.mountText(text);this.visual=K.mountVisual(root,bindings);this.onCommit=onCommit;this.initial=initial;this.value=initial;
+      this.visual.spring.onRest=()=>this.syncPhase();this.text.onRest=()=>this.syncPhase();this.commit(initial,{instant:true});owners.add(this);
+    }
+    commit(value,{label=value,emphasis=0,instant=false}={}){
+      this.value=value;this.root.dataset.phase='Semantic Commit';this.root.dataset.semantic=value;
+      this.onCommit(value); // Domain state and control validity update at the event, not on animation end.
+      this.text.set(label,{instant});this.visual.set(emphasis,{instant});this.root.dataset.phase=this.active?'Visual Settlement':'Stable State';
+    }
+    get active(){return this.text.active||this.visual.active}
+    syncPhase(){this.root.dataset.phase=this.active?'Visual Settlement':'Stable State'}
+    get phase(){return this.active?'Visual Settlement':'Stable State'}
+    settle(){this.text.settle();this.visual.settle();this.root.dataset.phase='Stable State'}
+    reset(value=this.initial){this.commit(value,{instant:true});this.settle()}
+    destroy(){this.text.destroy();this.visual.destroy();owners.delete(this)}
+  }
+  K.Settlement=Settlement;
+  K.settleFeedback=(root)=>{for(const owner of owners)if(!root||root===owner.root||root.contains(owner.root))owner.settle()};
+  K.feedbackStats=()=>({owners:owners.size,active:[...owners].filter(o=>o.active).length});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)K.settleFeedback()});
+  document.addEventListener('keynote-motion-change',()=>{if(K.reduced())K.settleFeedback()});
+})();
+
+</script><script>
+(() => {
+  const K=globalThis.Keynote;
+  K.escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  K.toast=text=>{let t=document.querySelector('#toast');if(!t){t=document.createElement('div');t.id='toast';t.setAttribute('role','status');document.body.append(t)}t.textContent=text;t.hidden=false;clearTimeout(t.timer);t.timer=setTimeout(()=>t.hidden=true,2500)};
+  K.copy=async(text)=>{
+    try{if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(text);return true}}catch{}
+    const el=document.createElement('textarea');el.value=text;el.style.cssText='position:fixed;left:0;top:0;opacity:0';(document.querySelector('dialog[open]')||document.body).append(el);el.select();
+    let ok=false;try{ok=document.execCommand('copy')}catch{}el.remove();return ok;
+  };
+  K.terminal=(commands,expected)=>`<div class="terminal"><div class="terminal-header"><span class="lights" aria-hidden="true">● ● ●</span><span>Terminal · 示例，不执行命令</span><button data-copy-command>复制命令</button></div><pre>${commands.map(line=>{const [cmd,...args]=line.split(' ');return `<span class="command">${K.escape(cmd)}</span> <span class="arg">${K.escape(args.join(' '))}</span>`}).join('\n')}</pre><div class="expected">预期结果：${K.escape(expected)}</div></div>`;
+  K.mountTerminals=(root)=>root.querySelectorAll('[data-copy-command]').forEach(button=>button.onclick=async()=>{
+    const text=button.closest('.terminal').querySelector('pre').textContent;
+    const ok=await K.copy(text);K.toast(ok?'已复制命令':'复制被拒绝，请选中命令手动复制');button.textContent=ok?'已复制 ✓':'复制失败';
+    clearTimeout(button.copyTimer);button.copyTimer=setTimeout(()=>button.textContent='复制命令',1400);
+  });
+  K.diff=(before,after)=>`<div class="code-comparison"><div><h3>Before</h3><pre class="removed">${K.escape(before)}</pre></div><div><h3>After</h3><pre class="added">${K.escape(after)}</pre></div></div>`;
+  K.explorer=(name,files)=>`<details class="file-explorer" open><summary>${K.escape(name)}</summary><ul>${files.map(file=>`<li><code>${K.escape(file)}</code></li>`).join('')}</ul></details>`;
+  K.mountSegments=(root,onChange=()=>{})=>{
+    const buttons=[...root.querySelectorAll('button')],ink=document.createElement('i');ink.className='segment-ink';ink.setAttribute('aria-hidden','true');root.prepend(ink);root.setAttribute('role','radiogroup');
+    let selected=0;const render=()=>{if(x&&w){ink.style.transform=`translateX(${x.x}px)`;ink.style.width=`${w.x}px`}};
+    const x=new K.Spring({onUpdate:render}),w=new K.Spring({onUpdate:render});
+    function select(i,instant=false){selected=Math.max(0,Math.min(buttons.length-1,i));if(buttons[selected].disabled)selected=buttons.findIndex(b=>!b.disabled);if(selected<0)return;buttons.forEach((b,n)=>{b.setAttribute('role','radio');b.setAttribute('aria-checked',String(n===selected));b.tabIndex=n===selected?0:-1});const b=buttons[selected];x[instant?'jump':'retarget'](b.offsetLeft);w[instant?'jump':'retarget'](b.offsetWidth);onChange(selected)}
+    buttons.forEach((b,i)=>b.onclick=()=>select(i));
+    root.addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();e.stopPropagation();select(e.key==='Home'?0:e.key==='End'?buttons.length-1:(selected+(e.key==='ArrowRight'?1:-1)+buttons.length)%buttons.length);buttons[selected].focus()}});
+    const ro=new ResizeObserver(()=>select(selected,true));ro.observe(root);select(0,true);
+    return {select,reset:()=>select(0),get selected(){return selected},destroy(){ro.disconnect();x.destroy();w.destroy()}};
+  };
+  K.mountMorph=(host,{compact={w:240,h:100},expanded={w:520,h:250},capsule=false}={})=>{
+    const surface=host.querySelector('.morph-surface'),button=surface.querySelector('button'),detail=surface.querySelector('.morph-detail');let open=false;
+    const slot=document.createElement('div');slot.className='morph-control-slot';button.before(slot);slot.append(button);surface.style.setProperty('--morph-header',compact.h+'px');
+    const label=K.mountText(button),closedLabel=button.textContent;
+    const values={};const render=()=>{if(!values.r)return;const w=Math.min(host.clientWidth,Math.max(1,values.w.x)),x=Math.max(0,Math.min(host.clientWidth-w,values.x.x));surface.style.width=`${w}px`;surface.style.height=`${Math.max(compact.h,Math.min(host.clientHeight||Infinity,values.h.x))}px`;surface.style.transform=`translateX(${x}px)`;surface.style.borderRadius=`${values.r.x}px`;detail.style.opacity=Math.max(0,Math.min(1,values.a.x));detail.style.visibility=values.a.x<.01?'hidden':'visible'};
+    for(const [key,val]of Object.entries({w:compact.w,h:compact.h,x:0,r:capsule?compact.h/2:28,a:0}))values[key]=new K.Spring({value:val,onUpdate:render});
+    function set(next,instant=false){open=next;button.setAttribute('aria-expanded',String(open));label.set(open?'收起 ←':closedLabel,{instant});detail.setAttribute('aria-hidden',String(!open));const w=Math.min(host.clientWidth,open?expanded.w:compact.w);const targets={w,h:open?expanded.h:compact.h,x:open?Math.max(0,(host.clientWidth-w)/2):0,r:open?28:(capsule?compact.h/2:28),a:open?1:0};for(const [key,val]of Object.entries(targets))values[key][instant?'jump':'retarget'](val)}
+    button.onclick=()=>set(!open);const ro=new ResizeObserver(()=>set(open,true));ro.observe(host);set(false,true);return {set,values,settle:()=>{Object.values(values).forEach(s=>s.jump(s.target));label.settle()},reset:()=>set(false,true),get open(){return open},destroy(){ro.disconnect();label.destroy();Object.values(values).forEach(s=>s.destroy())}};
+  };
+  K.mountDrag=(track,knob,{onUpdate=()=>{}}={})=>{
+    let pointer=null,lastX=0,lastT=0,velocity=0,offset=0;
+    const max=()=>Math.max(0,track.clientWidth-knob.offsetWidth);
+    const spring=new K.Spring({onUpdate:()=>{knob.style.transform=`translateX(${spring.x}px)`;knob.setAttribute('aria-valuenow',String(Math.round(spring.x)));onUpdate(spring)}});
+    knob.setAttribute('role','slider');knob.tabIndex=0;knob.setAttribute('aria-label','拖动并释放，或用左右键移动弹簧');knob.setAttribute('aria-valuemin','0');
+    const scale=()=>track.getBoundingClientRect().width/track.offsetWidth||1;
+    function down(e){if(e.button!==0||pointer!==null)return;pointer=e.pointerId;knob.setPointerCapture(pointer);spring.stop();const r=track.getBoundingClientRect();offset=(e.clientX-r.left)/scale()-spring.x;lastX=spring.x;lastT=performance.now();velocity=0;knob.dataset.dragging='true';knob.focus()}
+    function move(e){if(e.pointerId!==pointer)return;const now=performance.now(),x=Math.max(0,Math.min(max(),(e.clientX-track.getBoundingClientRect().left)/scale()-offset));velocity=Math.max(-1800,Math.min(1800,(x-lastX)/Math.max(.008,(now-lastT)/1000)));lastX=x;lastT=now;spring.jump(x)}
+    function release(e,cancel=false){if(e.pointerId!==pointer)return;const id=pointer;pointer=null;knob.dataset.dragging='false';if(knob.hasPointerCapture(id))knob.releasePointerCapture(id);if(performance.now()-lastT>100)velocity=0;spring.retarget(cancel?0:(spring.x+velocity*.12>max()/2?max():0),cancel?0:velocity)}
+    knob.addEventListener('pointerdown',down);knob.addEventListener('pointermove',move);knob.addEventListener('pointerup',e=>release(e));knob.addEventListener('pointercancel',e=>release(e,true));knob.addEventListener('lostpointercapture',e=>{if(pointer!==null)release(e,true)});
+    knob.addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();e.stopPropagation();spring.retarget(e.key==='Home'?0:e.key==='End'?max():Math.max(0,Math.min(max(),spring.target+(e.key==='ArrowRight'?80:-80))))}});
+    const ro=new ResizeObserver(()=>{knob.setAttribute('aria-valuemax',String(max()));if(pointer===null)spring.jump(Math.min(max(),spring.x))});ro.observe(track);
+    const hide=()=>{if(document.hidden&&pointer!==null)release({pointerId:pointer},true)};document.addEventListener('visibilitychange',hide);
+    return {spring,reset(){if(pointer!==null)release({pointerId:pointer},true);spring.jump(0)},destroy(){ro.disconnect();spring.destroy();document.removeEventListener('visibilitychange',hide)}};
+  };
+  K.mountPath=(path,nodes=[])=>{
+    const length=path.getTotalLength();path.style.strokeDasharray=length;
+    const spring=new K.Spring({stiffness:90,damping:22,onUpdate:()=>{const p=Math.max(0,Math.min(1,spring.x));path.style.strokeDashoffset=length*(1-p);nodes.forEach((node,i)=>{node.style.opacity=String(.18+.82*Math.max(0,Math.min(1,p*Math.max(1,nodes.length-1)-i+1)))})}});spring.jump(0);
+    return {spring,set:p=>spring.retarget(Math.max(0,Math.min(1,p))),reset:()=>spring.jump(0)};
+  };
+  K.mountImage=(host,src)=>{const img=new Image();img.alt=host.dataset.alt||'用户素材';img.hidden=true;const fallback=host.querySelector('.fallback');img.onload=()=>{img.hidden=false;fallback.hidden=true};img.onerror=()=>{img.hidden=true;fallback.hidden=false;host.dataset.missing='true'};host.append(img);if(src)img.src=src;return img};
+  class StateMachine {
+    constructor(initial,edges,onChange){this.initial=initial;this.state=initial;this.edges=edges;this.onChange=onChange;onChange(initial)}
+    dispatch(action){const next=this.edges[this.state]?.[action];if(next===undefined)return false;this.state=next;this.onChange(next);return true}
+    reset(){this.state=this.initial;this.onChange(this.state)}
+  }
+  K.StateMachine=StateMachine;
+  K.mountLight=el=>{el.addEventListener('pointermove',e=>{if(K.reduced())return;const r=el.getBoundingClientRect();el.style.setProperty('--light-x',`${(e.clientX-r.left)/r.width*100}%`);el.style.setProperty('--light-y',`${(e.clientY-r.top)/r.height*100}%`)})};
+})();
+
+</script><script>
+/* A reusable, deterministic event demonstration for both the Lab and Playground. */
+(() => {
+  const K=globalThis.Keynote;
+  K.arrivalMarkup=(label)=>`<article class="arrival-example"><header><span>${K.escape(label)}</span><strong data-status>Ready</strong></header><svg viewBox="0 0 600 230" role="img" aria-label="任务事件从左到右到达"><path d="M50 140H550" stroke="#d9e1ed" stroke-width="3"/><path data-edge d="M50 140H550" fill="none" stroke="#007aff" stroke-width="4"/><path data-arrow d="M538 132L550 140L538 148" fill="none" stroke="#007aff" stroke-width="4"/><circle data-node cx="550" cy="140" r="25" fill="#f5f8fc" stroke="#c4cedc" stroke-width="3"/><circle data-flight cx="50" cy="140" r="8" fill="#007aff"/><text data-edge-label x="300" y="97" fill="#005fc7" text-anchor="middle">EVENT</text></svg><p data-result>结果已提交 · 可以继续下一步</p></article>`;
+  K.mountArrival=(root,{smooth=true,onCommit=()=>{}}={})=>{
+    const $=s=>root.querySelector(s),edge=$('[data-edge]'),arrow=$('[data-arrow]'),node=$('[data-node]'),dot=$('[data-flight]'),result=$('[data-result]');
+    let semantic='Ready',resetting=false;
+    const feedback=new K.Settlement({root,text:$('[data-status]'),initial:'Ready',onCommit:value=>{semantic=value;onCommit(value)},bindings:[
+      {elements:[edge,arrow],property:'stroke',from:'#007aff',to:'#9dbde3'},
+      {elements:$('[data-edge-label]'),property:'fill',from:'#005fc7',to:'#4975a9'},
+      {elements:node,property:'stroke',from:'#c4cedc',to:'#007aff'},
+      {elements:$('[data-status]'),property:'color',from:'#626269',to:'#005fc7'},
+      {elements:result,property:'opacity',from:0,to:1}
+    ]});
+    const length=edge.getTotalLength();edge.style.strokeDasharray=length;
+    const render=()=>{
+      const p=Math.max(0,Math.min(1,progress.x));edge.style.strokeDashoffset=length*(1-p);
+      const xy=edge.getPointAtLength(p*length);dot.setAttribute('cx',xy.x);dot.setAttribute('cy',xy.y);dot.style.opacity=String(Math.min(1,(1-p)*25));arrow.style.opacity=String(Math.max(0,(p-.9)*10));
+      const next=p>=.9999?'Arrived':'Ready';
+      if(next!==semantic)feedback.commit(next,{emphasis:next==='Arrived'?1:0,instant:resetting||!smooth});
+      root.dataset.phase=semantic==='Arrived'||progress.settled()?feedback.phase:'Main Action';
+    };
+    const progress=new K.Spring({stiffness:65,damping:18,onUpdate:render,onRest:render});
+    const api={root,progress,feedback,get semantic(){return semantic},get phase(){return semantic==='Arrived'||progress.settled()?feedback.phase:'Main Action'},
+      play(){if(progress.x>=.9999)api.reset();root.dataset.phase='Preparation';progress.retarget(1);root.dataset.phase='Main Action'},
+      interrupt(){progress.retarget(progress.target?0:1)},reverse(){progress.retarget(0)},
+      reset(){resetting=true;progress.jump(0);feedback.reset();root.dataset.phase='Stable State';resetting=false},
+      settle(){resetting=true;progress.jump(progress.target);feedback.settle();resetting=false;root.dataset.phase='Stable State'},
+      destroy(){progress.destroy();feedback.destroy()}
+    };api.reset();return api;
+  };
+  K.mountArrivalComparison=(host)=>{
+    host.innerHTML=K.arrivalMarkup('Before · 硬切')+K.arrivalMarkup('After · 连续收尾');
+    const children=[...host.children],before=K.mountArrival(children[0],{smooth:false}),after=K.mountArrival(children[1]);
+    return {before,after,play:()=>{before.play();after.play()},interrupt:()=>{before.interrupt();after.interrupt()},reverse:()=>{before.reverse();after.reverse()},reset:()=>{before.reset();after.reset()},settle:()=>{before.settle();after.settle()},destroy:()=>{before.destroy();after.destroy()}};
+  };
+})();
+
+</script><script>
+/* Optional procedural-scene refraction study. It does NOT sample arbitrary DOM. */
+(() => {
+  const K=globalThis.Keynote;
+  K.mountRefraction=(canvas,status)=>{
+    const gl=canvas.getContext('webgl',{antialias:false,alpha:false});
+    function fallback(){canvas.hidden=true;status.textContent='WebGL 不可用 · 已降级为 Stable Glass';canvas.parentElement.classList.add('glass')}
+    if(!gl){fallback();return {available:false,draw:()=>{}}}
+    const vertex='attribute vec2 p;varying vec2 uv;void main(){uv=p*.5+.5;gl_Position=vec4(p,0.,1.);}';
+    const fragment=`precision mediump float;varying vec2 uv;uniform vec2 light;uniform float power;
+      vec3 scene(vec2 p){float bands=smoothstep(.42,.48,sin(p.x*25.+p.y*8.)*.5+.5);return mix(vec3(.18,.43,.72),vec3(.84,.92,1.),bands)*(.8+.2*p.y);}
+      void main(){vec2 d=(uv-vec2(.5))*vec2(1.,1.3);float r=length(d);float mask=1.-smoothstep(.31,.33,r);vec2 sampleUV=uv+normalize(d+vec2(.001))*.065*power*mask;vec3 c=scene(sampleUV);float rim=exp(-abs(r-.32)*95.);float shine=pow(max(0.,1.-length(uv-light)),16.);c=mix(c,c*.8+vec3(.2),mask*.3);gl_FragColor=vec4(c+rim*.32+shine*.23,1.);}`;
+    function shader(type,source){const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s}
+    let program;
+    try{program=gl.createProgram();const v=shader(gl.VERTEX_SHADER,vertex),f=shader(gl.FRAGMENT_SHADER,fragment);gl.attachShader(program,v);gl.attachShader(program,f);gl.linkProgram(program);gl.deleteShader(v);gl.deleteShader(f);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error('Shader link failed')}catch{fallback();return {available:false,draw:()=>{}}}
+    gl.useProgram(program);const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);const pos=gl.getAttribLocation(program,'p');gl.enableVertexAttribArray(pos);gl.vertexAttribPointer(pos,2,gl.FLOAT,false,0,0);
+    let lost=false;const draw=(x=.3,y=.7)=>{if(lost||document.hidden)return;gl.viewport(0,0,canvas.width,canvas.height);gl.uniform2f(gl.getUniformLocation(program,'light'),x,y);gl.uniform1f(gl.getUniformLocation(program,'power'),K.reduced()?0:1);gl.drawArrays(gl.TRIANGLES,0,6)};
+    canvas.addEventListener('pointermove',e=>{if(!K.reduced()){const r=canvas.getBoundingClientRect();draw((e.clientX-r.left)/r.width,1-(e.clientY-r.top)/r.height)}});canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();lost=true;fallback()});document.addEventListener('keynote-motion-change',()=>draw());draw();status.textContent='WebGL · 自有程序背景折射示意';return {get available(){return !lost},draw,destroy(){lost=true;gl.deleteBuffer(buffer);gl.deleteProgram(program)}};
+  };
+})();
+
+/* material: independently authored, explicit-texture glass. No DOM capture and no third-party component code. */
+(() => {
+ const K=globalThis.Keynote,NS='http://www.w3.org/2000/svg';let serial=0;
+ const svg=(tag,attrs={})=>{const n=document.createElementNS(NS,tag);for(const [k,v] of Object.entries(attrs))n.setAttribute(k,v);return n};
+ const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+ // Deliberately observable calibration source, shared byte-for-byte by every renderer.
+ K.createGlassBackdrop=(w=1000,h=450)=>{
+  const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');
+  x.fillStyle='#dceaf4';x.fillRect(0,0,w,h);
+  const g=x.createLinearGradient(0,0,w,h);g.addColorStop(0,'#c9e8ff');g.addColorStop(.5,'#eef5f9');g.addColorStop(1,'#aecadd');x.fillStyle=g;x.fillRect(0,0,w,h);
+  x.strokeStyle='#a0b8ca';x.lineWidth=1;
+  for(let i=0;i<w;i+=32){x.beginPath();x.moveTo(i,0);x.lineTo(i,h);x.stroke()}
+  for(let i=0;i<h;i+=32){x.beginPath();x.moveTo(0,i);x.lineTo(w,i);x.stroke()}
+  ['#0873cf','#de575d','#118976'].forEach((color,i)=>{x.strokeStyle=color;x.lineWidth=7;x.beginPath();x.moveTo(100+i*90,0);x.lineTo(540+i*90,h);x.stroke()});
+  x.fillStyle='#1269af';x.fillRect(w*.78,0,23,h);x.fillStyle='#f4f9ff';x.fillRect(w*.78+23,0,18,h);
+  x.strokeStyle='#297dba';x.lineWidth=4;x.beginPath();x.arc(w*.58,h*.46,105,0,Math.PI*2);x.stroke();return c;
+ };
+ // Signed-distance normals: neutral at the center, a smooth finite lens band at the edge.
+ function shapeMap(w,h,r=32){
+  const c=document.createElement('canvas');c.width=Math.round(w);c.height=Math.round(h);const x=c.getContext('2d'),im=x.createImageData(c.width,c.height),band=40;
+  for(let y=0;y<c.height;y++)for(let i=0;i<c.width;i++){
+   const px=i-w/2,py=y-h/2,qx=Math.abs(px)-(w/2-r),qy=Math.abs(py)-(h/2-r),ox=Math.max(qx,0),oy=Math.max(qy,0),len=Math.hypot(ox,oy);
+   const d=len+Math.min(Math.max(qx,qy),0)-r,inside=-d;
+   let nx,ny;if(len>0){nx=ox/len*Math.sign(px);ny=oy/len*Math.sign(py)}else {nx=qx>qy?Math.sign(px):0;ny=qy>=qx?Math.sign(py):0}
+   const t=clamp(inside/band,0,1),amp=inside>=0&&inside<band?Math.sin(Math.PI*t):0,k=(y*c.width+i)*4;
+   im.data[k]=Math.round(128+nx*amp*120);im.data[k+1]=Math.round(128+ny*amp*120);im.data[k+2]=128;im.data[k+3]=255;
+  }x.putImageData(im,0,0);return c;
+ }
+ // Explicit Canvas/Image texture only. Rect is in the backdrop's logical coordinate system.
+ K.mountTextureRefraction=(canvas,{backdrop,rect,params,onFallback=()=>{}}={})=>{
+  let gl,program,buffer,texture,lost=false,draws=0;const timings=[];
+  const fail=reason=>{lost=true;onFallback(reason);return false};
+  if(!backdrop||!rect||rect.w*rect.h>1000000)return {available:false,reason:'missing texture or pixel budget',draw:()=>false,destroy(){}};
+  try{
+   gl=canvas.getContext('webgl',{alpha:false,antialias:false,preserveDrawingBuffer:true});if(!gl)throw Error('WebGL unavailable');
+   const inputWidth=backdrop.width||backdrop.naturalWidth,inputHeight=backdrop.height||backdrop.naturalHeight,maxTexture=gl.getParameter(gl.MAX_TEXTURE_SIZE);
+   if(!inputWidth||!inputHeight||inputWidth>maxTexture||inputHeight>maxTexture)throw Error('texture not decoded or exceeds GPU limit');
+   const compile=(type,src)=>{const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s};
+   const v=compile(gl.VERTEX_SHADER,'attribute vec2 p;varying vec2 uv;void main(){uv=(p+1.)*.5;gl_Position=vec4(p,0.,1.);}');
+   const f=compile(gl.FRAGMENT_SHADER,`precision highp float;varying vec2 uv;uniform sampler2D bg;uniform vec2 size,origin,full;uniform float strength,aberration,blur;
+    vec2 bend(vec2 p){vec2 q=abs(p-size*.5)-(size*.5-vec2(32.));vec2 o=max(q,0.);float d=length(o)+min(max(q.x,q.y),0.)-32.;float inside=-d;vec2 n=length(o)>.001?normalize(o)*sign(p-size*.5):(q.x>q.y?vec2(sign(p.x-size.x*.5),0.):vec2(0.,sign(p.y-size.y*.5)));return n*sin(clamp(inside/40.,0.,1.)*3.14159265)*.47;}
+    vec3 at(vec2 p){vec2 n=bend(p),base=(origin+p)/full;float rr=texture2D(bg,base+n*(strength+aberration)/full).r;float gg=texture2D(bg,base+n*strength/full).g;float bb=texture2D(bg,base+n*(strength-aberration)/full).b;return vec3(rr,gg,bb);}
+    void main(){vec2 p=vec2(uv.x,1.-uv.y)*size;vec3 c=at(p)*.4;c+=at(p+vec2(blur,0.))*.15;c+=at(p-vec2(blur,0.))*.15;c+=at(p+vec2(0.,blur))*.15;c+=at(p-vec2(0.,blur))*.15;gl_FragColor=vec4(c,1.);}`);
+   program=gl.createProgram();gl.attachShader(program,v);gl.attachShader(program,f);gl.linkProgram(program);gl.deleteShader(v);gl.deleteShader(f);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error('link failed');
+   gl.useProgram(program);buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);const pos=gl.getAttribLocation(program,'p');gl.enableVertexAttribArray(pos);gl.vertexAttribPointer(pos,2,gl.FLOAT,false,0,0);
+   texture=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,texture);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,backdrop);if(gl.getError()!==gl.NO_ERROR)throw Error('GPU texture upload failed');
+  }catch(e){fail(e.message)}
+  const draw=(p=params,r=rect)=>{if(lost||document.hidden)return false;const start=performance.now();try{
+   canvas.width=Math.round(r.w);canvas.height=Math.round(r.h);gl.viewport(0,0,canvas.width,canvas.height);gl.useProgram(program);
+   for(const [key,val]of Object.entries({size:[r.w,r.h],origin:[r.x,r.y],full:[backdrop.width||backdrop.naturalWidth,backdrop.height||backdrop.naturalHeight]}))gl.uniform2f(gl.getUniformLocation(program,key),...val);
+   for(const [key,val]of Object.entries({strength:p.distortion,aberration:p.aberration,blur:p.blur}))gl.uniform1f(gl.getUniformLocation(program,key),val);
+   gl.drawArrays(gl.TRIANGLES,0,6);draws++;timings.push(performance.now()-start);if(timings.length>120)timings.shift();return true;
+  }catch(e){return fail(e.message)}};
+  const loss=e=>{e.preventDefault();fail('context lost')};canvas.addEventListener('webglcontextlost',loss);
+  return {get available(){return !lost},draw,get stats(){return {draws,cpuSubmitMs:[...timings],pixels:canvas.width*canvas.height}},destroy(){canvas.removeEventListener('webglcontextlost',loss);lost=true;if(gl){if(texture)gl.deleteTexture(texture);if(buffer)gl.deleteBuffer(buffer);if(program)gl.deleteProgram(program)}}};
+ };
+ K.mountGlass=(surface,{backdrop=null,rect=null,status=null,mode='stable',forceFallback=false,onFallback=()=>{}}={})=>{
+  const id='keynote-optic-'+(++serial),params={distortion:40,blur:1,aberration:3,opacity:.18,rim:.6},statusFeedback=status&&K.mountText?K.mountText(status):null;let renderer='Frosted Fallback',reason='',dead=false,sourceURL='',lastMap='';
+  surface.classList.add('optical-surface');
+  const content=document.createElement('div');content.className='optical-content';content.append(...surface.childNodes);
+  const optics=svg('svg',{'aria-hidden':'true',class:'optical-pixels',preserveAspectRatio:'none'}),defs=svg('defs'),filter=svg('filter',{id,filterUnits:'userSpaceOnUse','color-interpolation-filters':'sRGB'}),map=svg('feImage',{result:'lens-raw',preserveAspectRatio:'none'});
+  filter.append(map,svg('feColorMatrix',{in:'lens-raw',result:'lens-map',type:'matrix',values:'1 0 0 0 -0.0019607843 0 1 0 0 -0.0019607843 0 0 1 0 0 0 0 0 1 0'}));const channels=[];
+  ['R','G','B'].forEach((ch,i)=>{const disp=svg('feDisplacementMap',{in:'SourceGraphic',in2:'lens-map',xChannelSelector:'R',yChannelSelector:'G',result:'d'+i});channels.push(disp);filter.append(disp);const matrix=Array(20).fill(0);matrix[i*5+i]=1;matrix[18]=1;filter.append(svg('feColorMatrix',{in:'d'+i,type:'matrix',values:matrix.join(' '),result:'c'+i}))});
+  filter.append(svg('feBlend',{in:'c0',in2:'c1',mode:'screen',result:'rg'}),svg('feBlend',{in:'rg',in2:'c2',mode:'screen',result:'rgb'}));const blur=svg('feGaussianBlur',{in:'rgb',stdDeviation:1});filter.append(blur);defs.append(filter);optics.append(defs);
+  const image=svg('image',{filter:`url(#${id})`,preserveAspectRatio:'none'});optics.append(image);
+  const canvas=document.createElement('canvas');canvas.className='optical-pixels';canvas.setAttribute('aria-hidden','true');
+  const frost=document.createElement('div');frost.className='optical-frost';const rim=document.createElement('div');rim.className='optical-rim';surface.append(optics,canvas,frost,rim,content);
+  let r=rect||{x:0,y:0,w:surface.clientWidth,h:surface.clientHeight};
+  const supported=()=>!forceFallback&&!!backdrop&&!!sourceURL&&typeof SVGFEDisplacementMapElement!=='undefined';
+  function source(){try{sourceURL=backdrop instanceof HTMLCanvasElement?backdrop.toDataURL():backdrop?.src||''}catch{sourceURL='';reason='background input unreadable'}}source();
+  let webgl=null;webgl=K.mountTextureRefraction(canvas,{backdrop,rect:r,params,onFallback:why=>{reason=why;render();onFallback(why)}});
+  function render(){if(dead)return;const opaque=document.documentElement.classList.contains('opaque')||matchMedia('(prefers-reduced-transparency: reduce)').matches;
+   renderer=mode==='advanced'&&!forceFallback&&webgl?.available&&!opaque?'WebGL':mode==='optical'&&supported()&&!opaque?'SVG':'Frosted Fallback';
+   if(mode==='advanced'&&renderer!=='WebGL'&&!reason)reason='WebGL / texture / pixel budget unavailable';
+   surface.dataset.renderer=renderer;surface.dataset.mode=mode;optics.toggleAttribute('hidden',renderer!=='SVG');canvas.hidden=renderer!=='WebGL';
+   surface.style.setProperty('--optical-opacity',opaque?1:params.opacity);surface.style.setProperty('--optical-rim',params.rim);surface.style.setProperty('--optical-blur',params.blur+'px');surface.style.setProperty('--optical-frost',renderer==='Frosted Fallback'?'blur('+params.blur+'px) saturate(1.12)':'none');
+   if(renderer==='SVG'){
+    optics.setAttribute('viewBox',`0 0 ${r.w} ${r.h}`);for(const n of [filter,map])for(const [k,v]of Object.entries({x:0,y:0,width:r.w,height:r.h}))n.setAttribute(k,v);
+    const key=r.w+'x'+r.h;if(key!==lastMap){lastMap=key;map.setAttribute('href',shapeMap(r.w,r.h).toDataURL())}
+    for(const [k,v]of Object.entries({x:-r.x,y:-r.y,width:backdrop.width||backdrop.naturalWidth,height:backdrop.height||backdrop.naturalHeight,href:sourceURL}))image.setAttribute(k,v);
+    channels.forEach((n,i)=>n.setAttribute('scale',params.distortion+(1-i)*params.aberration));blur.setAttribute('stdDeviation',params.blur);
+   }else if(renderer==='WebGL')webgl.draw(params,r);
+   if(status){const label=`${renderer}${reason&&renderer==='Frosted Fallback'?' · '+reason:''} · ${backdrop?'explicit texture':'no texture'}`;if(statusFeedback)statusFeedback.set(label);else{status.dataset.value=label;status.textContent=label}}
+  }
+  const move=e=>{if(K.reduced())return;const b=surface.getBoundingClientRect();surface.style.setProperty('--optical-light-x',100*(e.clientX-b.left)/b.width+'%');surface.style.setProperty('--optical-light-y',100*(e.clientY-b.top)/b.height+'%')};surface.addEventListener('pointermove',move);
+  const observer=new MutationObserver(()=>render());observer.observe(document.documentElement,{attributes:true,attributeFilter:['class']});
+  const resize=new ResizeObserver(()=>{if(!rect){r={...r,w:surface.clientWidth,h:surface.clientHeight};render()}});resize.observe(surface);
+  render();return {setMode(next){mode=next;reason='';render()},set(next){for(const k of Object.keys(params))if(k in next)params[k]=clamp(Number(next[k]),0,k==='opacity'||k==='rim'?1:k==='blur'?28:80);render()},get renderer(){return renderer},get params(){return {...params}},get available(){return !!webgl?.available&&!forceFallback},get stats(){return webgl?.stats},setBackdrop(next,nextRect=r){backdrop=next;r=nextRect;source();webgl.destroy();reason='texture replaced; remount for WebGL';render()},destroy(){dead=true;resize.disconnect();observer.disconnect();statusFeedback?.destroy();surface.removeEventListener('pointermove',move);webgl.destroy();optics.remove();canvas.remove();frost.remove();rim.remove();surface.append(...content.childNodes);content.remove()}};
+ };
+})();
+
+</script><script>
+(() => {
+  const K=globalThis.Keynote,$=s=>document.querySelector(s),lab=globalThis.lab={};
+  lab.drag=K.mountDrag($('.drag-track'),$('#drag-knob'),{onUpdate:s=>$('#spring-state').textContent=`x ${s.x.toFixed(1)} / v ${s.v.toFixed(1)} px/s`});
+  function parameters(){const p={};for(const key of ['stiffness','damping','mass']){p[key]=Number($('#'+key).value);$('#'+key+'-value').textContent=p[key]}lab.drag.spring.configure(p);$('#damping-ratio').textContent=`Damping ratio ζ = ${(p.damping/(2*Math.sqrt(p.stiffness*p.mass))).toFixed(2)}`}
+  ['stiffness','damping','mass'].forEach(key=>$('#'+key).addEventListener('input',parameters));parameters();$('#spring-reset').onclick=()=>lab.drag.reset();
+  const curves=[['Linear','linear'],['Smooth out',K.ease.smooth],['Emphasized out',K.ease.emphasized],['In / Out',K.ease.inOut],['Spring','stateful k=210 c=28 m=1']];
+  $('#bezier-tracks').innerHTML=curves.map(([label,curve])=>`<div class="bezier-row"><div><strong>${label}</strong><small>${curve}</small></div><div class="bezier-track"><i class="bezier-dot"></i></div></div>`).join('');
+  lab.bezierSpring=new K.Spring({onUpdate:()=>{const dot=$('#bezier-tracks .bezier-row:last-child .bezier-dot');dot.style.transform=`translateX(${lab.bezierSpring.x}px)`}});
+  let forward=false;$('#bezier-play').onclick=()=>{forward=!forward;$('#bezier-tracks').querySelectorAll('.bezier-dot').forEach((dot,i)=>{const x=forward?dot.parentElement.clientWidth-40:0;if(i===4){lab.bezierSpring.retarget(x);return}const current=getComputedStyle(dot).transform;K.cancelAnimations(dot);const target=`translateX(${x}px)`;dot.style.transform=target;K.animate(dot,[{transform:current},{transform:target}],{duration:1000,easing:curves[i][1]})})};
+  document.querySelectorAll('.glass-enhanced').forEach(K.mountLight);lab.refraction=K.mountRefraction($('#refraction'),$('#shader-status'));
+  $('#opaque').onclick=()=>{const on=document.documentElement.classList.toggle('opaque');$('#opaque').setAttribute('aria-pressed',String(on))};
+  $('#reduce').onclick=()=>{const on=document.documentElement.classList.toggle('static');$('#reduce').setAttribute('aria-pressed',String(on));if(on){K.settleSprings();K.cancelAnimations()}document.dispatchEvent(new Event('keynote-motion-change'))};
+  $('#measure').onclick=()=>{const button=$('#measure');if(button.disabled)return;button.disabled=true;const intervals=[];let prev=performance.now();const tick=now=>{if(document.hidden){$('#performance-result').textContent='页面隐藏，测量取消';button.disabled=false;return}intervals.push(now-prev);prev=now;lab.refraction.draw(.3+intervals.length/250,.7);if(intervals.length<90)requestAnimationFrame(tick);else{const sorted=intervals.slice(1).sort((a,b)=>a-b);$('#performance-result').textContent=`${sorted.length} 帧 · 中位 ${sorted[Math.floor(sorted.length*.5)].toFixed(1)} ms · P95 ${sorted[Math.floor(sorted.length*.95)].toFixed(1)} ms`;button.disabled=false}};requestAnimationFrame(tick)};
+  lab.morph=K.mountMorph($('#shared-card'));lab.capsule=K.mountMorph($('#capsule'),{compact:{w:235,h:92},expanded:{w:500,h:240},capsule:true});
+  const sceneStage=$('#scene-stage');lab.scenes=new K.SceneMotion(sceneStage,[...sceneStage.querySelectorAll('.mini-scene')]);let recipe='cross-dissolve';
+  const modes=['cross-dissolve','morph','spatial-slide','camera-zoom','camera-pan'];lab.segments=K.mountSegments($('#transition-select'),i=>recipe=modes[i]);
+  const go=n=>{lab.scenes.go(n,recipe);$('#scene-state').textContent=n?'Detail':'Overview'};$('#scene-prev').onclick=()=>go(0);$('#scene-next').onclick=()=>go(1);$('#scene-reset').onclick=()=>{lab.scenes.go(0,recipe,true);$('#scene-state').textContent='Overview'};
+  $('#scene-frame').addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home'].includes(e.key)){e.preventDefault();e.stopPropagation();go(e.key==='ArrowRight'?1:0)}});
+  new ResizeObserver(()=>sceneStage.style.transform=`scale(${$('#scene-frame').clientWidth/1100})`).observe($('#scene-frame'));
+  const labels=['IF','ID','EX','MEM','WB'];$('#path-nodes').innerHTML=labels.map((label,i)=>`<g><circle cx="${80+i*210}" cy="110" r="15" fill="#f5f5f7" stroke="#007aff" stroke-width="4"/><text x="${80+i*210}" y="165" text-anchor="middle">${label}</text></g>`).join('');
+  lab.path=K.mountPath($('.path-active'),[...$('#path-nodes').children]);let step=0;
+  function pathStep(n,reset=false){step=Math.max(0,Math.min(4,n));reset?lab.path.reset():lab.path.set(step/4);$('#path-count').textContent=`${step} / 4`;$('#path-description').textContent=['IF / 取指：获得指令。','ID / 译码：识别指令与源寄存器。','EX / 执行：计算结果或地址。','MEM / 访存：按指令需要访问数据存储器。','WB / 写回：按指令需要更新目的寄存器。'][step];$('#path-prev').disabled=step===0;$('#path-next').disabled=step===4}
+  $('#path-prev').onclick=()=>pathStep(step-1);$('#path-next').onclick=()=>pathStep(step+1);$('#path-reset').onclick=()=>pathStep(0,true);pathStep(0,true);
+  const descriptions={idle:'待处理：尚未开始。',running:'执行中：可以完成，不能再次开始。',done:'完成：重置后才能重新开始。'};
+  lab.arrival=K.mountArrivalComparison($('#settlement-comparison'));
+  ['replay','interrupt','reverse','reset'].forEach(name=>$('#settlement-'+name).onclick=()=>lab.arrival[name==='replay'?'play':name]());
+  let burstFrame=0;$('#scene-burst').onclick=()=>{cancelAnimationFrame(burstFrame);let previous=-1,start=performance.now();const frame=now=>{if(document.hidden)return;const n=Math.min(7,Math.floor((now-start)/100));if(n!==previous){previous=n;go(n%2)}if(n<7)burstFrame=requestAnimationFrame(frame);else burstFrame=0};burstFrame=requestAnimationFrame(frame)};
+  const oldSceneReset=$('#scene-reset').onclick;$('#scene-reset').onclick=()=>{cancelAnimationFrame(burstFrame);burstFrame=0;oldSceneReset()};
+  lab.machine=new K.StateMachine('idle',{idle:{start:'running'},running:{finish:'done'}},state=>{document.querySelectorAll('[data-state-node]').forEach(b=>b.setAttribute('aria-current',String(b.dataset.stateNode===state)));$('#machine-detail').textContent=descriptions[state];$('#machine-start').disabled=state!=='idle';$('#machine-finish').disabled=state!=='running'});
+  document.querySelectorAll('[data-state-node]').forEach(b=>b.onclick=()=>$('#machine-detail').textContent=descriptions[b.dataset.stateNode]+' 点击状态仅查看说明。');$('#machine-start').onclick=()=>lab.machine.dispatch('start');$('#machine-finish').onclick=()=>lab.machine.dispatch('finish');$('#machine-reset').onclick=()=>lab.machine.reset();
+})();
+
+</script></body></html>

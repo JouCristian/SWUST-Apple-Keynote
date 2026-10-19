@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "date": "2026-10-19",
+  "status": "CLEAR",
+  "blockers": [],
+  "authorization": "Rights holder explicitly confirmed authority to license original code under MIT; original authored documentation, diagrams and fresh demo captures included.",
+  "originalLicense": "MIT",
+  "thirdPartyRuntimeVendored": false,
+  "reactBits": {
+    "upstreamLicense": "MIT + Commons Clause",
+    "componentSourceOrPortDistributed": false,
+    "decision": "Excluded upstream downloads; retain independently authored native explicit-texture study with Experimental status.",
+    "review": "LICENSE-AUDIT.md"
+  },
+  "excluded": ["historical user decks and media", "upstream research snapshots", "browser binaries", "node_modules", "Python packages", "old QA reports"],
+  "limitation": "Engineering provenance review of available files, not legal certification or a guarantee about unknown provenance. New external assets require separate review."
+}

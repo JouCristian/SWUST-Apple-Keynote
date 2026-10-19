@@ -1,0 +1,45 @@
+{
+  "schema": 2,
+  "rootFiles": [
+    "SKILL.md",
+    "README.md",
+    "README.zh-CN.md",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md",
+    "version.json",
+    ".gitignore",
+    ".gitattributes",
+    "package.json",
+    "requirements-dev.txt"
+  ],
+  "commonRoots": [
+    "references",
+    "scripts",
+    "assets",
+    "dist",
+    "docs",
+    "audit",
+    "release"
+  ],
+  "fullAuditRoots": [],
+  "excludedParts": [
+    "__pycache__",
+    "node_modules",
+    ".cache",
+    ".git",
+    "browser-cache",
+    "qa",
+    ".venv"
+  ],
+  "excludedSuffixes": [
+    ".pyc",
+    ".pyo",
+    ".zip",
+    ".tmp",
+    ".log",
+    ".bak"
+  ],
+  "notes": "Public slim only; no internal cases, reports, research downloads or dependencies."
+}

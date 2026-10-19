@@ -1,0 +1,8 @@
+{
+  "status": "starter; replace with an agent-authored content plan",
+  "audience": "to be derived from the user's material",
+  "slides": [
+    {"id":"opening","type":"cinematic","goal":"Establish the purpose","contentRole":"opening","primaryObject":"central idea","precedingRelationship":"start","followingRelationship":"concept-to-concept","interactionType":"none","transitionIntent":"soft-fade","sharedElementIdentifiers":[]},
+    {"id":"structure","type":"concept","goal":"Explain the relationship","contentRole":"explanation","primaryObject":"relationship","precedingRelationship":"new-chapter","followingRelationship":"end","interactionType":"none","transitionIntent":"scene-reset","sharedElementIdentifiers":[]}
+  ]
+}

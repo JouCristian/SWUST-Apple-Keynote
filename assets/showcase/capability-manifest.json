@@ -1,0 +1,327 @@
+{
+  "release": "1.0.0",
+  "title": "SWUST Keynote Lab",
+  "slides": [
+    {
+      "slideId": "meaning",
+      "number": 1,
+      "title": "Motion with Meaning",
+      "principle": "Object identity gives motion meaning",
+      "specifications": [
+        "references/design-system.md",
+        "references/validation.md"
+      ],
+      "implementation": [
+        "assets/templates/core/motion.js",
+        "assets/templates/core/tokens.css"
+      ],
+      "interaction": "focus shared object",
+      "expectedVisualResult": "Object relocates continuously",
+      "regressionRequirements": [
+        "shared geometry",
+        "five-state actual contrast and paired CSS"
+      ],
+      "status": "Verified",
+      "statusScope": "Chrome 155 + Edge 155 material smoke; 3 viewports; visual-quality report defines exact verified scope"
+    },
+    {
+      "slideId": "content",
+      "number": 2,
+      "title": "Content Becomes Experience",
+      "principle": "Content relationship selects composition",
+      "specifications": [
+        "references/content-mapping.md"
+      ],
+      "implementation": [
+        "assets/templates/core/components.js"
+      ],
+      "interaction": "three content modes",
+      "expectedVisualResult": "Concept, process and comparison use different layouts",
+      "regressionRequirements": [
+        "all mode layouts"
+      ],
+      "status": "Verified",
+      "statusScope": "Chrome 155.0.8059.80; actual behavioral test + 3-viewport layout test; no universal performance guarantee"
+    },
+    {
+      "slideId": "clarity",
+      "number": 3,
+      "title": "Clarity Is the Interface",
+      "principle": "Hierarchy reduces reading effort",
+      "specifications": [
+        "references/design-system.md"
+      ],
+      "implementation": [
+        "assets/templates/core/components.js"
+      ],
+      "interaction": "before/after",
+      "expectedVisualResult": "Same facts remain readable with deliberate hierarchy",
+      "regressionRequirements": [
+        "toggle preserves facts"
+      ],
+      "status": "Verified",
+      "statusScope": "Chrome 155.0.8059.80; actual behavioral test + 3-viewport layout test; no universal performance guarantee"
+    },
+    {
+      "slideId": "material",
+      "number": 4,
+      "title": "Material Has Meaning",
+      "principle": "Material separates controls from content",
+      "specifications": [
+        "references/glass-materials.md",
+        "references/design-system.md",
+        "references/validation.md"
+      ],
+      "implementation": [
+        "assets/templates/core/refraction.js",
+        "assets/templates/core/components.js",
+        "assets/templates/core/glass.css",
+        "assets/glass/glass-lab.js"
+      ],
+      "interaction": "three renderers / distortion / blur / RGB aberration / opacity / rim",
+      "expectedVisualResult": "Registered explicit-texture edge refraction; stable center; readable foreground",
+      "regressionRequirements": [
+        "actual pixel differences for applicable parameters",
+        "center stability",
+        "context/missing input/opaque fallback",
+        "bounded drawing"
+      ],
+      "status": "Experimental",
+      "statusScope": "Chrome 155 + Edge 155 material smoke; 3 viewports; visual-quality report defines exact verified scope",
+      "subcapabilities": {
+        "Stable Frosted": "Verified in Chrome; cross-browser smoke",
+        "Optical Glass": "Verified SVG actual pixel displacement in Chrome; Edge smoke",
+        "Advanced Refraction": "Experimental; explicit texture required; pixel/parameter/context fallback tested in Chrome"
+      }
+    },
+    {
+      "slideId": "physics",
+      "number": 5,
+      "title": "Motion Should Feel Physical",
+      "principle": "Direct manipulation preserves velocity",
+      "specifications": [
+        "references/motion-system.md"
+      ],
+      "implementation": [
+        "assets/templates/core/spring.js",
+        "assets/templates/core/components.js"
+      ],
+      "interaction": "drag/release/k/c/m",
+      "expectedVisualResult": "Actual damping and trajectory change",
+      "regressionRequirements": [
+        "scaled drag and parameter effects"
+      ],
+      "status": "Verified",
+      "statusScope": "Chrome 155.0.8059.80; actual behavioral test + 3-viewport layout test; no universal performance guarantee"
+    },
+    {
+      "slideId": "timing",
+      "number": 6,
+      "title": "Timing Creates Emotion",
+      "principle": "Authored time and stateful physics differ",
+      "specifications": [
+        "references/motion-system.md"
+      ],
+      "implementation": [
+        "assets/templates/core/spring.js",
+        "assets/templates/core/motion.js"
+      ],
+      "interaction": "replay and bezier controls",
+      "expectedVisualResult": "Equal displacement; distinct trajectories",
+      "regressionRequirements": [
+        "same distance and interruption"
+      ],
+      "status": "Verified",
+      "statusScope": "Chrome 155.0.8059.80; actual behavioral test + 3-viewport layout test; no universal performance guarantee"
+    },
+    {
+      "slideId": "identity",
+      "number": 7,
+      "title": "Identity Creates Continuity",
+      "principle": "One object survives expansion",
+      "specifications": [
+        "references/motion-system.md",
+        "references/design-system.md",
+        "references/validation.md"
+      ],
+      "implementation": [
+        "assets/templates/core/components.js"
+      ],
+      "interaction": "expand/reverse",
+      "expectedVisualResult": "DOM identity, position, size and radius persist",
+      "regressionRequirements": [
+        "identity and intermediate geometry",
+        "RAF collision samples through reverse and burst at three viewports"
+      ],
+      "status": "Verified",
+      "statusScope": "Chrome 155 + Edge 155 material smoke; 3 viewports; visual-quality report defines exact verified scope"
+    },
+    {
+      "slideId": "camera",
+      "number": 8,
+      "title": "A Camera with Intent",
+      "principle": "Content relationships choose camera behavior",
+      "specifications": [
+        "references/motion-system.md"
+      ],
+      "implementation": [
+        "assets/templates/core/motion.js"
+      ],
+      "interaction": "four semantic relationships",
+      "expectedVisualResult": "Distinct shared geometry/focus/chapter behavior",
+      "regressionRequirements": [
+        "recipes and shared continuity"
+      ],
+      "status": "Verified",
+      "statusScope": "Chrome 155.0.8059.80; actual behavioral test + 3-viewport layout test; no universal performance guarantee"
+    },
+    {
+      "slideId": "growth",
+      "number": 9,
+      "title": "Information Can Grow",
+      "principle": "Visible growth explains order",
+      "specifications": [
+        "references/interaction-patterns.md"
+      ],
+      "implementation": [
+        "assets/templates/core/components.js"
+      ],
+      "interaction": "next/previous/reset",
+      "expectedVisualResult": "Stable SVG grows and reverses",
+      "regressionRequirements": [
+        "reversal and reset"
+      ],
+      "status": "Verified",
+      "statusScope": "Chrome 155.0.8059.80; actual behavioral test + 3-viewport layout test; no universal performance guarantee"
+    },
+    {
+      "slideId": "settlement",
+      "number": 10,
+      "title": "The Motion Continues After Arrival",
+      "principle": "Semantic event and visual settlement are separate",
+      "specifications": [
+        "references/motion-system.md"
+      ],
+      "implementation": [
+        "assets/templates/core/settlement.js",
+        "assets/templates/core/arrival.js"
+      ],
+      "interaction": "replay/interrupt/reverse/reset",
+      "expectedVisualResult": "After interpolates line/head/text/result after commit",
+      "regressionRequirements": [
+        "sample intermediate colors and opacity"
+      ],
+      "status": "Verified",
+      "statusScope": "Chrome 155.0.8059.80; actual behavioral test + 3-viewport layout test; no universal performance guarantee"
+    },
+    {
+      "slideId": "response",
+      "number": 11,
+      "title": "Interfaces Respond",
+      "principle": "Feedback belongs to the action",
+      "specifications": [
+        "references/interaction-patterns.md",
+        "references/design-system.md",
+        "references/validation.md"
+      ],
+      "implementation": [
+        "assets/templates/core/components.js",
+        "assets/templates/core/settlement.js"
+      ],
+      "interaction": "press/segment/slider/capsule/card",
+      "expectedVisualResult": "Each control produces immediate meaningful feedback",
+      "regressionRequirements": [
+        "all five controls",
+        "symmetric compact/header gaps <= 2 logical px",
+        "emphasis leaves text opaque"
+      ],
+      "status": "Verified",
+      "statusScope": "Chrome 155 + Edge 155 material smoke; 3 viewports; visual-quality report defines exact verified scope"
+    },
+    {
+      "slideId": "state",
+      "number": 12,
+      "title": "State Is the Source of Truth",
+      "principle": "Only valid edges change the model",
+      "specifications": [
+        "references/interaction-patterns.md"
+      ],
+      "implementation": [
+        "assets/templates/core/components.js",
+        "assets/templates/core/settlement.js"
+      ],
+      "interaction": "ready/start/complete/reset",
+      "expectedVisualResult": "Illegal actions rejected; visual feedback follows model",
+      "regressionRequirements": [
+        "finite-state legality"
+      ],
+      "status": "Verified",
+      "statusScope": "Chrome 155.0.8059.80; actual behavioral test + 3-viewport layout test; no universal performance guarantee"
+    },
+    {
+      "slideId": "pressure",
+      "number": 13,
+      "title": "Fluid, Even Under Pressure",
+      "principle": "Newest intent retargets the same state",
+      "specifications": [
+        "references/motion-system.md"
+      ],
+      "implementation": [
+        "assets/templates/core/spring.js"
+      ],
+      "interaction": "four targets and bounded burst",
+      "expectedVisualResult": "Position/velocity continuous; no queue",
+      "regressionRequirements": [
+        "midflight retarget and finite burst"
+      ],
+      "status": "Verified",
+      "statusScope": "Chrome 155.0.8059.80; actual behavioral test + 3-viewport layout test; no universal performance guarantee"
+    },
+    {
+      "slideId": "access",
+      "number": 14,
+      "title": "Performance Is Part of Design",
+      "principle": "Accessibility is an operating mode",
+      "specifications": [
+        "references/engineering.md"
+      ],
+      "implementation": [
+        "assets/templates/core/spring.js",
+        "assets/templates/core/runtime.js",
+        "assets/templates/core/settlement.js"
+      ],
+      "interaction": "reduced/static/opaque/sample",
+      "expectedVisualResult": "Correct stable state without decorative work",
+      "regressionRequirements": [
+        "reduced motion and idle scheduling"
+      ],
+      "status": "Verified",
+      "statusScope": "Chrome 155.0.8059.80; actual behavioral test + 3-viewport layout test; no universal performance guarantee"
+    },
+    {
+      "slideId": "evolve",
+      "number": 15,
+      "title": "Designed to Evolve",
+      "principle": "Capabilities evolve through evidence",
+      "specifications": [
+        "references/validation.md"
+      ],
+      "implementation": [
+        "assets/templates/core/components.js"
+      ],
+      "interaction": "replay workflow/revisit",
+      "expectedVisualResult": "A six-stage workflow connects evidence back to design",
+      "regressionRequirements": [
+        "manifest integrity and navigation"
+      ],
+      "status": "Verified",
+      "statusScope": "Chrome 155.0.8059.80; actual behavioral test + 3-viewport layout test; no universal performance guarantee"
+    }
+  ],
+  "engineeringQuality": {
+    "universalCore": "scripts/visual-quality.cjs",
+    "caseFixtures": "scripts/showcase-visual-fixtures.cjs",
+    "universalGateScope": "Every newly generated deck; PASS/FAIL/REVIEW/SKIP/ERROR",
+    "evidence": "qa/universal-acceptance/regression-report.json"
+  }
+}

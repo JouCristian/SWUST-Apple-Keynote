@@ -1,0 +1,722 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>SWUST Keynote Lab · Motion with Meaning</title><style>
+:root{--background:#f5f5f7;--surface:#fff;--text:#1d1d1f;--muted:#626269;--accent:#007aff;--link:#005fc7;--divider:#d9dbe1;--radius:28px;--ease-smooth:cubic-bezier(.16,1,.3,1);--ease-emphasized:cubic-bezier(.22,1,.36,1);--ease-in-out:cubic-bezier(.65,0,.35,1);--font:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei UI",sans-serif;--mono:ui-monospace,"Cascadia Code",Consolas,monospace}
+.state-text-stack{display:inline-grid;vertical-align:top;min-width:0}.state-text-current,.state-text-previous{grid-area:1/1;white-space:inherit}.state-text-current{opacity:1}.state-text-previous{opacity:0;pointer-events:none}
+.reduce-motion *,.reduce-motion *:before,.reduce-motion *:after{animation:none!important;transition:none!important}
+*{box-sizing:border-box}html,body{margin:0;font-family:var(--font);color:var(--text);background:var(--background)}button,input,select{font:inherit}button{cursor:pointer;color:inherit;touch-action:manipulation}button:disabled{opacity:.38;cursor:default}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--accent);outline-offset:5px}button{border:1px solid var(--divider);background:var(--surface);border-radius:12px;padding:11px 18px;transition:background-color 180ms,color 180ms,box-shadow 180ms,scale 120ms var(--ease-smooth)}button:hover:not(:disabled){background:#e9f2ff}button:active:not(:disabled){scale:.975}button.primary{background:#006bd6;color:white;border-color:transparent}p,h1,h2,h3,figure{margin:0}p{line-height:1.55}code,pre{font-family:var(--mono)}.blue{color:var(--link)}.muted{color:var(--muted)}.eyebrow{font-size:23px;letter-spacing:3px;text-transform:uppercase;font-weight:600;color:var(--muted)}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}[hidden]{display:none!important}
+.theme-dark{--background:#101114;--surface:#1d2026;--text:#f5f5f7;--muted:#b5b7bf;--accent:#72b6ff;--link:#72b6ff;--divider:#3d424b;background:var(--background);color:var(--text)}.theme-spatial{--background:#e9eef5;--surface:#fafdff;--muted:#525967;--divider:#c8d0db;background:var(--background)}
+.deck-viewport{position:fixed;inset:0;overflow:hidden;background:#dfe1e6}.stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;margin:-540px 0 0 -960px;transform-origin:center;overflow:hidden;background:var(--background)}.scene{position:absolute;inset:0;padding:106px 112px 130px;background:var(--background);visibility:hidden;isolation:isolate;overflow:hidden}.scene:first-child{visibility:visible}.scene h1{font-size:156px;line-height:1.08;letter-spacing:-7px;font-weight:650}.scene h2{font-size:78px;line-height:1.25;letter-spacing:-2.5px;font-weight:650}.scene h3{font-size:38px;line-height:1.35}.scene p{font-size:32px}.scene .lead{font-size:32px;color:var(--muted);margin-top:24px;max-width:1430px}.scene .eyebrow{margin-bottom:26px}.scene .body{margin-top:66px}.scene .caption{font-size:25px;color:var(--muted)}.split{display:grid;grid-template-columns:1fr 1fr;gap:76px}.open-column{border-top:2px solid var(--divider);padding-top:32px}.stack{display:grid;gap:24px}.scene button{font-size:26px;padding:15px 24px}.scene code{font-size:.93em}.deck-brand{position:absolute;right:112px;top:43px;font-size:22px;letter-spacing:2px;font-weight:650}
+.glass{background:rgba(250,252,255,.88);border:1px solid #ffffffc4;box-shadow:0 8px 32px #172c4912,inset 0 1px 0 #fff9;border-radius:24px;color:#1d1d1f}.glass-enhanced{position:relative;isolation:isolate;background:rgba(246,251,255,.76);box-shadow:0 14px 38px #163a5c25,inset 0 1px 1px white}.glass-enhanced:before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;background:radial-gradient(ellipse at var(--light-x,30%) var(--light-y,10%),#fff9,transparent 60%);opacity:.8}.glass-enhanced:after{content:"";position:absolute;inset:0;border-radius:inherit;border:1px solid #fff8;pointer-events:none;filter:url(#optical-edge);opacity:.22;background:linear-gradient(130deg,transparent 30%,#fff6 50%,transparent 70%);z-index:-1}@supports(backdrop-filter:blur(1px)){.glass{backdrop-filter:blur(16px) saturate(1.25);background:rgba(250,252,255,.7)}}.opaque .glass{backdrop-filter:none;background:#fafdff}.opaque .glass:after{display:none}
+.deck-controls{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:50;display:flex;gap:6px;align-items:center;padding:7px 12px;border-radius:24px;max-width:calc(100vw - 20px)}.deck-controls button{border:0;background:transparent;font-size:13px;padding:9px 11px;min-height:36px;white-space:nowrap}.deck-controls button:hover{background:#007aff13}.deck-controls output{font:13px var(--mono);padding:0 8px;white-space:nowrap}.deck-progress{position:fixed;bottom:0;left:0;height:3px;width:100%;background:var(--accent);transform-origin:left;z-index:60}.shared-layer{position:absolute;inset:0;pointer-events:none;z-index:12}.shared-object{position:absolute;left:0;top:0;overflow:hidden;display:flex;align-items:center;justify-content:center;transform-origin:0 0}.shared-object.snapshot{background:#007aff;color:white;font:600 31px var(--mono);box-shadow:0 20px 42px #007aff21}.shared-object.head{background:#1d1d1f;color:white;font:26px var(--mono)}[data-shared]{color:transparent!important;background:transparent!important;border-color:transparent!important;box-shadow:none!important}[data-shared]>*{visibility:hidden}
+.terminal{background:#191c22;color:#f2f5fa;border:1px solid #363b45;border-radius:24px;overflow:hidden}.terminal-header{display:flex;align-items:center;gap:9px;border-bottom:1px solid #373c46;padding:17px 24px;font-size:22px;color:#bcc1cb}.terminal-header .lights{letter-spacing:5px;color:#9298a2;font-size:16px}.terminal-header button{margin-left:auto;font-size:20px;padding:7px 13px;background:#2c3038;color:white;border-color:#555c68}.terminal pre{padding:30px;font-size:30px;line-height:1.65;margin:0;white-space:pre-wrap;overflow-wrap:anywhere}.terminal .command{color:#8cc4ff}.terminal .arg{color:#eed39c}.terminal .expected{padding:20px 30px;border-top:1px solid #373c46;color:#bcc1cb;font-size:24px}.terminal .copy-status{color:#a4d5ff;font-size:20px;margin-left:auto}
+.segments{display:flex;position:relative;isolation:isolate;gap:4px;padding:4px;background:#e7e9ef;border-radius:16px;width:max-content}.segments button{position:relative;z-index:1;background:transparent;border:0}.segment-ink{position:absolute;left:0;top:4px;bottom:4px;background:white;border-radius:12px;box-shadow:0 2px 8px #151d3312;z-index:0}.segments button[aria-checked=true]{color:#005fc7}.stepper{display:flex;align-items:center;gap:12px}.stepper output{font:24px var(--mono);min-width:95px;text-align:center}.morph-host{position:relative;height:300px}.morph-surface{position:absolute;left:0;top:0;overflow:hidden;border-radius:28px;background:#fff;box-shadow:0 15px 45px #11234012;border:1px solid var(--divider);padding:24px;transform-origin:0 0}.morph-surface button{padding:10px 16px}.morph-detail{font-size:17px;margin-top:16px;line-height:1.6;color:var(--muted)}.image-placeholder{border:1px dashed #9aa5b7;border-radius:24px;display:grid;place-content:center;text-align:center;gap:12px;min-height:230px;background:#edf1f7;color:#525967}.image-placeholder img{width:100%;height:100%;object-fit:contain}.image-placeholder img[hidden]{display:none}.image-placeholder .fallback{padding:24px}
+dialog{border:1px solid #cbd0d8;border-radius:24px;background:#fafdff;color:#1d1d1f;max-width:min(860px,94vw);width:100%;max-height:86vh;padding:28px;box-shadow:0 25px 100px #17253d33}dialog::backdrop{background:#10162080}dialog header{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:24px}dialog h2{font-size:27px}dialog p{font-size:18px}.directory{display:grid;grid-template-columns:1fr 1fr;gap:12px}.directory button{text-align:left;line-height:1.4}.notes-grid{display:grid;gap:20px}.notes-grid strong{display:block;color:#005fc7;font:14px var(--mono);margin-bottom:6px}.dialog-foot{color:#626269;margin-top:22px;font-size:14px}#toast{position:fixed;left:50%;bottom:85px;transform:translateX(-50%);background:#1d1d1f;color:white;border-radius:14px;padding:12px 20px;z-index:100;max-width:90vw}
+/* Interactive Contrast Integrity: paired states; never fade the whole control. */
+:root{--control-height:56px;--control-pad-x:22px;--inner-pad:16px;--capsule-height:90px;--control-bg:#fff;--control-fg:#26374c;--control-hover-bg:#e8f2ff;--control-hover-fg:#0055b8;--control-active-bg:#d6e8ff;--control-active-fg:#004a9e}
+button:not(:disabled){color:var(--control-fg)}
+button:hover:not(:disabled),button:focus-visible:not(:disabled){background:var(--control-hover-bg);color:var(--control-hover-fg)}
+button:active:not(:disabled){background:var(--control-active-bg);color:var(--control-active-fg)}
+button.primary:not(:disabled){background:#005fcc;color:#fff;border-color:transparent}
+button.primary:hover:not(:disabled),button.primary:focus-visible:not(:disabled){background:#004fae;color:#fff}
+button.primary:active:not(:disabled){background:#00418f;color:#fff}
+button:disabled{opacity:1;background:#edf0f4;color:#596575;border-color:#d0d7e1;cursor:not-allowed}
+.theme-dark{--control-fg:#f5f5f7;--control-hover-bg:#dbeaff;--control-hover-fg:#004a9e}
+.terminal-header button:not(:disabled){background:#2c3038;color:white}
+.terminal-header button:hover:not(:disabled),.terminal-header button:focus-visible:not(:disabled){background:#dbeaff;color:#004a9e}
+.segments button:not(:disabled){color:#33455b}
+.segments button:hover:not(:disabled),.segments button:focus-visible:not(:disabled){background:#e8f2ff;color:#0055b8}
+.morph-surface{padding:0;display:block}
+.morph-control-slot{height:calc(var(--morph-header) - 2px);display:flex;align-items:center;justify-content:center;width:100%}
+.morph-control-slot>button{flex:none;min-height:var(--control-height);line-height:1.2;margin:0;padding:12px var(--control-pad-x);white-space:nowrap}
+.morph-detail{flex:none;margin:0;width:100%}
+.morph-surface .morph-detail{position:absolute;top:calc(var(--morph-header) + 8px);left:var(--inner-pad);width:calc(100% - 2 * var(--inner-pad));margin:0}
+.static *{animation:none!important;transition:none!important}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.glass-enhanced:before{background:linear-gradient(135deg,#fff5,transparent)}}@media(prefers-reduced-transparency:reduce){.glass{background:#fafdff;backdrop-filter:none}}@media(max-width:700px){.deck-controls{gap:0;padding:5px}.deck-controls button{font-size:12px;padding:8px}.deck-controls .secondary{display:none}.directory{grid-template-columns:1fr}}@media print{.deck-viewport,.stage{position:static;transform:none!important;margin:0;overflow:visible;height:auto}.scene{position:relative;visibility:visible!important;opacity:1!important;transform:none!important;break-after:page;width:1920px;height:1080px}.deck-controls,.deck-progress,dialog,.shared-layer{display:none!important}[data-shared]{color:var(--link)!important;border:1px solid var(--divider)!important}[data-shared]>*{visibility:visible}@page{size:16in 9in;margin:0}}
+
+</style><style>
+/* Explicit texture optics; content is never displaced or blurred. */
+.optical-surface{position:relative;isolation:isolate;overflow:hidden;border-radius:32px;background:transparent;border:0;box-shadow:0 14px 32px #1337541a;color:#20364d}
+.optical-pixels,.optical-frost,.optical-rim{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;border-radius:inherit}
+.optical-pixels{display:block;z-index:0}
+.optical-frost{z-index:1;background:rgb(250 253 255 / var(--optical-opacity,.18));backdrop-filter:var(--optical-frost,none);-webkit-backdrop-filter:var(--optical-frost,none)}
+.optical-rim{z-index:2;opacity:var(--optical-rim,.6);box-shadow:inset 0 2px 1px #fff,inset 2px 0 2px #fff8,inset 0 -2px 2px #376a9e66;background:radial-gradient(ellipse at var(--optical-light-x,30%) var(--optical-light-y,5%),#fff3,transparent 58%)}
+.optical-content{position:relative;z-index:3;width:100%;height:100%;display:grid;place-content:center;text-align:center;padding:24px}
+.optical-copy{background:#fafdfff5;border:1px solid #fff;border-radius:14px;padding:16px 24px;box-shadow:0 3px 18px #1239570c}
+.optical-copy h3{color:#20364d}.optical-copy p{color:#354960}
+.optical-surface[data-renderer="Frosted Fallback"] .optical-frost{background:rgb(250 253 255 / calc(.48 + var(--optical-opacity,.18) * .5))}
+@supports not (backdrop-filter:blur(1px)){.optical-surface[data-renderer="Frosted Fallback"] .optical-frost{background:#fafdff}}
+.opaque .optical-frost{background:#fafdff!important;backdrop-filter:none!important}
+@media(prefers-reduced-transparency:reduce){.optical-frost{background:#fafdff!important;backdrop-filter:none!important}}
+@media(prefers-reduced-motion:reduce){.optical-rim{background:linear-gradient(140deg,#fff2,transparent 60%)}}
+
+</style><style>
+:root{--background:#f7f8fa;--text:#202127;--muted:#626a76;--divider:#d9e0e9;--link:#005fc7}
+/* v1.2 spatial/alignment and optical study overrides are scoped below. */
+body{background:#e4e8ee}.scene{padding:64px 112px 130px}.lab-top{display:flex;align-items:center;gap:18px;color:#646d7c;font-size:21px;letter-spacing:.5px}.lab-top:before{content:"";width:36px;height:2px;background:#007aff}.lab-top .page{margin-left:auto;font:20px var(--mono)}
+.scene .kicker{font-size:25px;letter-spacing:.3px;color:var(--link);margin-top:52px;font-weight:500}.scene h2{font-size:76px;letter-spacing:-2px;line-height:1.2;margin-top:15px}.scene .lead{font-size:30px;line-height:1.5;margin-top:20px;max-width:1630px}.scene h1{font-size:148px;line-height:1.04;letter-spacing:-6px;font-weight:650;margin-top:75px}.scene h1 span{color:var(--link)}.scene .hero-sub{font-size:31px;line-height:1.5;margin-top:35px;max-width:880px;color:var(--muted)}
+.play-area{position:absolute;left:112px;right:112px;top:365px;height:500px}.conclusion{position:absolute;left:112px;right:112px;top:915px;border-top:1px solid var(--divider);padding-top:23px;display:flex;align-items:baseline;gap:22px}.conclusion span{font:19px var(--mono);color:var(--link);white-space:nowrap}.scene .conclusion p{font-size:29px;line-height:1.4}.lab-foot{position:absolute;left:112px;right:112px;top:1008px;display:flex;justify-content:space-between;color:#6d7685;font-size:18px}.lab-foot .support{font:17px var(--mono);color:#687589}.hero .conclusion{top:906px}.hero .hero-actions{position:absolute;left:112px;top:735px}.hero .hero-actions p{font-size:24px;margin-top:20px;color:var(--muted)}
+.idea-anchor{position:absolute;left:1260px;top:380px;width:440px;height:300px;border-radius:30px}.shared-object.lab-idea{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:46px;background:#007aff;color:white;font-size:68px;font-weight:600;letter-spacing:-2px}.lab-idea small{display:block;font:20px var(--mono);letter-spacing:2px;margin-bottom:25px;color:#dceeff}.lab-idea span{font-size:29px;font-weight:400;letter-spacing:0;margin-top:22px}.hero .idea-anchor.focused{left:1080px;top:325px;width:620px;height:415px}
+.action-row{display:flex;gap:14px;align-items:center;flex-wrap:wrap}.action-row output{font:24px var(--mono);color:var(--muted);margin:0 15px}.scene button{font-size:24px;padding:14px 22px;min-height:55px}.scene label{font-size:25px;color:#475568}.scene input[type=range]{accent-color:#007aff;cursor:pointer}.scene button small{font-size:18px}.scene .fine{font-size:23px;line-height:1.5;color:var(--muted)}
+.mode-layout{margin-top:32px;height:355px;border-radius:24px;background:white;padding:40px 48px;border:1px solid var(--divider);position:relative;overflow:hidden}.mode-layout h3{font-size:48px}.mode-layout p{font-size:29px;max-width:1100px}.mode-layout .concept-number{font-size:120px;color:var(--link);font-weight:600;line-height:1;margin-right:65px}.concept-layout{display:flex;align-items:center}.process-layout{display:flex;align-items:center;justify-content:space-between;gap:25px;height:100%;font-size:35px}.process-layout .process-node{border-top:3px solid #007aff;padding-top:25px;min-width:275px}.process-layout i{font-style:normal;color:#869bb4}.comparison-layout{display:grid;grid-template-columns:1fr 1fr;gap:90px}.comparison-layout>div{border-top:2px solid var(--divider);padding-top:24px}.comparison-layout h3{color:var(--link);margin-bottom:20px}
+.mode-layer{position:absolute;inset:40px 48px}.mode-layer.process-layout{height:auto}.type-container{position:relative;height:365px;margin-top:30px}.type-container .type-study{position:absolute;inset:0;margin-top:0}
+.type-study{position:relative;margin-top:30px;padding:42px 55px;background:#fff;height:365px;border-radius:22px}.type-study .typographic-content{max-width:1450px}.type-study h3{font-size:61px;line-height:1.2;margin-bottom:30px}.type-study .type-body{font-size:32px;line-height:1.6;max-width:1160px;color:#596473}.type-study .type-meta{font-size:23px;color:#6a7482;margin-top:25px}.type-study.before{padding:23px 32px}.type-study.before h3{font-size:36px;color:#535e6e;margin-bottom:6px}.type-study.before .type-body{font-size:35px;line-height:1.1;max-width:1580px;color:#262e3a}.type-study.before .type-meta{font-size:34px;margin-top:5px;color:#005fc7}.type-study .type-tag{position:absolute;top:26px;right:30px;font:18px var(--mono);color:#7d8795}
+.material-layout{display:grid;grid-template-columns:540px 1fr;gap:90px;height:100%}.material-controls .segments{margin-bottom:35px}.material-controls label{display:block;margin:30px 0}.material-controls input{display:block;width:100%;margin-top:16px}.material-controls output{float:right;font:22px var(--mono)}.material-controls .fine{margin-top:20px}.material-stage{position:relative;overflow:hidden;border-radius:28px;background:#dbe7f5;height:450px;display:grid;place-items:center}.material-backdrop{position:absolute;inset:0;width:100%;height:100%}.material-stage .material-sample{position:relative;width:630px;height:240px;padding:40px 46px;z-index:1;border-radius:28px;display:flex;flex-direction:column;justify-content:center;background:rgba(250,252,255,var(--material-opacity,.76));backdrop-filter:blur(var(--material-blur,16px));box-shadow:0 10px 25px #1835510e}.material-sample h3{font-size:39px;margin-bottom:16px}.material-sample p{font-size:27px;color:#354960}.material-stage canvas{position:absolute;inset:0;width:100%;height:100%}.material-stage.advanced .material-sample{background:#fafdffed;backdrop-filter:none}.material-status{position:absolute;bottom:18px;left:25px;right:25px;font-size:18px;color:#31485f;z-index:2;background:#fafdffe8;border-radius:8px;padding:9px 12px}
+.physics-layout{display:grid;grid-template-columns:1fr 370px;gap:85px}.physics-track{position:relative;height:270px;margin-top:38px;background:#fff;border-radius:24px;border:1px solid var(--divider)}.physics-track:after{content:"";position:absolute;left:40px;right:40px;bottom:45px;height:2px;background:#e4e9f1}.physics-object{position:absolute;top:40px;left:0;width:150px;height:150px;border-radius:28px;background:#007aff;color:#fff;font-size:50px;display:grid;place-items:center;cursor:grab;touch-action:none;user-select:none;z-index:1}.physics-object[data-dragging=true]{cursor:grabbing;background:#005fc7}.parameter-stack label{display:block;margin:20px 0 30px}.parameter-stack output{float:right;font:23px var(--mono);color:var(--link)}.parameter-stack input{width:100%;display:block;margin-top:18px}.physics-readout{font:24px var(--mono);margin:24px 0;color:#5b697b;min-height:32px}.physics-layout .action-row{margin-top:22px}
+.timing-rows{display:grid;gap:22px;margin-bottom:32px}.timing-row{display:grid;grid-template-columns:260px 1fr;gap:45px;align-items:center;height:72px}.timing-row label{font:24px var(--mono)}.timing-track{height:50px;border-radius:25px;background:#e1e8f1;position:relative}.timing-dot{position:absolute;width:50px;height:50px;border-radius:50%;background:#007aff;left:0}.bezier-controls{display:flex;gap:30px;margin-top:26px;align-items:center}.bezier-controls label{font-size:20px;display:flex;gap:12px;align-items:center}.bezier-controls input{width:140px}.bezier-controls output{font:20px var(--mono)}
+.identity-host{width:100%;height:470px;position:relative}.identity-host .morph-surface{padding:37px 45px;background:#fff;box-shadow:none;border-color:#cbd9e9}.identity-host .morph-detail{font-size:30px;line-height:1.6;margin-top:30px;color:#566476}.identity-host h3{font-size:48px;margin-bottom:20px}.identity-host .morph-detail p{font-size:31px;max-width:1150px}.identity-note{position:absolute;right:40px;top:42px;font:19px var(--mono);color:#6e7c8e}
+.camera-controls{margin-bottom:22px}.camera-frame{position:relative;width:100%;height:370px;overflow:hidden;border-radius:24px;background:#eaf0f7}.camera-stage{position:absolute;left:0;top:0;width:1696px;height:370px}.camera-scene{position:absolute;inset:0;padding:28px 40px;background:#edf2f8;visibility:hidden}.camera-scene h3{font-size:31px}.camera-scene:first-child{visibility:visible}.camera-anchor{position:absolute;width:230px;height:155px;border-radius:24px}.camera-stage .shared-object.camera-object{background:#007aff;color:#fff;font-size:40px;font-weight:550}.camera-stage .shared-object.camera-object-b{background:#34475f;color:#fff;font-size:40px;font-weight:550}.camera-note{font-size:23px;color:var(--muted);margin-top:18px}
+.growth-svg{width:100%;height:340px}.growth-svg text{font:28px var(--mono);fill:#35465b}.growth-svg .growth-base{stroke:#d3deec;stroke-width:4}.growth-svg .growth-active{stroke:#007aff;stroke-width:4;fill:none}.growth-description{font-size:28px;margin:16px 0 25px;color:#4e5d71;min-height:44px}
+.arrival-comparison{display:grid;grid-template-columns:1fr 1fr;gap:100px}.arrival-example{padding-top:24px;border-top:1px solid var(--divider);position:relative;min-width:0}.arrival-example header{display:flex;align-items:center;justify-content:space-between;font-size:27px;gap:20px}.arrival-example header>span{color:#687586}.arrival-example strong{font:27px var(--mono);font-weight:550;min-width:150px;text-align:right}.arrival-example svg{width:100%;height:270px}.arrival-example svg text{font:25px var(--mono)}.arrival-example p{font-size:26px;min-height:42px;text-align:center}.arrival-actions{justify-content:center;margin-top:32px}.arrival-phase{text-align:center;font:21px var(--mono);color:#60738c;margin-top:22px}
+.micro-top{display:grid;grid-template-columns:1fr 1.25fr 1fr;gap:70px;align-items:start}.micro-top h3,.micro-bottom h3{font-size:24px;margin-bottom:20px;color:#657386;font-weight:500}.micro-top output{display:block;font:23px var(--mono);margin-top:15px;color:var(--link)}.micro-top input{width:100%;margin-top:12px}.micro-bottom{display:grid;grid-template-columns:1fr 1fr;gap:90px;margin-top:65px}.micro-bottom .morph-host{height:230px}.micro-bottom .morph-surface{box-shadow:none}.micro-bottom .morph-detail{font-size:23px;line-height:1.4}.micro-bottom .morph-detail p{font-size:24px}
+.state-graph{display:flex;align-items:center;justify-content:space-between;gap:26px;margin:35px 0 65px}.state-graph .state-node{min-width:280px;height:145px;background:white;border:2px solid #d5dfec;border-radius:24px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:16px;font:35px var(--mono)}.state-node small{font:21px var(--font)}.state-graph>span{font-size:38px;color:#8497b0}.state-description{font-size:30px;color:#475c76;min-height:45px;margin-bottom:28px}
+.pressure-track{height:235px;background:#fff;border:1px solid var(--divider);border-radius:25px;position:relative;margin:25px 0}.pressure-object{width:140px;height:140px;background:#007aff;color:white;display:grid;place-items:center;border-radius:26px;position:absolute;top:45px;left:0;font:30px var(--mono)}.pressure-targets{display:flex;justify-content:space-between;margin:25px 0}.pressure-targets button{min-width:180px}.pressure-readout{font:24px var(--mono);color:#50627b;margin-left:auto}.access-layout{display:grid;grid-template-columns:590px 1fr;gap:90px}.access-options{display:grid;gap:19px}.access-options button{text-align:left}.access-options button[aria-pressed=true]{background:#e4f0ff;color:#005fc7;border-color:#8fbeef}.access-options p{font-size:25px;line-height:1.5;margin-top:18px;color:var(--muted)}.access-demo{background:#edf3fa;border-radius:26px;padding:35px 40px;height:420px}.access-demo .pressure-track{margin-top:5px;height:200px}.access-demo .pressure-object{top:35px;width:125px;height:125px}.access-sample{font:23px/1.7 var(--mono);color:#4b607a;margin-top:25px}.access-demo .glass{border-radius:16px;padding:20px;font-size:25px;background:#fafdffd9}
+.closing h2{font-size:91px;max-width:1600px}.workflow{position:relative;margin-top:35px}.workflow svg{width:100%;height:210px}.workflow text{font:24px var(--mono);fill:#3f536e}.workflow circle{fill:#f7f8fa;stroke:#007aff;stroke-width:3}.closing .final-claim{font-size:47px;line-height:1.4;letter-spacing:-1px;margin-top:15px}.closing .release-label{font:26px var(--mono);color:#005fc7;margin-top:24px}.closing .action-row{margin-top:35px}.closing .idea-anchor{left:1465px;top:695px;width:235px;height:160px}.scene .sr-only{font-size:16px}
+.reduce-motion *,.reduce-motion *:before,.reduce-motion *:after{animation:none!important;transition:none!important}.opaque .material-sample{background:#fafdff!important;backdrop-filter:none!important}.deck-controls{bottom:15px}.deck-progress{height:2px}
+.play-area.workflow{position:absolute;margin-top:0}
+
+/* The identity surface owns only the left track; the note is outside its motion bounds. */
+.identity-layout{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:70px}
+.identity-host .morph-surface{padding:0;--inner-pad:40px}
+.identity-host .morph-detail{margin:0}
+.identity-note{position:static;padding-top:42px;font:20px/1.7 var(--mono);color:#526377;border-top:2px solid #d4dfeb}
+.identity-note p{font:25px/1.6 var(--font);margin-top:32px}
+.micro-bottom .morph-control-slot button{min-height:var(--control-height);padding:12px var(--control-pad-x);line-height:1.2}
+.micro-bottom .morph-detail{margin:0}
+.material-layout{grid-template-columns:520px minmax(0,1fr);gap:70px}
+.material-controls .segments{margin-bottom:24px}
+.material-parameters{display:grid;grid-template-columns:1fr 1fr;gap:20px 30px}
+.material-controls label{margin:0;font-size:23px}
+.material-controls input{margin-top:10px}
+.material-controls .fine{font-size:22px;line-height:1.55;margin-top:22px}
+.material-stage{height:480px;display:block;background:#dceaf4}
+.material-stage .material-sample{position:absolute;left:16%;top:18.2222%;width:68%;height:60%;padding:0;background:transparent;backdrop-filter:none;display:block;border:0;border-radius:32px}
+.material-sample h3{font-size:34px;margin:0 0 6px}.material-sample p{font-size:24px}
+.material-stage .material-status{font:18px var(--mono);bottom:18px;color:#20364d;background:#fafdfff5}
+.material-coordinate{position:absolute;left:25px;top:20px;color:#354960;font:17px var(--mono);background:#fafdffe8;padding:8px;border-radius:6px}
+
+/* Universal gate: readable caption and relation colors; geometry unchanged. */
+.lab-foot,.lab-foot .support{color:#59687b}.type-study .type-tag{color:#617085}.state-graph>span{color:#657e9c}
+
+</style></head><body>
+<svg width="0" height="0" aria-hidden="true" style="position:absolute"><defs><filter id="optical-edge"><feTurbulence baseFrequency=".015" numOctaves="1" seed="4" result="noise"/></feturbulence><feDisplacementMap in="SourceGraphic" in2="noise" scale="5"/></fedisplacementmap></filter></defs></svg>
+<main class="deck-viewport"><div class="stage"></div></main>
+<script>
+/* Stateful scalar springs. No dependencies, no perpetual idle loop. */
+(() => {
+  const K = globalThis.Keynote = globalThis.Keynote || {};
+  const active = new Set();
+  let raf = 0, last = 0;
+  const preference = matchMedia('(prefers-reduced-motion: reduce)');
+  K.reduced = () => preference.matches || document.documentElement.classList.contains('static') || document.documentElement.classList.contains('reduce-motion');
+  K.setReducedMotion=on=>{document.documentElement.classList.toggle('reduce-motion',Boolean(on));if(K.reduced()){K.settleSprings();K.cancelAnimations?.()}document.dispatchEvent(new Event('keynote-motion-change'))};
+  function tick(now) {
+    raf = 0;
+    const dt = Math.min((now - (last || now - 16.67)) / 1000, .04);
+    last = now;
+    const renders = new Set(), rests = [];
+    for (const s of [...active]) {
+      s.integrate(dt);
+      renders.add(s.onUpdate);
+      if (s.settled()) {
+        s.x = s.target; s.v = 0; active.delete(s);
+        rests.push(s.onRest);
+      }
+    }
+    renders.forEach(fn => fn()); rests.forEach(fn => fn());
+    if (active.size) raf = requestAnimationFrame(tick); else last = 0;
+  }
+  class Spring {
+    constructor({value=0, stiffness=210, damping=28, mass=1, onUpdate=()=>{}, onRest=()=>{}}={}) {
+      this.x=value; this.v=0; this.target=value;
+      this.onUpdate=onUpdate; this.onRest=onRest;
+      this.configure({stiffness,damping,mass});
+    }
+    configure({stiffness=this.stiffness,damping=this.damping,mass=this.mass}) {
+      if (![stiffness,damping,mass].every(n=>Number.isFinite(n)&&n>0)) throw Error('Spring parameters must be positive finite numbers');
+      Object.assign(this,{stiffness,damping,mass});
+    }
+    integrate(dt) {
+      const count=Math.ceil(dt/(1/240)), h=dt/count;
+      for(let i=0;i<count;i++) {
+        this.v += (-this.stiffness*(this.x-this.target)-this.damping*this.v)/this.mass*h;
+        this.x += this.v*h;
+      }
+    }
+    settled() { return Math.abs(this.x-this.target)<.001 && Math.abs(this.v)<.005; }
+    retarget(value, velocity) {
+      if(!Number.isFinite(value)) throw Error('Invalid spring target');
+      this.target=value;
+      if(velocity!==undefined) this.v=velocity;
+      if(K.reduced()||document.hidden) return this.jump(value);
+      active.add(this); if(!raf) raf=requestAnimationFrame(tick);
+      return this;
+    }
+    jump(value) { active.delete(this); this.x=this.target=value;this.v=0;this.onUpdate();this.onRest();return this; }
+    stop() { active.delete(this); return this; }
+    destroy() { this.stop(); this.onUpdate=this.onRest=()=>{}; }
+  }
+  K.Spring=Spring;
+  K.springStats=()=>({active:active.size,raf:!!raf});
+  K.settleSprings=()=>{
+    const list=[...active];active.clear();cancelAnimationFrame(raf);raf=0;last=0;
+    list.forEach(s=>s.jump(s.target));
+  };
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)K.settleSprings()});
+  preference.addEventListener('change',()=>{if(K.reduced())K.settleSprings();document.dispatchEvent(new Event('keynote-motion-change'))});
+})();
+
+</script><script>
+(() => {
+  const K=globalThis.Keynote;
+  K.ease={smooth:'cubic-bezier(.16,1,.3,1)',emphasized:'cubic-bezier(.22,1,.36,1)',inOut:'cubic-bezier(.65,0,.35,1)'};
+  const animations=new Set();
+  K.animate=(element,frames,options={})=>{
+    if(!element||K.reduced()||document.hidden||!element.animate)return null;
+    const a=element.animate(frames,{duration:380,easing:K.ease.smooth,fill:'backwards',...options});
+    animations.add(a);a.finished.then(()=>{animations.delete(a);a.cancel()},()=>animations.delete(a));return a;
+  };
+  K.cancelAnimations=(root)=>{for(const a of [...animations])if(!root||root.contains(a.effect?.target)){a.cancel();animations.delete(a)}};
+  K.recipes=['soft-fade','cross-dissolve','shared','morph','push-in','pull-back','spatial-slide','focus-shift','camera-pan','camera-zoom','stagger','path-draw','parallax','scene-reset','reverse'];
+  K.sceneRelationships={'overview-detail':'push-in','detail-overview':'pull-back','process-next':'spatial-slide','chapter-boundary':'scene-reset','focus-transfer':'focus-shift'};
+  function recipe(name,d=1){
+    const r={x:0,y:0,s:1,ox:0,oy:0,os:1,k:105,c:23};
+    if(name==='soft-fade')Object.assign(r,{k:190,c:28});
+    if(['spatial-slide','reverse'].includes(name))Object.assign(r,{x:d*150,ox:-d*100});
+    if(name==='camera-pan')Object.assign(r,{x:d*300,ox:-d*220});
+    if(['shared','morph'].includes(name))Object.assign(r,{y:12,oy:-8});
+    if(name==='focus-shift')Object.assign(r,{x:d*64,ox:-d*32,k:160,c:28});
+    if(['push-in','camera-zoom'].includes(name))Object.assign(r,{s:.92,os:1.07});
+    if(name==='pull-back')Object.assign(r,{s:1.08,os:.94});
+    if(name==='parallax')Object.assign(r,{x:d*90,ox:-d*90});
+    if(name==='scene-reset')Object.assign(r,{y:20,oy:-12,k:80,c:20});
+    return r;
+  }
+  function layoutRect(el,root){
+    let x=0,y=0,n=el;
+    while(n&&n!==root){x+=n.offsetLeft;y+=n.offsetTop;n=n.offsetParent}
+    return {x,y,w:el.offsetWidth,h:el.offsetHeight};
+  }
+  class SharedLayer {
+    constructor(root,onRest=()=>{}){this.root=root;root.dataset.sceneRoot='true';this.onRest=onRest;this.objects=new Map();this.layer=document.createElement('div');this.layer.className='shared-layer';this.layer.setAttribute('aria-hidden','true');root.append(this.layer)}
+    target(slide,instant=false){
+      const present=new Set();
+      for(const anchor of slide.querySelectorAll('[data-shared]')){
+        if(anchor.closest('[data-scene-root]')!==this.root)continue;
+        const id=anchor.dataset.shared;present.add(id);
+        let object=this.objects.get(id);
+        const rect=layoutRect(anchor,this.root);
+        const radius=parseFloat(getComputedStyle(anchor).borderRadius)||24;
+        if(!object){
+          const node=document.createElement('div');node.className='shared-object '+(anchor.dataset.sharedClass||'');
+          node.innerHTML=anchor.innerHTML;node.dataset.identity=id;this.layer.append(node);
+          object={node,values:{},content:anchor.innerHTML};
+          const render=()=>{const s=object.values;if(!s.a)return;Object.assign(node.style,{transform:`translate(${s.x.x}px,${s.y.x}px)`,width:`${s.w.x}px`,height:`${s.h.x}px`,borderRadius:`${s.r.x}px`,opacity:Math.max(0,Math.min(1,s.a.x)),visibility:s.a.x<.003?'hidden':'visible'})};
+          for(const [key,value]of Object.entries({...rect,r:radius,a:0}))object.values[key]=new K.Spring({value,onUpdate:render,onRest:this.onRest});
+          this.objects.set(id,object);
+        }
+        if(object.content!==anchor.innerHTML){object.content=anchor.innerHTML;object.node.innerHTML=anchor.innerHTML}
+        const alpha=anchor.dataset.sharedVisible==='false'?0:Math.max(0,Math.min(1,Number(anchor.dataset.sharedOpacity??1)));
+        for(const [key,val]of Object.entries({...rect,r:radius,a:alpha}))object.values[key][instant?'jump':'retarget'](val);
+      }
+      for(const [id,object]of this.objects)if(!present.has(id))object.values.a[instant?'jump':'retarget'](0);
+    }
+    destroy(){for(const o of this.objects.values())Object.values(o.values).forEach(s=>s.destroy());this.layer.remove();this.root.removeAttribute('data-scene-root')}
+  }
+  class SceneMotion {
+    constructor(root,slides){
+      this.root=root;this.slides=slides;this.current=0;this.state='Idle';this.shared=new SharedLayer(root,()=>this.checkRest());
+      this.items=slides.map((el,i)=>{
+        const item={el,values:{},text:[...el.querySelectorAll('h1,h2,.lead,[data-scene-text]')].filter(n=>!n.closest('[data-shared]')&&n.closest('[data-scene-root]')===root)};
+        const render=()=>{
+          const v=item.values;if(!v.a)return;
+          el.style.transform=`translate(${v.x.x}px,${v.y.x}px) scale(${v.s.x})`;
+          el.style.opacity=Math.max(0,Math.min(1,v.a.x));
+          el.style.visibility=(i===this.current||v.a.x>.003)?'visible':'hidden';
+          item.text.forEach(n=>n.style.opacity=Math.max(0,Math.min(1,v.t.x)));
+        };
+        const rest=()=>this.checkRest();
+        for(const [key,value]of Object.entries({x:0,y:0,s:1,t:i===0?1:0,a:i===0?1:0}))item.values[key]=new K.Spring({value,stiffness:105,damping:23,onUpdate:render,onRest:rest});
+        return item;
+      });
+      this.go(0,'soft-fade',true);
+    }
+    checkRest(){if(this.items?.every(it=>Object.values(it.values).every(s=>s.settled()))&&[...this.shared.objects.values()].every(o=>Object.values(o.values).every(s=>s.settled()))){this.state='Active';this.items.forEach((it,j)=>it.el.dataset.sceneState=j===this.current?'Active':'Idle')}}
+    go(n,name='cross-dissolve',instant=false){
+      name=K.sceneRelationships[name]||name;this.lastRecipe=name;
+      n=Math.max(0,Math.min(this.items.length-1,n));const old=this.current,d=n>=old?1:-1;
+      if(this.state!=='Active'&&this.state!=='Idle')this.state='Interrupted';
+      this.current=n;this.state='Entering';
+      const r=recipe(name,d),incoming=this.items[n];
+      if(old!==n)K.settleFeedback?.(this.items[old].el);
+      K.cancelAnimations(this.root);
+      if(incoming.values.a.x<.003&&!instant){incoming.values.x.jump(r.x);incoming.values.y.jump(r.y);incoming.values.s.jump(r.s)}
+      this.items.forEach((item,i)=>{
+        item.el.inert=i!==n;item.el.setAttribute('aria-hidden',String(i!==n));item.el.style.zIndex=i===n?'2':'1';
+        item.el.dataset.sceneState=i===n?'Entering':'Exiting';
+        const targets={x:i===n?0:r.ox,y:i===n?0:r.oy,s:i===n?1:r.os,t:i===n?1:0,a:i===n?1:0};
+        for(const [key,val]of Object.entries(targets)){
+          // Clear outgoing text early while the shared object continues its journey.
+          item.values[key].configure(key==='t'?(i===n?{stiffness:95,damping:24}:{stiffness:1400,damping:70}):key==='a'&&i!==n?{stiffness:600,damping:45}:{stiffness:r.k,damping:r.c});
+          item.values[key][instant?'jump':'retarget'](val);
+        }
+      });
+      this.shared.target(incoming.el,instant);
+      if(name==='stagger')incoming.el.querySelectorAll('[data-reveal]').forEach((el,i)=>K.animate(el,[{opacity:0,transform:'translateY(18px)'},{opacity:1,transform:'none'}],{duration:400,delay:Math.min(i*75,300)}));
+      if(name==='parallax')incoming.el.querySelectorAll('[data-layer]').forEach(el=>K.animate(el,[{transform:`translateX(${d*Number(el.dataset.layer)*50}px)`},{transform:'none'}],{duration:700}));
+      if(name==='path-draw')incoming.el.querySelectorAll('path[data-reveal-path]').forEach(p=>K.animate(p,[{strokeDasharray:p.getTotalLength(),strokeDashoffset:p.getTotalLength()},{strokeDasharray:p.getTotalLength(),strokeDashoffset:0}],{duration:700}));
+      if(instant||K.reduced())this.state='Active';
+    }
+    destroy(){K.cancelAnimations(this.root);this.items.forEach(it=>Object.values(it.values).forEach(s=>s.destroy()));this.shared.destroy()}
+  }
+  K.SceneMotion=SceneMotion;K.SharedLayer=SharedLayer;
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)K.cancelAnimations()});
+  document.addEventListener('keynote-motion-change',()=>{if(K.reduced())K.cancelAnimations()});
+})();
+
+</script><script>
+/* Result feedback uses the existing Spring scheduler. Semantic commit never waits for it. */
+(() => {
+  const K=globalThis.Keynote, owners=new Set(), clamp=n=>Math.max(0,Math.min(1,n));
+  const color=value=>{
+    if(Array.isArray(value))return value;
+    if(/^#[0-9a-f]{6}$/i.test(value))return [1,3,5].map(i=>parseInt(value.slice(i,i+2),16));
+    throw Error('Color bindings require #RRGGBB or RGB arrays');
+  };
+  K.interpolateColor=(a,b,p)=>{a=color(a);b=color(b);return `rgb(${a.map((n,i)=>Math.round(n+(b[i]-n)*clamp(p))).join(', ')})`};
+  class TextCrossfade {
+    constructor(host){
+      this.root=this.host=host;this.value=host.textContent;this.animations=[];this.revision=0;
+      this.stack=document.createElement('span');this.stack.className='state-text-stack';
+      this.current=document.createElement('span');this.previous=document.createElement('span');
+      this.current.className='state-text-current';this.previous.className='state-text-previous';
+      [this.current,this.previous].forEach(n=>n.setAttribute('aria-hidden','true'));
+      this.current.textContent=this.value;this.stack.append(this.previous,this.current);host.replaceChildren(this.stack);
+      host.dataset.value=this.value;host.setAttribute('aria-label',this.value);owners.add(this);
+    }
+    set(value,{instant=false}={}){
+      value=String(value);if(value===this.value){if(instant)this.settle();return}
+      const a=Number(getComputedStyle(this.current).opacity),b=Number(getComputedStyle(this.previous).opacity);
+      const old=b>a?this.previous.textContent:this.current.textContent,alpha=Math.max(a,b);
+      this.settle();this.value=value;this.host.dataset.value=value;this.host.setAttribute('aria-label',value);this.current.textContent=value;
+      if(instant||K.reduced()||document.hidden)return;
+      this.previous.textContent=old;
+      this.animations=[K.animate(this.previous,[{opacity:alpha},{opacity:0}],{duration:150}),K.animate(this.current,[{opacity:0},{opacity:1}],{duration:280,easing:K.ease.emphasized})].filter(Boolean);
+      const revision=this.revision;Promise.allSettled(this.animations.map(a=>a.finished)).then(()=>{if(revision===this.revision)this.onRest?.()});
+    }
+    settle(){this.revision++;this.animations.forEach(a=>a.cancel());this.animations=[];this.previous.textContent=''}
+    get active(){return this.animations.some(a=>a.playState==='running')}
+    destroy(){this.settle();owners.delete(this);this.host.textContent=this.value;this.host.removeAttribute('aria-label')}
+  }
+  K.mountText=(host)=>new TextCrossfade(host);
+  K.mountVisual=(root,bindings,{initial=0}={})=>{
+    const render=()=>{const p=clamp(spring.x);bindings.forEach(({elements,property,from,to})=>{
+      const value=typeof from==='number'?from+(to-from)*p:K.interpolateColor(from,to,p);
+      (Array.isArray(elements)?elements:[elements]).forEach(el=>{if(el)el.style[property]=String(value)});
+    })};
+    const spring=new K.Spring({value:initial,stiffness:240,damping:32,onUpdate:render});
+    const api={root,spring,set(p,{instant=false}={}){spring[instant?'jump':'retarget'](clamp(p))},settle(){spring.jump(spring.target)},get active(){return !spring.settled()},destroy(){spring.destroy();owners.delete(api)}};
+    owners.add(api);render();return api;
+  };
+  class Settlement {
+    constructor({root,text,bindings=[],initial='Ready',onCommit=()=>{}}){
+      this.root=root;this.text=K.mountText(text);this.visual=K.mountVisual(root,bindings);this.onCommit=onCommit;this.initial=initial;this.value=initial;
+      this.visual.spring.onRest=()=>this.syncPhase();this.text.onRest=()=>this.syncPhase();this.commit(initial,{instant:true});owners.add(this);
+    }
+    commit(value,{label=value,emphasis=0,instant=false}={}){
+      this.value=value;this.root.dataset.phase='Semantic Commit';this.root.dataset.semantic=value;
+      this.onCommit(value); // Domain state and control validity update at the event, not on animation end.
+      this.text.set(label,{instant});this.visual.set(emphasis,{instant});this.root.dataset.phase=this.active?'Visual Settlement':'Stable State';
+    }
+    get active(){return this.text.active||this.visual.active}
+    syncPhase(){this.root.dataset.phase=this.active?'Visual Settlement':'Stable State'}
+    get phase(){return this.active?'Visual Settlement':'Stable State'}
+    settle(){this.text.settle();this.visual.settle();this.root.dataset.phase='Stable State'}
+    reset(value=this.initial){this.commit(value,{instant:true});this.settle()}
+    destroy(){this.text.destroy();this.visual.destroy();owners.delete(this)}
+  }
+  K.Settlement=Settlement;
+  K.settleFeedback=(root)=>{for(const owner of owners)if(!root||root===owner.root||root.contains(owner.root))owner.settle()};
+  K.feedbackStats=()=>({owners:owners.size,active:[...owners].filter(o=>o.active).length});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)K.settleFeedback()});
+  document.addEventListener('keynote-motion-change',()=>{if(K.reduced())K.settleFeedback()});
+})();
+
+</script><script>
+(() => {
+  const K=globalThis.Keynote;
+  K.escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  K.toast=text=>{let t=document.querySelector('#toast');if(!t){t=document.createElement('div');t.id='toast';t.setAttribute('role','status');document.body.append(t)}t.textContent=text;t.hidden=false;clearTimeout(t.timer);t.timer=setTimeout(()=>t.hidden=true,2500)};
+  K.copy=async(text)=>{
+    try{if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(text);return true}}catch{}
+    const el=document.createElement('textarea');el.value=text;el.style.cssText='position:fixed;left:0;top:0;opacity:0';(document.querySelector('dialog[open]')||document.body).append(el);el.select();
+    let ok=false;try{ok=document.execCommand('copy')}catch{}el.remove();return ok;
+  };
+  K.terminal=(commands,expected)=>`<div class="terminal"><div class="terminal-header"><span class="lights" aria-hidden="true">● ● ●</span><span>Terminal · 示例，不执行命令</span><button data-copy-command>复制命令</button></div><pre>${commands.map(line=>{const [cmd,...args]=line.split(' ');return `<span class="command">${K.escape(cmd)}</span> <span class="arg">${K.escape(args.join(' '))}</span>`}).join('\n')}</pre><div class="expected">预期结果：${K.escape(expected)}</div></div>`;
+  K.mountTerminals=(root)=>root.querySelectorAll('[data-copy-command]').forEach(button=>button.onclick=async()=>{
+    const text=button.closest('.terminal').querySelector('pre').textContent;
+    const ok=await K.copy(text);K.toast(ok?'已复制命令':'复制被拒绝，请选中命令手动复制');button.textContent=ok?'已复制 ✓':'复制失败';
+    clearTimeout(button.copyTimer);button.copyTimer=setTimeout(()=>button.textContent='复制命令',1400);
+  });
+  K.diff=(before,after)=>`<div class="code-comparison"><div><h3>Before</h3><pre class="removed">${K.escape(before)}</pre></div><div><h3>After</h3><pre class="added">${K.escape(after)}</pre></div></div>`;
+  K.explorer=(name,files)=>`<details class="file-explorer" open><summary>${K.escape(name)}</summary><ul>${files.map(file=>`<li><code>${K.escape(file)}</code></li>`).join('')}</ul></details>`;
+  K.mountSegments=(root,onChange=()=>{})=>{
+    const buttons=[...root.querySelectorAll('button')],ink=document.createElement('i');ink.className='segment-ink';ink.setAttribute('aria-hidden','true');root.prepend(ink);root.setAttribute('role','radiogroup');
+    let selected=0;const render=()=>{if(x&&w){ink.style.transform=`translateX(${x.x}px)`;ink.style.width=`${w.x}px`}};
+    const x=new K.Spring({onUpdate:render}),w=new K.Spring({onUpdate:render});
+    function select(i,instant=false){selected=Math.max(0,Math.min(buttons.length-1,i));if(buttons[selected].disabled)selected=buttons.findIndex(b=>!b.disabled);if(selected<0)return;buttons.forEach((b,n)=>{b.setAttribute('role','radio');b.setAttribute('aria-checked',String(n===selected));b.tabIndex=n===selected?0:-1});const b=buttons[selected];x[instant?'jump':'retarget'](b.offsetLeft);w[instant?'jump':'retarget'](b.offsetWidth);onChange(selected)}
+    buttons.forEach((b,i)=>b.onclick=()=>select(i));
+    root.addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();e.stopPropagation();select(e.key==='Home'?0:e.key==='End'?buttons.length-1:(selected+(e.key==='ArrowRight'?1:-1)+buttons.length)%buttons.length);buttons[selected].focus()}});
+    const ro=new ResizeObserver(()=>select(selected,true));ro.observe(root);select(0,true);
+    return {select,reset:()=>select(0),get selected(){return selected},destroy(){ro.disconnect();x.destroy();w.destroy()}};
+  };
+  K.mountMorph=(host,{compact={w:240,h:100},expanded={w:520,h:250},capsule=false}={})=>{
+    const surface=host.querySelector('.morph-surface'),button=surface.querySelector('button'),detail=surface.querySelector('.morph-detail');let open=false;
+    const slot=document.createElement('div');slot.className='morph-control-slot';button.before(slot);slot.append(button);surface.style.setProperty('--morph-header',compact.h+'px');
+    const label=K.mountText(button),closedLabel=button.textContent;
+    const values={};const render=()=>{if(!values.r)return;const w=Math.min(host.clientWidth,Math.max(1,values.w.x)),x=Math.max(0,Math.min(host.clientWidth-w,values.x.x));surface.style.width=`${w}px`;surface.style.height=`${Math.max(compact.h,Math.min(host.clientHeight||Infinity,values.h.x))}px`;surface.style.transform=`translateX(${x}px)`;surface.style.borderRadius=`${values.r.x}px`;detail.style.opacity=Math.max(0,Math.min(1,values.a.x));detail.style.visibility=values.a.x<.01?'hidden':'visible'};
+    for(const [key,val]of Object.entries({w:compact.w,h:compact.h,x:0,r:capsule?compact.h/2:28,a:0}))values[key]=new K.Spring({value:val,onUpdate:render});
+    function set(next,instant=false){open=next;button.setAttribute('aria-expanded',String(open));label.set(open?'收起 ←':closedLabel,{instant});detail.setAttribute('aria-hidden',String(!open));const w=Math.min(host.clientWidth,open?expanded.w:compact.w);const targets={w,h:open?expanded.h:compact.h,x:open?Math.max(0,(host.clientWidth-w)/2):0,r:open?28:(capsule?compact.h/2:28),a:open?1:0};for(const [key,val]of Object.entries(targets))values[key][instant?'jump':'retarget'](val)}
+    button.onclick=()=>set(!open);const ro=new ResizeObserver(()=>set(open,true));ro.observe(host);set(false,true);return {set,values,settle:()=>{Object.values(values).forEach(s=>s.jump(s.target));label.settle()},reset:()=>set(false,true),get open(){return open},destroy(){ro.disconnect();label.destroy();Object.values(values).forEach(s=>s.destroy())}};
+  };
+  K.mountDrag=(track,knob,{onUpdate=()=>{}}={})=>{
+    let pointer=null,lastX=0,lastT=0,velocity=0,offset=0;
+    const max=()=>Math.max(0,track.clientWidth-knob.offsetWidth);
+    const spring=new K.Spring({onUpdate:()=>{knob.style.transform=`translateX(${spring.x}px)`;knob.setAttribute('aria-valuenow',String(Math.round(spring.x)));onUpdate(spring)}});
+    knob.setAttribute('role','slider');knob.tabIndex=0;knob.setAttribute('aria-label','拖动并释放，或用左右键移动弹簧');knob.setAttribute('aria-valuemin','0');
+    const scale=()=>track.getBoundingClientRect().width/track.offsetWidth||1;
+    function down(e){if(e.button!==0||pointer!==null)return;pointer=e.pointerId;knob.setPointerCapture(pointer);spring.stop();const r=track.getBoundingClientRect();offset=(e.clientX-r.left)/scale()-spring.x;lastX=spring.x;lastT=performance.now();velocity=0;knob.dataset.dragging='true';knob.focus()}
+    function move(e){if(e.pointerId!==pointer)return;const now=performance.now(),x=Math.max(0,Math.min(max(),(e.clientX-track.getBoundingClientRect().left)/scale()-offset));velocity=Math.max(-1800,Math.min(1800,(x-lastX)/Math.max(.008,(now-lastT)/1000)));lastX=x;lastT=now;spring.jump(x)}
+    function release(e,cancel=false){if(e.pointerId!==pointer)return;const id=pointer;pointer=null;knob.dataset.dragging='false';if(knob.hasPointerCapture(id))knob.releasePointerCapture(id);if(performance.now()-lastT>100)velocity=0;spring.retarget(cancel?0:(spring.x+velocity*.12>max()/2?max():0),cancel?0:velocity)}
+    knob.addEventListener('pointerdown',down);knob.addEventListener('pointermove',move);knob.addEventListener('pointerup',e=>release(e));knob.addEventListener('pointercancel',e=>release(e,true));knob.addEventListener('lostpointercapture',e=>{if(pointer!==null)release(e,true)});
+    knob.addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();e.stopPropagation();spring.retarget(e.key==='Home'?0:e.key==='End'?max():Math.max(0,Math.min(max(),spring.target+(e.key==='ArrowRight'?80:-80))))}});
+    const ro=new ResizeObserver(()=>{knob.setAttribute('aria-valuemax',String(max()));if(pointer===null)spring.jump(Math.min(max(),spring.x))});ro.observe(track);
+    const hide=()=>{if(document.hidden&&pointer!==null)release({pointerId:pointer},true)};document.addEventListener('visibilitychange',hide);
+    return {spring,reset(){if(pointer!==null)release({pointerId:pointer},true);spring.jump(0)},destroy(){ro.disconnect();spring.destroy();document.removeEventListener('visibilitychange',hide)}};
+  };
+  K.mountPath=(path,nodes=[])=>{
+    const length=path.getTotalLength();path.style.strokeDasharray=length;
+    const spring=new K.Spring({stiffness:90,damping:22,onUpdate:()=>{const p=Math.max(0,Math.min(1,spring.x));path.style.strokeDashoffset=length*(1-p);nodes.forEach((node,i)=>{node.style.opacity=String(.18+.82*Math.max(0,Math.min(1,p*Math.max(1,nodes.length-1)-i+1)))})}});spring.jump(0);
+    return {spring,set:p=>spring.retarget(Math.max(0,Math.min(1,p))),reset:()=>spring.jump(0)};
+  };
+  K.mountImage=(host,src)=>{const img=new Image();img.alt=host.dataset.alt||'用户素材';img.hidden=true;const fallback=host.querySelector('.fallback');img.onload=()=>{img.hidden=false;fallback.hidden=true};img.onerror=()=>{img.hidden=true;fallback.hidden=false;host.dataset.missing='true'};host.append(img);if(src)img.src=src;return img};
+  class StateMachine {
+    constructor(initial,edges,onChange){this.initial=initial;this.state=initial;this.edges=edges;this.onChange=onChange;onChange(initial)}
+    dispatch(action){const next=this.edges[this.state]?.[action];if(next===undefined)return false;this.state=next;this.onChange(next);return true}
+    reset(){this.state=this.initial;this.onChange(this.state)}
+  }
+  K.StateMachine=StateMachine;
+  K.mountLight=el=>{el.addEventListener('pointermove',e=>{if(K.reduced())return;const r=el.getBoundingClientRect();el.style.setProperty('--light-x',`${(e.clientX-r.left)/r.width*100}%`);el.style.setProperty('--light-y',`${(e.clientY-r.top)/r.height*100}%`)})};
+})();
+
+</script><script>
+/* A reusable, deterministic event demonstration for both the Lab and Playground. */
+(() => {
+  const K=globalThis.Keynote;
+  K.arrivalMarkup=(label)=>`<article class="arrival-example"><header><span>${K.escape(label)}</span><strong data-status>Ready</strong></header><svg viewBox="0 0 600 230" role="img" aria-label="任务事件从左到右到达"><path d="M50 140H550" stroke="#d9e1ed" stroke-width="3"/><path data-edge d="M50 140H550" fill="none" stroke="#007aff" stroke-width="4"/><path data-arrow d="M538 132L550 140L538 148" fill="none" stroke="#007aff" stroke-width="4"/><circle data-node cx="550" cy="140" r="25" fill="#f5f8fc" stroke="#c4cedc" stroke-width="3"/><circle data-flight cx="50" cy="140" r="8" fill="#007aff"/><text data-edge-label x="300" y="97" fill="#005fc7" text-anchor="middle">EVENT</text></svg><p data-result>结果已提交 · 可以继续下一步</p></article>`;
+  K.mountArrival=(root,{smooth=true,onCommit=()=>{}}={})=>{
+    const $=s=>root.querySelector(s),edge=$('[data-edge]'),arrow=$('[data-arrow]'),node=$('[data-node]'),dot=$('[data-flight]'),result=$('[data-result]');
+    let semantic='Ready',resetting=false;
+    const feedback=new K.Settlement({root,text:$('[data-status]'),initial:'Ready',onCommit:value=>{semantic=value;onCommit(value)},bindings:[
+      {elements:[edge,arrow],property:'stroke',from:'#007aff',to:'#9dbde3'},
+      {elements:$('[data-edge-label]'),property:'fill',from:'#005fc7',to:'#4975a9'},
+      {elements:node,property:'stroke',from:'#c4cedc',to:'#007aff'},
+      {elements:$('[data-status]'),property:'color',from:'#626269',to:'#005fc7'},
+      {elements:result,property:'opacity',from:0,to:1}
+    ]});
+    const length=edge.getTotalLength();edge.style.strokeDasharray=length;
+    const render=()=>{
+      const p=Math.max(0,Math.min(1,progress.x));edge.style.strokeDashoffset=length*(1-p);
+      const xy=edge.getPointAtLength(p*length);dot.setAttribute('cx',xy.x);dot.setAttribute('cy',xy.y);dot.style.opacity=String(Math.min(1,(1-p)*25));arrow.style.opacity=String(Math.max(0,(p-.9)*10));
+      const next=p>=.9999?'Arrived':'Ready';
+      if(next!==semantic)feedback.commit(next,{emphasis:next==='Arrived'?1:0,instant:resetting||!smooth});
+      root.dataset.phase=semantic==='Arrived'||progress.settled()?feedback.phase:'Main Action';
+    };
+    const progress=new K.Spring({stiffness:65,damping:18,onUpdate:render,onRest:render});
+    const api={root,progress,feedback,get semantic(){return semantic},get phase(){return semantic==='Arrived'||progress.settled()?feedback.phase:'Main Action'},
+      play(){if(progress.x>=.9999)api.reset();root.dataset.phase='Preparation';progress.retarget(1);root.dataset.phase='Main Action'},
+      interrupt(){progress.retarget(progress.target?0:1)},reverse(){progress.retarget(0)},
+      reset(){resetting=true;progress.jump(0);feedback.reset();root.dataset.phase='Stable State';resetting=false},
+      settle(){resetting=true;progress.jump(progress.target);feedback.settle();resetting=false;root.dataset.phase='Stable State'},
+      destroy(){progress.destroy();feedback.destroy()}
+    };api.reset();return api;
+  };
+  K.mountArrivalComparison=(host)=>{
+    host.innerHTML=K.arrivalMarkup('Before · 硬切')+K.arrivalMarkup('After · 连续收尾');
+    const children=[...host.children],before=K.mountArrival(children[0],{smooth:false}),after=K.mountArrival(children[1]);
+    return {before,after,play:()=>{before.play();after.play()},interrupt:()=>{before.interrupt();after.interrupt()},reverse:()=>{before.reverse();after.reverse()},reset:()=>{before.reset();after.reset()},settle:()=>{before.settle();after.settle()},destroy:()=>{before.destroy();after.destroy()}};
+  };
+})();
+
+</script><script>
+(() => {
+  const K=globalThis.Keynote;
+  class Presentation {
+    constructor({stage=document.querySelector('.stage'),slides=[...stage.querySelectorAll(':scope > .scene')],notes=[],onReset=()=>{}}={}){
+      this.stage=stage;this.slides=slides;this.notes=notes;this.onReset=onReset;this.current=0;this.projection=false;
+      const nav=document.createElement('nav');nav.className='deck-controls glass';nav.setAttribute('aria-label','演示控制');
+      nav.innerHTML='<button data-action="directory" title="T 目录">目录</button><button data-action="notes" title="N 备注">备注</button><button data-action="projection" class="secondary" aria-pressed="false" title="P 投影锁定备注">投影</button><button data-action="reset" title="R 重置交互">重置</button><button data-action="static" class="secondary" aria-pressed="false" title="B 减少动态效果">静态</button><button data-action="full" title="F 全屏">全屏</button><button data-action="prev" aria-label="上一页">←</button><output aria-live="polite"></output><button data-action="next" aria-label="下一页">→</button>';
+      document.body.append(nav);this.nav=nav;this.progress=document.createElement('div');this.progress.className='deck-progress';this.progress.setAttribute('role','progressbar');this.progress.setAttribute('aria-label','页面进度');this.progress.setAttribute('aria-valuemin','1');this.progress.setAttribute('aria-valuemax',slides.length);document.body.append(this.progress);
+      this.directory=this.dialog('演示目录');const grid=document.createElement('div');grid.className='directory';slides.forEach((s,i)=>{const b=document.createElement('button');b.textContent=`${String(i+1).padStart(2,'0')} · ${s.dataset.title}`;b.onclick=()=>{this.directory.close();this.go(i,'scene-reset')};grid.append(b)});this.directory.append(grid);
+      this.noteDialog=this.dialog('讲者备注');this.noteDialog.insertAdjacentHTML('beforeend','<div class="notes-grid"></div><p class="dialog-foot">当前窗口可见。投影前关闭，或按 P 锁定备注。</p>');
+      this.resize=()=>{stage.style.transform=`scale(${Math.min(innerWidth/1920,innerHeight/1080)})`};this.resize();addEventListener('resize',this.resize);this.motion=new K.SceneMotion(stage,slides);
+      nav.addEventListener('click',e=>{const action=e.target.closest('[data-action]')?.dataset.action;if(action)this.action(action)});
+      document.addEventListener('keydown',e=>this.key(e));addEventListener('hashchange',()=>{const n=Number(location.hash.slice(1))-1;if(Number.isInteger(n)&&n>=0&&n<slides.length)this.go(n)});
+      document.addEventListener('fullscreenchange',()=>{if(document.fullscreenElement)this.noteDialog.close()});
+      this.go(Math.max(0,Math.min(slides.length-1,(Number(location.hash.slice(1))||1)-1)),'soft-fade',true);
+    }
+    dialog(title){const d=document.createElement('dialog');d.innerHTML=`<header><h2>${K.escape(title)}</h2><button>关闭 ×</button></header>`;d.querySelector('button').onclick=()=>d.close();document.body.append(d);return d}
+    open(d){d.showModal();K.animate(d,[{opacity:0,transform:'translateY(12px) scale(.98)'},{opacity:1,transform:'none'}],{duration:300})}
+    go(n,recipe,instant=false){n=Math.max(0,Math.min(this.slides.length-1,n));const old=this.current;if(document.activeElement?.closest('.scene')&&old!==n)document.activeElement.blur();this.current=n;
+      const intent=recipe||(n<old?({ 'push-in':'pull-back','pull-back':'push-in' }[this.slides[old].dataset.transition]||this.slides[old].dataset.transition):this.slides[n].dataset.transition)||'cross-dissolve';
+      this.motion.go(n,intent,instant);this.nav.querySelector('output').textContent=`${String(n+1).padStart(2,'0')} / ${this.slides.length}`;this.nav.querySelector('[data-action=prev]').disabled=n===0;this.nav.querySelector('[data-action=next]').disabled=n===this.slides.length-1;this.progress.style.transform=`scaleX(${(n+1)/this.slides.length})`;this.progress.setAttribute('aria-valuenow',n+1);this.directory.querySelectorAll('.directory button').forEach((b,i)=>b.setAttribute('aria-current',i===n?'page':'false'));try{history.replaceState(null,'',`#${n+1}`)}catch{}document.dispatchEvent(new CustomEvent('keynote-slide',{detail:{index:n,previous:old}}))}
+    action(action){
+      if(action==='prev')this.go(this.current-1);
+      if(action==='next')this.go(this.current+1);
+      if(action==='directory')this.open(this.directory);
+      if(action==='notes'){if(this.projection||document.fullscreenElement){K.toast('投影/全屏状态下备注已锁定');return}const note=this.notes[this.current]||{};this.noteDialog.querySelector('.notes-grid').innerHTML=['WHY','ACTION','RESULT','NEXT'].map(k=>`<div><strong>${k}</strong><p>${K.escape(note[k]||'—')}</p></div>`).join('');this.open(this.noteDialog)}
+      if(action==='projection'){this.projection=!this.projection;this.nav.querySelector('[data-action=projection]').setAttribute('aria-pressed',String(this.projection));if(this.projection)this.noteDialog.close();K.toast(this.projection?'备注已锁定':'备注锁定已解除')}
+      if(action==='reset'){this.onReset(this.current);K.settleFeedback?.(this.stage)}
+      if(action==='static'){const on=document.documentElement.classList.toggle('static');this.nav.querySelector('[data-action=static]').setAttribute('aria-pressed',String(on));if(on){K.settleSprings();K.cancelAnimations()}document.dispatchEvent(new Event('keynote-motion-change'))}
+      if(action==='full')this.fullscreen();
+    }
+    async fullscreen(){try{if(document.fullscreenElement)await document.exitFullscreen();else{this.noteDialog.close();await document.documentElement.requestFullscreen()}}catch{K.toast('浏览器未允许全屏，请使用浏览器全屏功能')}}
+    key(e){
+      if(e.defaultPrevented||e.ctrlKey||e.metaKey||e.altKey)return;
+      if(document.querySelector('dialog[open]'))return;
+      if(e.target.closest('input,textarea,select,[contenteditable="true"],[role="slider"],[role="radiogroup"]'))return;
+      if(e.target.closest('button,a')&&[' ','Enter'].includes(e.key))return;
+      const key=e.key.toLowerCase();let action;
+      if(['arrowright','pagedown',' '].includes(key))action=key===' '&&e.shiftKey?'prev':'next';
+      if(['arrowleft','pageup'].includes(key))action='prev';
+      action=action||({t:'directory',n:'notes',p:'projection',r:'reset',b:'static',f:'full'}[key]);
+      if(action){e.preventDefault();this.action(action)}
+      else if(key==='home'){e.preventDefault();this.go(0)}else if(key==='end'){e.preventDefault();this.go(this.slides.length-1)}else if(key==='escape'&&document.fullscreenElement){document.exitFullscreen().catch(()=>{})}
+    }
+  }
+  K.Presentation=Presentation;
+})();
+
+</script><script>
+/* Optional procedural-scene refraction study. It does NOT sample arbitrary DOM. */
+(() => {
+  const K=globalThis.Keynote;
+  K.mountRefraction=(canvas,status)=>{
+    const gl=canvas.getContext('webgl',{antialias:false,alpha:false});
+    function fallback(){canvas.hidden=true;status.textContent='WebGL 不可用 · 已降级为 Stable Glass';canvas.parentElement.classList.add('glass')}
+    if(!gl){fallback();return {available:false,draw:()=>{}}}
+    const vertex='attribute vec2 p;varying vec2 uv;void main(){uv=p*.5+.5;gl_Position=vec4(p,0.,1.);}';
+    const fragment=`precision mediump float;varying vec2 uv;uniform vec2 light;uniform float power;
+      vec3 scene(vec2 p){float bands=smoothstep(.42,.48,sin(p.x*25.+p.y*8.)*.5+.5);return mix(vec3(.18,.43,.72),vec3(.84,.92,1.),bands)*(.8+.2*p.y);}
+      void main(){vec2 d=(uv-vec2(.5))*vec2(1.,1.3);float r=length(d);float mask=1.-smoothstep(.31,.33,r);vec2 sampleUV=uv+normalize(d+vec2(.001))*.065*power*mask;vec3 c=scene(sampleUV);float rim=exp(-abs(r-.32)*95.);float shine=pow(max(0.,1.-length(uv-light)),16.);c=mix(c,c*.8+vec3(.2),mask*.3);gl_FragColor=vec4(c+rim*.32+shine*.23,1.);}`;
+    function shader(type,source){const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s}
+    let program;
+    try{program=gl.createProgram();const v=shader(gl.VERTEX_SHADER,vertex),f=shader(gl.FRAGMENT_SHADER,fragment);gl.attachShader(program,v);gl.attachShader(program,f);gl.linkProgram(program);gl.deleteShader(v);gl.deleteShader(f);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error('Shader link failed')}catch{fallback();return {available:false,draw:()=>{}}}
+    gl.useProgram(program);const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);const pos=gl.getAttribLocation(program,'p');gl.enableVertexAttribArray(pos);gl.vertexAttribPointer(pos,2,gl.FLOAT,false,0,0);
+    let lost=false;const draw=(x=.3,y=.7)=>{if(lost||document.hidden)return;gl.viewport(0,0,canvas.width,canvas.height);gl.uniform2f(gl.getUniformLocation(program,'light'),x,y);gl.uniform1f(gl.getUniformLocation(program,'power'),K.reduced()?0:1);gl.drawArrays(gl.TRIANGLES,0,6)};
+    canvas.addEventListener('pointermove',e=>{if(!K.reduced()){const r=canvas.getBoundingClientRect();draw((e.clientX-r.left)/r.width,1-(e.clientY-r.top)/r.height)}});canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();lost=true;fallback()});document.addEventListener('keynote-motion-change',()=>draw());draw();status.textContent='WebGL · 自有程序背景折射示意';return {get available(){return !lost},draw,destroy(){lost=true;gl.deleteBuffer(buffer);gl.deleteProgram(program)}};
+  };
+})();
+
+/* material: independently authored, explicit-texture glass. No DOM capture and no third-party component code. */
+(() => {
+ const K=globalThis.Keynote,NS='http://www.w3.org/2000/svg';let serial=0;
+ const svg=(tag,attrs={})=>{const n=document.createElementNS(NS,tag);for(const [k,v] of Object.entries(attrs))n.setAttribute(k,v);return n};
+ const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+ // Deliberately observable calibration source, shared byte-for-byte by every renderer.
+ K.createGlassBackdrop=(w=1000,h=450)=>{
+  const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');
+  x.fillStyle='#dceaf4';x.fillRect(0,0,w,h);
+  const g=x.createLinearGradient(0,0,w,h);g.addColorStop(0,'#c9e8ff');g.addColorStop(.5,'#eef5f9');g.addColorStop(1,'#aecadd');x.fillStyle=g;x.fillRect(0,0,w,h);
+  x.strokeStyle='#a0b8ca';x.lineWidth=1;
+  for(let i=0;i<w;i+=32){x.beginPath();x.moveTo(i,0);x.lineTo(i,h);x.stroke()}
+  for(let i=0;i<h;i+=32){x.beginPath();x.moveTo(0,i);x.lineTo(w,i);x.stroke()}
+  ['#0873cf','#de575d','#118976'].forEach((color,i)=>{x.strokeStyle=color;x.lineWidth=7;x.beginPath();x.moveTo(100+i*90,0);x.lineTo(540+i*90,h);x.stroke()});
+  x.fillStyle='#1269af';x.fillRect(w*.78,0,23,h);x.fillStyle='#f4f9ff';x.fillRect(w*.78+23,0,18,h);
+  x.strokeStyle='#297dba';x.lineWidth=4;x.beginPath();x.arc(w*.58,h*.46,105,0,Math.PI*2);x.stroke();return c;
+ };
+ // Signed-distance normals: neutral at the center, a smooth finite lens band at the edge.
+ function shapeMap(w,h,r=32){
+  const c=document.createElement('canvas');c.width=Math.round(w);c.height=Math.round(h);const x=c.getContext('2d'),im=x.createImageData(c.width,c.height),band=40;
+  for(let y=0;y<c.height;y++)for(let i=0;i<c.width;i++){
+   const px=i-w/2,py=y-h/2,qx=Math.abs(px)-(w/2-r),qy=Math.abs(py)-(h/2-r),ox=Math.max(qx,0),oy=Math.max(qy,0),len=Math.hypot(ox,oy);
+   const d=len+Math.min(Math.max(qx,qy),0)-r,inside=-d;
+   let nx,ny;if(len>0){nx=ox/len*Math.sign(px);ny=oy/len*Math.sign(py)}else {nx=qx>qy?Math.sign(px):0;ny=qy>=qx?Math.sign(py):0}
+   const t=clamp(inside/band,0,1),amp=inside>=0&&inside<band?Math.sin(Math.PI*t):0,k=(y*c.width+i)*4;
+   im.data[k]=Math.round(128+nx*amp*120);im.data[k+1]=Math.round(128+ny*amp*120);im.data[k+2]=128;im.data[k+3]=255;
+  }x.putImageData(im,0,0);return c;
+ }
+ // Explicit Canvas/Image texture only. Rect is in the backdrop's logical coordinate system.
+ K.mountTextureRefraction=(canvas,{backdrop,rect,params,onFallback=()=>{}}={})=>{
+  let gl,program,buffer,texture,lost=false,draws=0;const timings=[];
+  const fail=reason=>{lost=true;onFallback(reason);return false};
+  if(!backdrop||!rect||rect.w*rect.h>1000000)return {available:false,reason:'missing texture or pixel budget',draw:()=>false,destroy(){}};
+  try{
+   gl=canvas.getContext('webgl',{alpha:false,antialias:false,preserveDrawingBuffer:true});if(!gl)throw Error('WebGL unavailable');
+   const inputWidth=backdrop.width||backdrop.naturalWidth,inputHeight=backdrop.height||backdrop.naturalHeight,maxTexture=gl.getParameter(gl.MAX_TEXTURE_SIZE);
+   if(!inputWidth||!inputHeight||inputWidth>maxTexture||inputHeight>maxTexture)throw Error('texture not decoded or exceeds GPU limit');
+   const compile=(type,src)=>{const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s};
+   const v=compile(gl.VERTEX_SHADER,'attribute vec2 p;varying vec2 uv;void main(){uv=(p+1.)*.5;gl_Position=vec4(p,0.,1.);}');
+   const f=compile(gl.FRAGMENT_SHADER,`precision highp float;varying vec2 uv;uniform sampler2D bg;uniform vec2 size,origin,full;uniform float strength,aberration,blur;
+    vec2 bend(vec2 p){vec2 q=abs(p-size*.5)-(size*.5-vec2(32.));vec2 o=max(q,0.);float d=length(o)+min(max(q.x,q.y),0.)-32.;float inside=-d;vec2 n=length(o)>.001?normalize(o)*sign(p-size*.5):(q.x>q.y?vec2(sign(p.x-size.x*.5),0.):vec2(0.,sign(p.y-size.y*.5)));return n*sin(clamp(inside/40.,0.,1.)*3.14159265)*.47;}
+    vec3 at(vec2 p){vec2 n=bend(p),base=(origin+p)/full;float rr=texture2D(bg,base+n*(strength+aberration)/full).r;float gg=texture2D(bg,base+n*strength/full).g;float bb=texture2D(bg,base+n*(strength-aberration)/full).b;return vec3(rr,gg,bb);}
+    void main(){vec2 p=vec2(uv.x,1.-uv.y)*size;vec3 c=at(p)*.4;c+=at(p+vec2(blur,0.))*.15;c+=at(p-vec2(blur,0.))*.15;c+=at(p+vec2(0.,blur))*.15;c+=at(p-vec2(0.,blur))*.15;gl_FragColor=vec4(c,1.);}`);
+   program=gl.createProgram();gl.attachShader(program,v);gl.attachShader(program,f);gl.linkProgram(program);gl.deleteShader(v);gl.deleteShader(f);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error('link failed');
+   gl.useProgram(program);buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);const pos=gl.getAttribLocation(program,'p');gl.enableVertexAttribArray(pos);gl.vertexAttribPointer(pos,2,gl.FLOAT,false,0,0);
+   texture=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,texture);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,backdrop);if(gl.getError()!==gl.NO_ERROR)throw Error('GPU texture upload failed');
+  }catch(e){fail(e.message)}
+  const draw=(p=params,r=rect)=>{if(lost||document.hidden)return false;const start=performance.now();try{
+   canvas.width=Math.round(r.w);canvas.height=Math.round(r.h);gl.viewport(0,0,canvas.width,canvas.height);gl.useProgram(program);
+   for(const [key,val]of Object.entries({size:[r.w,r.h],origin:[r.x,r.y],full:[backdrop.width||backdrop.naturalWidth,backdrop.height||backdrop.naturalHeight]}))gl.uniform2f(gl.getUniformLocation(program,key),...val);
+   for(const [key,val]of Object.entries({strength:p.distortion,aberration:p.aberration,blur:p.blur}))gl.uniform1f(gl.getUniformLocation(program,key),val);
+   gl.drawArrays(gl.TRIANGLES,0,6);draws++;timings.push(performance.now()-start);if(timings.length>120)timings.shift();return true;
+  }catch(e){return fail(e.message)}};
+  const loss=e=>{e.preventDefault();fail('context lost')};canvas.addEventListener('webglcontextlost',loss);
+  return {get available(){return !lost},draw,get stats(){return {draws,cpuSubmitMs:[...timings],pixels:canvas.width*canvas.height}},destroy(){canvas.removeEventListener('webglcontextlost',loss);lost=true;if(gl){if(texture)gl.deleteTexture(texture);if(buffer)gl.deleteBuffer(buffer);if(program)gl.deleteProgram(program)}}};
+ };
+ K.mountGlass=(surface,{backdrop=null,rect=null,status=null,mode='stable',forceFallback=false,onFallback=()=>{}}={})=>{
+  const id='keynote-optic-'+(++serial),params={distortion:40,blur:1,aberration:3,opacity:.18,rim:.6},statusFeedback=status&&K.mountText?K.mountText(status):null;let renderer='Frosted Fallback',reason='',dead=false,sourceURL='',lastMap='';
+  surface.classList.add('optical-surface');
+  const content=document.createElement('div');content.className='optical-content';content.append(...surface.childNodes);
+  const optics=svg('svg',{'aria-hidden':'true',class:'optical-pixels',preserveAspectRatio:'none'}),defs=svg('defs'),filter=svg('filter',{id,filterUnits:'userSpaceOnUse','color-interpolation-filters':'sRGB'}),map=svg('feImage',{result:'lens-raw',preserveAspectRatio:'none'});
+  filter.append(map,svg('feColorMatrix',{in:'lens-raw',result:'lens-map',type:'matrix',values:'1 0 0 0 -0.0019607843 0 1 0 0 -0.0019607843 0 0 1 0 0 0 0 0 1 0'}));const channels=[];
+  ['R','G','B'].forEach((ch,i)=>{const disp=svg('feDisplacementMap',{in:'SourceGraphic',in2:'lens-map',xChannelSelector:'R',yChannelSelector:'G',result:'d'+i});channels.push(disp);filter.append(disp);const matrix=Array(20).fill(0);matrix[i*5+i]=1;matrix[18]=1;filter.append(svg('feColorMatrix',{in:'d'+i,type:'matrix',values:matrix.join(' '),result:'c'+i}))});
+  filter.append(svg('feBlend',{in:'c0',in2:'c1',mode:'screen',result:'rg'}),svg('feBlend',{in:'rg',in2:'c2',mode:'screen',result:'rgb'}));const blur=svg('feGaussianBlur',{in:'rgb',stdDeviation:1});filter.append(blur);defs.append(filter);optics.append(defs);
+  const image=svg('image',{filter:`url(#${id})`,preserveAspectRatio:'none'});optics.append(image);
+  const canvas=document.createElement('canvas');canvas.className='optical-pixels';canvas.setAttribute('aria-hidden','true');
+  const frost=document.createElement('div');frost.className='optical-frost';const rim=document.createElement('div');rim.className='optical-rim';surface.append(optics,canvas,frost,rim,content);
+  let r=rect||{x:0,y:0,w:surface.clientWidth,h:surface.clientHeight};
+  const supported=()=>!forceFallback&&!!backdrop&&!!sourceURL&&typeof SVGFEDisplacementMapElement!=='undefined';
+  function source(){try{sourceURL=backdrop instanceof HTMLCanvasElement?backdrop.toDataURL():backdrop?.src||''}catch{sourceURL='';reason='background input unreadable'}}source();
+  let webgl=null;webgl=K.mountTextureRefraction(canvas,{backdrop,rect:r,params,onFallback:why=>{reason=why;render();onFallback(why)}});
+  function render(){if(dead)return;const opaque=document.documentElement.classList.contains('opaque')||matchMedia('(prefers-reduced-transparency: reduce)').matches;
+   renderer=mode==='advanced'&&!forceFallback&&webgl?.available&&!opaque?'WebGL':mode==='optical'&&supported()&&!opaque?'SVG':'Frosted Fallback';
+   if(mode==='advanced'&&renderer!=='WebGL'&&!reason)reason='WebGL / texture / pixel budget unavailable';
+   surface.dataset.renderer=renderer;surface.dataset.mode=mode;optics.toggleAttribute('hidden',renderer!=='SVG');canvas.hidden=renderer!=='WebGL';
+   surface.style.setProperty('--optical-opacity',opaque?1:params.opacity);surface.style.setProperty('--optical-rim',params.rim);surface.style.setProperty('--optical-blur',params.blur+'px');surface.style.setProperty('--optical-frost',renderer==='Frosted Fallback'?'blur('+params.blur+'px) saturate(1.12)':'none');
+   if(renderer==='SVG'){
+    optics.setAttribute('viewBox',`0 0 ${r.w} ${r.h}`);for(const n of [filter,map])for(const [k,v]of Object.entries({x:0,y:0,width:r.w,height:r.h}))n.setAttribute(k,v);
+    const key=r.w+'x'+r.h;if(key!==lastMap){lastMap=key;map.setAttribute('href',shapeMap(r.w,r.h).toDataURL())}
+    for(const [k,v]of Object.entries({x:-r.x,y:-r.y,width:backdrop.width||backdrop.naturalWidth,height:backdrop.height||backdrop.naturalHeight,href:sourceURL}))image.setAttribute(k,v);
+    channels.forEach((n,i)=>n.setAttribute('scale',params.distortion+(1-i)*params.aberration));blur.setAttribute('stdDeviation',params.blur);
+   }else if(renderer==='WebGL')webgl.draw(params,r);
+   if(status){const label=`${renderer}${reason&&renderer==='Frosted Fallback'?' · '+reason:''} · ${backdrop?'explicit texture':'no texture'}`;if(statusFeedback)statusFeedback.set(label);else{status.dataset.value=label;status.textContent=label}}
+  }
+  const move=e=>{if(K.reduced())return;const b=surface.getBoundingClientRect();surface.style.setProperty('--optical-light-x',100*(e.clientX-b.left)/b.width+'%');surface.style.setProperty('--optical-light-y',100*(e.clientY-b.top)/b.height+'%')};surface.addEventListener('pointermove',move);
+  const observer=new MutationObserver(()=>render());observer.observe(document.documentElement,{attributes:true,attributeFilter:['class']});
+  const resize=new ResizeObserver(()=>{if(!rect){r={...r,w:surface.clientWidth,h:surface.clientHeight};render()}});resize.observe(surface);
+  render();return {setMode(next){mode=next;reason='';render()},set(next){for(const k of Object.keys(params))if(k in next)params[k]=clamp(Number(next[k]),0,k==='opacity'||k==='rim'?1:k==='blur'?28:80);render()},get renderer(){return renderer},get params(){return {...params}},get available(){return !!webgl?.available&&!forceFallback},get stats(){return webgl?.stats},setBackdrop(next,nextRect=r){backdrop=next;r=nextRect;source();webgl.destroy();reason='texture replaced; remount for WebGL';render()},destroy(){dead=true;resize.disconnect();observer.disconnect();statusFeedback?.destroy();surface.removeEventListener('pointermove',move);webgl.destroy();optics.remove();canvas.remove();frost.remove();rim.remove();surface.append(...content.childNodes);content.remove()}};
+ };
+})();
+
+</script>
+<script>
+globalThis.keynoteRelease={"version": "1.0.0", "date": "2026-10-19", "status": "First public release candidate; not yet published"};
+globalThis.labCapabilities={"release": "1.0.0", "title": "SWUST Keynote Lab", "slides": [{"slideId": "meaning", "number": 1, "title": "Motion with Meaning", "principle": "Object identity gives motion meaning", "specifications": ["references/design-system.md", "references/validation.md"], "implementation": ["assets/templates/core/motion.js", "assets/templates/core/tokens.css"], "interaction": "focus shared object", "expectedVisualResult": "Object relocates continuously", "regressionRequirements": ["shared geometry", "five-state actual contrast and paired CSS"], "status": "Verified", "statusScope": "Chrome 155 + Edge 155 material smoke; 3 viewports; visual-quality report defines exact verified scope"}, {"slideId": "content", "number": 2, "title": "Content Becomes Experience", "principle": "Content relationship selects composition", "specifications": ["references/content-mapping.md"], "implementation": ["assets/templates/core/components.js"], "interaction": "three content modes", "expectedVisualResult": "Concept, process and comparison use different layouts", "regressionRequirements": ["all mode layouts"], "status": "Verified", "statusScope": "Chrome 155.0.8059.80; actual behavioral test + 3-viewport layout test; no universal performance guarantee"}, {"slideId": "clarity", "number": 3, "title": "Clarity Is the Interface", "principle": "Hierarchy reduces reading effort", "specifications": ["references/design-system.md"], "implementation": ["assets/templates/core/components.js"], "interaction": "before/after", "expectedVisualResult": "Same facts remain readable with deliberate hierarchy", "regressionRequirements": ["toggle preserves facts"], "status": "Verified", "statusScope": "Chrome 155.0.8059.80; actual behavioral test + 3-viewport layout test; no universal performance guarantee"}, {"slideId": "material", "number": 4, "title": "Material Has Meaning", "principle": "Material separates controls from content", "specifications": ["references/glass-materials.md", "references/design-system.md", "references/validation.md"], "implementation": ["assets/templates/core/refraction.js", "assets/templates/core/components.js", "assets/templates/core/glass.css", "assets/glass/glass-lab.js"], "interaction": "three renderers / distortion / blur / RGB aberration / opacity / rim", "expectedVisualResult": "Registered explicit-texture edge refraction; stable center; readable foreground", "regressionRequirements": ["actual pixel differences for applicable parameters", "center stability", "context/missing input/opaque fallback", "bounded drawing"], "status": "Experimental", "statusScope": "Chrome 155 + Edge 155 material smoke; 3 viewports; visual-quality report defines exact verified scope", "subcapabilities": {"Stable Frosted": "Verified in Chrome; cross-browser smoke", "Optical Glass": "Verified SVG actual pixel displacement in Chrome; Edge smoke", "Advanced Refraction": "Experimental; explicit texture required; pixel/parameter/context fallback tested in Chrome"}}, {"slideId": "physics", "number": 5, "title": "Motion Should Feel Physical", "principle": "Direct manipulation preserves velocity", "specifications": ["references/motion-system.md"], "implementation": ["assets/templates/core/spring.js", "assets/templates/core/components.js"], "interaction": "drag/release/k/c/m", "expectedVisualResult": "Actual damping and trajectory change", "regressionRequirements": ["scaled drag and parameter effects"], "status": "Verified", "statusScope": "Chrome 155.0.8059.80; actual behavioral test + 3-viewport layout test; no universal performance guarantee"}, {"slideId": "timing", "number": 6, "title": "Timing Creates Emotion", "principle": "Authored time and stateful physics differ", "specifications": ["references/motion-system.md"], "implementation": ["assets/templates/core/spring.js", "assets/templates/core/motion.js"], "interaction": "replay and bezier controls", "expectedVisualResult": "Equal displacement; distinct trajectories", "regressionRequirements": ["same distance and interruption"], "status": "Verified", "statusScope": "Chrome 155.0.8059.80; actual behavioral test + 3-viewport layout test; no universal performance guarantee"}, {"slideId": "identity", "number": 7, "title": "Identity Creates Continuity", "principle": "One object survives expansion", "specifications": ["references/motion-system.md", "references/design-system.md", "references/validation.md"], "implementation": ["assets/templates/core/components.js"], "interaction": "expand/reverse", "expectedVisualResult": "DOM identity, position, size and radius persist", "regressionRequirements": ["identity and intermediate geometry", "RAF collision samples through reverse and burst at three viewports"], "status": "Verified", "statusScope": "Chrome 155 + Edge 155 material smoke; 3 viewports; visual-quality report defines exact verified scope"}, {"slideId": "camera", "number": 8, "title": "A Camera with Intent", "principle": "Content relationships choose camera behavior", "specifications": ["references/motion-system.md"], "implementation": ["assets/templates/core/motion.js"], "interaction": "four semantic relationships", "expectedVisualResult": "Distinct shared geometry/focus/chapter behavior", "regressionRequirements": ["recipes and shared continuity"], "status": "Verified", "statusScope": "Chrome 155.0.8059.80; actual behavioral test + 3-viewport layout test; no universal performance guarantee"}, {"slideId": "growth", "number": 9, "title": "Information Can Grow", "principle": "Visible growth explains order", "specifications": ["references/interaction-patterns.md"], "implementation": ["assets/templates/core/components.js"], "interaction": "next/previous/reset", "expectedVisualResult": "Stable SVG grows and reverses", "regressionRequirements": ["reversal and reset"], "status": "Verified", "statusScope": "Chrome 155.0.8059.80; actual behavioral test + 3-viewport layout test; no universal performance guarantee"}, {"slideId": "settlement", "number": 10, "title": "The Motion Continues After Arrival", "principle": "Semantic event and visual settlement are separate", "specifications": ["references/motion-system.md"], "implementation": ["assets/templates/core/settlement.js", "assets/templates/core/arrival.js"], "interaction": "replay/interrupt/reverse/reset", "expectedVisualResult": "After interpolates line/head/text/result after commit", "regressionRequirements": ["sample intermediate colors and opacity"], "status": "Verified", "statusScope": "Chrome 155.0.8059.80; actual behavioral test + 3-viewport layout test; no universal performance guarantee"}, {"slideId": "response", "number": 11, "title": "Interfaces Respond", "principle": "Feedback belongs to the action", "specifications": ["references/interaction-patterns.md", "references/design-system.md", "references/validation.md"], "implementation": ["assets/templates/core/components.js", "assets/templates/core/settlement.js"], "interaction": "press/segment/slider/capsule/card", "expectedVisualResult": "Each control produces immediate meaningful feedback", "regressionRequirements": ["all five controls", "symmetric compact/header gaps <= 2 logical px", "emphasis leaves text opaque"], "status": "Verified", "statusScope": "Chrome 155 + Edge 155 material smoke; 3 viewports; visual-quality report defines exact verified scope"}, {"slideId": "state", "number": 12, "title": "State Is the Source of Truth", "principle": "Only valid edges change the model", "specifications": ["references/interaction-patterns.md"], "implementation": ["assets/templates/core/components.js", "assets/templates/core/settlement.js"], "interaction": "ready/start/complete/reset", "expectedVisualResult": "Illegal actions rejected; visual feedback follows model", "regressionRequirements": ["finite-state legality"], "status": "Verified", "statusScope": "Chrome 155.0.8059.80; actual behavioral test + 3-viewport layout test; no universal performance guarantee"}, {"slideId": "pressure", "number": 13, "title": "Fluid, Even Under Pressure", "principle": "Newest intent retargets the same state", "specifications": ["references/motion-system.md"], "implementation": ["assets/templates/core/spring.js"], "interaction": "four targets and bounded burst", "expectedVisualResult": "Position/velocity continuous; no queue", "regressionRequirements": ["midflight retarget and finite burst"], "status": "Verified", "statusScope": "Chrome 155.0.8059.80; actual behavioral test + 3-viewport layout test; no universal performance guarantee"}, {"slideId": "access", "number": 14, "title": "Performance Is Part of Design", "principle": "Accessibility is an operating mode", "specifications": ["references/engineering.md"], "implementation": ["assets/templates/core/spring.js", "assets/templates/core/runtime.js", "assets/templates/core/settlement.js"], "interaction": "reduced/static/opaque/sample", "expectedVisualResult": "Correct stable state without decorative work", "regressionRequirements": ["reduced motion and idle scheduling"], "status": "Verified", "statusScope": "Chrome 155.0.8059.80; actual behavioral test + 3-viewport layout test; no universal performance guarantee"}, {"slideId": "evolve", "number": 15, "title": "Designed to Evolve", "principle": "Capabilities evolve through evidence", "specifications": ["references/validation.md"], "implementation": ["assets/templates/core/components.js"], "interaction": "replay workflow/revisit", "expectedVisualResult": "A six-stage workflow connects evidence back to design", "regressionRequirements": ["manifest integrity and navigation"], "status": "Verified", "statusScope": "Chrome 155.0.8059.80; actual behavioral test + 3-viewport layout test; no universal performance guarantee"}], "engineeringQuality": {"universalCore": "scripts/visual-quality.cjs", "caseFixtures": "scripts/showcase-visual-fixtures.cjs", "universalGateScope": "Every newly generated deck; PASS/FAIL/REVIEW/SKIP/ERROR", "evidence": "qa/universal-acceptance/regression-report.json"}};
+
+</script><script>
+globalThis.showcaseNotes=[
+ {WHY:'用连续的对象引出有意义的运动。',ACTION:'点击聚焦，让蓝色 IDEA 移入视线。',RESULT:'对象在，意义才连续。',NEXT:'内容关系决定构图。'},
+ {WHY:'不让布局模板代替内容判断。',ACTION:'依次选择 Technical Concept、Process、Comparison。',RESULT:'三个确定性示例分别改变空间结构；并非运行 AI 模型。',NEXT:'清晰的层级让观点可见。'},
+ {WHY:'同样信息可以有完全不同的理解成本。',ACTION:'切换 Before / After，比较字号、对齐与留白。',RESULT:'After 保留信息，只减少争抢注意力的层级。',NEXT:'材质同样有层级。'},
+ {WHY:'玻璃应当服务于内容与控制层级。',ACTION:'切换 Frosted、Optical、Advanced；调节位移、模糊、色散、透光与边缘，观察彩线。',RESULT:'SVG 与 WebGL 采样同一显式纹理，文字不参与折射；无背景或上下文时诚实降级。',NEXT:'从材质转向物理响应。'},
+ {WHY:'手势需要速度连续的动态系统。',ACTION:'拖动释放，再改变 stiffness/damping/mass 比较。',RESULT:'参数直接作用于真实 Spring 积分。',NEXT:'比较固定曲线和动态物理。'},
+ {WHY:'定时曲线和物理系统有不同适用场景。',ACTION:'Replay 四条等长轨道，调整 Custom Bézier 的控制点。',RESULT:'曲线有预定终点时间；Spring 由位置与速度的收敛决定停靠。',NEXT:'物理连续也需要身份连续。'},
+ {WHY:'连续对象让用户理解从哪里来、回哪里去。',ACTION:'展开详情，运动中再次收起。',RESULT:'同一 DOM 节点连续变化，右侧说明拥有独立安全区域。',NEXT:'将对象关系扩展到镜头。'},
+ {WHY:'不同关系需要不同镜头，而非随机特效。',ACTION:'比较概览深入、返回、焦点转移与章节切换。',RESULT:'共享几何、方向推进、透明度权重与章节 Fade 各司其职。',NEXT:'时间也可以通过信息生长表示。'},
+ {WHY:'路径应当解释信息逐步建立的关系。',ACTION:'Next、Previous、Reset 控制五阶段图。',RESULT:'SVG path 保持同一节点，反向沿原线回到教学预览。',NEXT:'路径完成之后，结果仍需收尾。'},
+ {WHY:'earlier.0 将收尾从文字规范落实到复用组件。',ACTION:'Replay 对比两边；到达瞬间看箭头、线、文字与结果，再用 Interrupt、Reverse、Reset。',RESULT:'两边在同一时刻提交 Arrived；After 只让视觉随后连续收束。',NEXT:'把同样的细致应用于微交互。'},
+ {WHY:'反馈应当及时，但不同时抢夺注意力。',ACTION:'分别按按钮、选分段、调滑块、开胶囊和卡片。',RESULT:'每项反馈由真实操作触发；胶囊按钮始终居中，强调只影响光晕。',NEXT:'交互背后应有正确状态。'},
+ {WHY:'视觉动画不能制造非法状态迁移。',ACTION:'Ready → Start → Complete；观察允许操作，Reset 重来。',RESULT:'StateMachine 只接受定义过的边，视觉不改变业务状态。',NEXT:'检验连续输入下是否仍可靠。'},
+ {WHY:'新的意图应立即接管已有运动。',ACTION:'快速点目标或运行有限连续点击。',RESULT:'retarget 保留位置和速度；不堆积动画队列。',NEXT:'性能与无障碍也属于设计。'},
+ {WHY:'华丽不能阻止内容可用。',ACTION:'运动中开启 Reduced Motion、Static Mode 或不透明材质；点击采样读取实际活动数。',RESULT:'减少动态与材质回退保持相同逻辑结果，不显示虚构 FPS。',NEXT:'让每次升级形成反馈循环。'},
+ {WHY:'Showcase 是能力与规范的持续验证入口。',ACTION:'Replay 工作流，或回看收尾页。',RESULT:'真实代码、能力清单、行为测试与人工体验共同驱动版本演进。',NEXT:'按能力矩阵决定下一轮增量更新。'}
+];
+
+</script><script>
+(() => {
+ const K=globalThis.Keynote,$=s=>document.querySelector(s),stage=$('.stage');
+ const manifest=globalThis.labCapabilities,release=globalThis.keynoteRelease;
+ const lab=globalThis.showcase={resetters:[],controllers:[],release};
+ const conclusions=[
+  '让每一次运动，都解释一个关系。','先理解内容，再决定它如何被看见。','清晰，是最重要的界面。','材质建立层级，而不抢走内容。','不是播放轨迹，而是持续回应你的意图。','固定曲线负责编排，Spring 负责持续变化。','形态可以改变，身份不必中断。','先确定关系，再选择镜头。','关系沿着时间生长，也沿原路返回。','语义准时提交，视觉随后自然落定。','让反馈属于刚刚发生的操作。','视觉可以过渡，逻辑必须准确。','新意图立即生效，运动从当前位置继续。','性能与可访问性，是设计的一部分。','Improve → Demonstrate → Validate → Refine.'
+ ];
+ const titles=['让运动，拥有意义。','内容，成为体验。','清晰，就是界面。','材质，有它的意义。','让运动，像真实物体。','时间，塑造感受。','同一对象，延续认知。','有意图的镜头。','让信息，逐步生长。','抵达之后，动效仍在继续。','界面，回应你的操作。','状态，才是真实来源。','压力之下，依然连续。','性能，本就是设计。','为持续演进而设计。'];
+ const leads=['A Living Design System for Interactive Presentations','内容映射是确定性的规则示例；这里没有运行 AI 模型。','相同的信息，用层级、对齐和留白改变阅读体验。','毛玻璃、SVG 边缘折射与显式纹理 WebGL；每一种材质都有真实边界。','拖动、松手，再调节物理参数。每一次变化都进入真实积分。','同样的位移，四种节奏；定时曲线与动态物理各有其用。','展开、返回，甚至在中途反向。它始终是原来的节点。','深入、返回、转移焦点与开启章节，表达不同的内容关系。','五个阶段，一条稳定路径。推进与返回都是可控的教学预览。','比较同一事件：Before 硬切；After 通过真实核心组件连续收尾。','按一次、选一项、调一个值。每次反馈都由真实操作触发。','Idle → Ready → Running → Completed，只接受允许的迁移。','连续点选新目标，观察位置、速度与最终结果。','保留相同的逻辑与交互，以更少的视觉工作完成表达。','Content → Storyboard → Design → Motion → Interaction → Validation'];
+ const idea=`<small>CORE OBJECT / 01</small>IDEA<span>Meaning stays.</span>`;
+ const anchor=cls=>`<div class="idea-anchor ${cls||''}" data-shared="lab-idea" data-shared-class="lab-idea">${idea}</div>`;
+ const segments=(id,labels)=>`<div id="${id}" class="segments" aria-label="${id}">${labels.map(x=>`<button>${x}</button>`).join('')}</div>`;
+ const action=(id,text,primary=false)=>`<button id="${id}" ${primary?'class="primary"':''}>${text}</button>`;
+ const range=(id,label,min,max,value,step=1)=>`<label for="${id}">${label}<output id="${id}-value">${value}</output><input id="${id}" type="range" min="${min}" max="${max}" value="${value}" step="${step}"></label>`;
+ const typeContent=`<div class="typographic-content"><h3>一个清晰的观点。</h3><p class="type-body">保持对象身份，让运动说明关系。<br>同步真实状态，再让视觉自然收尾。</p><p class="type-meta">理解内容 / 保留层级 / 验证交互</p></div>`;
+ const bodies=[
+  `<div class="hero-actions">${action('intro-focus','聚焦这个想法 ↗',true)}<p>点击，体验对象的持续身份。</p></div>${anchor()}`,
+  `<div class="play-area">${segments('content-modes',['Technical Concept','Process','Comparison'])}<div class="mode-layout" id="content-layout"><div data-content-mode="0" class="mode-layer concept-layout"><span class="concept-number">1</span><div><h3>一次，只聚焦一个概念。</h3><p>状态是模型，动画是解释。</p></div></div><div data-content-mode="1" class="mode-layer process-layout"><div class="process-node">输入内容</div><i>→</i><div class="process-node">建立分镜</div><i>→</i><div class="process-node">验证体验</div></div><div data-content-mode="2" class="mode-layer comparison-layout"><div><h3>定时曲线</h3><p>提前编排节奏，<br>适合可预知的进入与退出。</p></div><div><h3>有状态 Spring</h3><p>不断响应目标，<br>适合拖动、释放与反复重定向。</p></div></div></div><p class="fine" style="margin-top:22px">确定性演示 · 示例由作者依据内容映射规则编写</p></div>`,
+  `<div class="play-area">${segments('type-modes',['Before','After'])}<div class="type-container"><div id="type-before" class="type-study before"><span class="type-tag">BEFORE</span>${typeContent}</div><div id="type-after" class="type-study"><span class="type-tag">AFTER</span>${typeContent}</div></div></div>`,
+  `<div class="play-area material-layout"><div class="material-controls">${segments('material-modes',['Frosted','Optical','Advanced'])}<div class="material-parameters">${range('material-distortion','Distortion',0,80,40)}${range('material-blur','Blur',0,12,1,.25)}${range('material-aberration','Aberration',0,12,3,.25)}${range('material-opacity','Opacity',0,.85,.18,.01)}${range('material-rim','Rim',0,1,.6,.05)}</div><p class="fine">同一张显式纹理，三个渲染路径。<br>折射边缘；中心保持稳定。<br>Advanced 需 WebGL 与可读背景输入。</p></div><div class="material-stage" id="material-stage"><div class="material-sample" id="material-sample"><div class="optical-copy"><h3>Clarity through glass.</h3><p>真实位移 · 稳定阅读</p></div></div><span class="material-status" id="material-status"></span><span class="material-coordinate">REGISTERED BACKDROP / 1000 × 450</span></div></div>`,
+  `<div class="play-area physics-layout"><div><div class="physics-track" id="physics-track"><div class="physics-object" id="physics-object">↔</div></div><div class="physics-readout" id="physics-readout">x 0 / v 0</div><div class="action-row">${action('physics-launch','改变目标 →',true)}${action('physics-reset','Reset')}</div></div><div class="parameter-stack">${range('physics-k','Stiffness',50,500,210)}${range('physics-c','Damping',5,60,28)}${range('physics-m','Mass',.5,3,1,.1)}<p class="fine" id="physics-ratio"></p></div></div>`,
+  `<div class="play-area"><div class="timing-rows">${['Linear','Ease Out','Custom Bézier','Spring'].map((name,i)=>`<div class="timing-row"><label>${name}</label><div class="timing-track"><i class="timing-dot" id="timing-${i}"></i></div></div>`).join('')}</div><div class="action-row">${action('timing-replay','Replay →',true)}${action('timing-reset','Reset')}<output id="timing-distance">等长轨道 · 同时起步</output></div><div class="bezier-controls">${range('bezier-y1','Control Y₁',0,1,1,.01)}${range('bezier-y2','Control Y₂',0,1,1,.01)}<output id="bezier-curve">cubic-bezier(.22,1,.36,1)</output></div></div>`,
+  `<div class="play-area identity-layout"><div class="identity-host" id="identity-host"><article class="morph-surface" id="identity-object"><button aria-expanded="false">展开详情 ↗</button><div class="morph-detail"><h3>Identity survives change.</h3><p>形状与位置可以改变，内容仍属于同一个对象。<br>连续点击也不会替换这个 DOM 节点。</p></div></article></div><aside class="identity-note">ONE NODE<br>MANY FORMS<p>同一节点，持续身份。<br>独立说明区，始终可读。</p></aside></div>`,
+  `<div class="play-area"><div class="action-row camera-controls">${action('camera-detail','Overview → Detail',true)}${action('camera-overview','Detail → Overview')}${action('camera-focus','Focus A → B')}${action('camera-chapter','Chapter Change')}</div><div class="camera-frame"><div id="camera-stage" class="camera-stage">${[
+   ['Overview','<div class="camera-anchor" data-shared="camera-a" data-shared-class="camera-object" style="left:180px;top:145px"><span>A</span></div><div class="camera-anchor" data-shared="camera-b" data-shared-class="camera-object-b" style="left:1120px;top:145px"><span>B</span></div>'],
+   ['Detail / A','<div class="camera-anchor" data-shared="camera-a" data-shared-class="camera-object" style="left:400px;top:90px;width:650px;height:245px;border-radius:32px"><span>A</span></div><div class="camera-anchor" data-shared="camera-b" data-shared-class="camera-object-b" data-shared-opacity=".18" style="left:1280px;top:180px;width:150px;height:110px"><span>B</span></div>'],
+   ['Focus / B','<div class="camera-anchor" data-shared="camera-a" data-shared-class="camera-object" data-shared-opacity=".22" style="left:240px;top:145px"><span>A</span></div><div class="camera-anchor" data-shared="camera-b" data-shared-class="camera-object-b" style="left:980px;top:110px;width:430px;height:210px"><span>B</span></div>'],
+   ['Chapter / A new perspective','<p data-scene-text style="font-size:64px;position:absolute;left:240px;top:160px">新的章节，新的观察尺度。</p>']
+  ].map(([h,content])=>`<section class="camera-scene"><h3 data-scene-text>${h}</h3>${content}</section>`).join('')}</div></div><p class="camera-note" id="camera-note">选择内容关系；镜头由明确的语义映射决定。</p></div>`,
+  `<div class="play-area"><svg class="growth-svg" viewBox="0 0 1696 330" role="img" aria-label="IF ID EX MEM WB 五阶段流程"><path class="growth-base" d="M140 170H1556"/><path class="growth-active" id="growth-path" d="M140 170H1556"/><g id="growth-nodes">${['IF','ID','EX','MEM','WB'].map((label,i)=>`<g><circle cx="${140+354*i}" cy="170" r="23" fill="#f7f8fa" stroke="#007aff" stroke-width="4"/><text x="${140+354*i}" y="240" text-anchor="middle">${label}</text></g>`).join('')}</g></svg><p class="growth-description" id="growth-description">IF · 获取指令</p><div class="action-row">${action('growth-prev','← Previous')}<output id="growth-count">0 / 4</output>${action('growth-next','Next →',true)}${action('growth-reset','Reset')}</div></div>`,
+  `<div class="play-area"><div id="arrival-comparison" class="arrival-comparison"></div><div class="action-row arrival-actions">${action('arrival-replay','Replay',true)}${action('arrival-interrupt','Interrupt')}${action('arrival-reverse','Reverse')}${action('arrival-reset','Reset')}</div><p class="arrival-phase">同一轨迹、同一到达时刻；After 仅延续视觉反馈。</p></div>`,
+  `<div class="play-area"><div class="micro-top"><div><h3>01 · Button Press</h3>${action('micro-press','按一下 →',true)}<output id="micro-feedback">Ready</output></div><div><h3>02 · Segmented Control</h3>${segments('micro-segments',['Focus','Detail','Return'])}</div><div><h3>03 · Slider</h3><label for="micro-range">Emphasis <output id="micro-value">50%</output></label><input type="range" id="micro-range" min="0" max="100" value="50"></div></div><div class="micro-bottom"><div><h3>04 · Morphing Capsule</h3><div class="morph-host" id="micro-capsule"><article class="morph-surface glass"><button>查看状态 ↗</button><div class="morph-detail"><p>结果已经提交，详情按需出现。</p></div></article></div></div><div><h3>05 · Expandable Card</h3><div class="morph-host" id="micro-card"><article class="morph-surface"><button>展开详情 ↗</button><div class="morph-detail"><p>内容留在原来的对象中。</p></div></article></div></div></div></div>`,
+  `<div class="play-area"><div class="state-graph">${['Idle','Ready','Running','Completed'].map((name,i)=>`${i?'<span>→</span>':''}<div class="state-node" data-fsm-node="${name}">${name}<small>${['尚未开始','准备就绪','执行中','完成'][i]}</small></div>`).join('')}</div><p class="state-description" id="fsm-description">Idle</p><div class="action-row">${action('fsm-ready','Ready',true)}${action('fsm-start','Start')}${action('fsm-complete','Complete')}${action('fsm-reset','Reset')}</div></div>`,
+  `<div class="play-area"><div class="pressure-targets">${[0,1,2,3].map(i=>action('target-'+i,'Target '+String.fromCharCode(65+i))).join('')}</div><div class="pressure-track" id="pressure-track"><div class="pressure-object" id="pressure-object">x / v</div></div><div class="action-row">${action('pressure-burst','连续点击测试',true)}${action('pressure-reset','Reset')}<output id="pressure-readout" class="pressure-readout">x 0 / v 0</output></div><p class="fine" style="margin-top:20px">有限的 12 次目标切换 · 可随时手动接管或 Reset</p></div>`,
+  `<div class="play-area access-layout"><div class="access-options">${action('access-reduce','Reduced Motion · 减少动态')}${action('access-static','Static Mode · 静态')}${action('access-opaque','Opaque Material · 不透明')}<p>系统减少动态偏好始终优先。<br>这里显示真实运行态，不显示预设 FPS。</p></div><div class="access-demo"><div class="pressure-track" id="access-track"><div class="pressure-object" id="access-object"><span>A</span></div></div><div class="action-row">${action('access-move','改变目标 →',true)}${action('access-sample','采样运行态')}</div><p class="access-sample" id="access-readout">活动 Spring：0 · 等待采样</p></div></div>`,
+  `<div class="play-area workflow"><svg viewBox="0 0 1696 210" role="img" aria-label="Content 到 Validation 的工作流"><path d="M110 80H1585" stroke="#dae2ec" stroke-width="3"/><path id="workflow-path" d="M110 80H1585" stroke="#007aff" stroke-width="3" fill="none"/><g id="workflow-nodes">${['Content','Storyboard','Design','Motion','Interaction','Validation'].map((v,i)=>`<g><circle cx="${110+295*i}" cy="80" r="13"/><text x="${110+295*i}" y="142" text-anchor="middle">${v}</text></g>`).join('')}</g></svg><p class="final-claim">Not Just Slides.<br>A System That Evolves.</p><p class="release-label" id="release-label"></p><div class="action-row">${action('workflow-replay','Replay Workflow',true)}${action('workflow-settlement','回看结果收尾 ↗')}</div></div>`
+ ];
+ stage.innerHTML=bodies.map((body,i)=>`<section class="scene ${i===0?'hero':i===14?'closing':''}" id="${manifest.slides[i].slideId}" data-title="${manifest.slides[i].title}" data-transition="${[0,3,9,14].includes(i)?'scene-reset':i===6?'shared':'spatial-slide'}"><header class="lab-top"><span>SWUST KEYNOTE LAB</span><span class="page">${String(i+1).padStart(2,'0')} / 15</span></header>${i===0?`<h1>Motion<br>with <span>Meaning.</span></h1><p class="hero-sub">SWUST Keynote Lab<br>${leads[i]}</p>`:`<p class="kicker">${manifest.slides[i].title}</p><h2>${titles[i]}</h2><p class="lead">${leads[i]}</p>`}${body}<div class="conclusion"><span>${i===0?'LIVING SHOWCASE':String(i+1).padStart(2,'0')+' / PRINCIPLE'}</span><p>${conclusions[i]}</p></div><footer class="lab-foot"><span>SWUST–OC · DESIGN × ENGINEERING</span><span class="support">${i===3?'EXPLICIT TEXTURE · CONDITIONAL WEBGL':manifest.slides[i].implementation.map(f=>f.split('/').at(-1)).join(' / ')}</span></footer></section>`).join('');
+ const own=(i,c)=>{lab.controllers.push({i,c});return c},text=host=>K.mountText(host);
+ let focused=false;$('#intro-focus').onclick=()=>{focused=!focused;$('#meaning .idea-anchor').classList.toggle('focused',focused);deck.motion.shared.target(deck.slides[0]);$('#intro-focus').setAttribute('aria-pressed',String(focused))};lab.resetters[0]=()=>{focused=false;$('#meaning .idea-anchor').classList.remove('focused');deck.motion.shared.target(deck.slides[0],true)};
+ const modes=[...document.querySelectorAll('[data-content-mode]')],modeVisuals=modes.map((el,i)=>own(1,K.mountVisual(el,[{elements:el,property:'opacity',from:0,to:1}],{initial:i===0?1:0})));
+ lab.content=K.mountSegments($('#content-modes'),i=>modes.forEach((el,j)=>{el.inert=i!==j;el.setAttribute('aria-hidden',String(i!==j));modeVisuals[j].set(i===j?1:0)}));lab.resetters[1]=()=>lab.content.select(0,true);
+ const typographic=[$('#type-before'),$('#type-after')],typeVisuals=typographic.map((el,i)=>own(2,K.mountVisual(el,[{elements:el,property:'opacity',from:0,to:1}],{initial:i?1:0})));
+ lab.typography=K.mountSegments($('#type-modes'),i=>typographic.forEach((el,j)=>{el.inert=i!==j;el.setAttribute('aria-hidden',String(i!==j));typeVisuals[j].set(i===j?1:0)}));lab.typography.select(1,true);lab.resetters[2]=()=>lab.typography.select(1,true);
+ const sample=$('#material-sample'),materialStage=$('#material-stage'),backdrop=K.createGlassBackdrop();backdrop.className='material-backdrop';materialStage.prepend(backdrop);
+ lab.glass=K.mountGlass(sample,{backdrop,rect:{x:160,y:82,w:680,h:270},status:$('#material-status')});
+ lab.refraction=lab.glass;const canvas=sample.querySelector('canvas');canvas.id='material-canvas';
+ lab.material=K.mountSegments($('#material-modes'),i=>{lab.glass.setMode(['stable','optical','advanced'][i]);for(const key of ['distortion','aberration']){$('#material-'+key).disabled=i===0;$('#material-'+key).title=i===0?'选择 Optical 或 Advanced 启用真实折射':'实时像素参数'}sample.classList.toggle('glass-enhanced',false)});
+ $('#material-modes button:last-child').disabled=!lab.glass.available;
+ canvas.addEventListener('webglcontextlost',()=>{$('#material-modes button:last-child').disabled=true;lab.material.select(0,true)});
+ const materialDefaults={distortion:40,blur:1,aberration:3,opacity:.18,rim:.6};
+ function materialParameters(){const values={};for(const key of Object.keys(materialDefaults)){const input=$('#material-'+key);$('#material-'+key+'-value').textContent=input.value;values[key]=Number(input.value);sample.style.setProperty('--material-'+key,input.value+(key==='blur'?'px':''))}lab.glass.set(values)}
+ Object.keys(materialDefaults).forEach(key=>$('#material-'+key).oninput=materialParameters);materialParameters();lab.resetters[3]=()=>{lab.material.select(0,true);for(const [key,value]of Object.entries(materialDefaults))$('#material-'+key).value=value;materialParameters()};
+ lab.physics=own(4,K.mountDrag($('#physics-track'),$('#physics-object'),{onUpdate:s=>$('#physics-readout').textContent=`x ${s.x.toFixed(1)} / v ${s.v.toFixed(1)} px/s`}));
+ function physicsParameters(){const p={stiffness:Number($('#physics-k').value),damping:Number($('#physics-c').value),mass:Number($('#physics-m').value)};lab.physics.spring.configure(p);['k','c','m'].forEach(x=>$('#physics-'+x+'-value').textContent=$('#physics-'+x).value);$('#physics-ratio').textContent=`ζ = ${(p.damping/(2*Math.sqrt(p.stiffness*p.mass))).toFixed(2)}`}
+ ['k','c','m'].forEach(x=>$('#physics-'+x).oninput=physicsParameters);physicsParameters();$('#physics-launch').onclick=()=>lab.physics.spring.retarget(lab.physics.spring.target?0:$('#physics-track').clientWidth-150);$('#physics-reset').onclick=()=>lab.physics.reset();lab.resetters[4]=()=>lab.physics.reset();
+ const timingSpring=new K.Spring({onUpdate:()=>$('#timing-3').style.transform=`translateX(${timingSpring.x}px)`});own(5,{settle:()=>timingSpring.jump(timingSpring.target)});let timingForward=false;
+ lab.timing={spring:timingSpring,replay(){timingForward=!timingForward;const distance=$('#timing-0').parentElement.clientWidth-50,target=timingForward?distance:0;const curves=['linear',K.ease.smooth,`cubic-bezier(.22,${$('#bezier-y1').value},.36,${$('#bezier-y2').value})`];[0,1,2].forEach((i)=>{const dot=$('#timing-'+i),current=getComputedStyle(dot).transform;K.cancelAnimations(dot);dot.style.transform=`translateX(${target}px)`;K.animate(dot,[{transform:current},{transform:dot.style.transform}],{duration:1100,easing:curves[i]})});timingSpring.retarget(target);$('#timing-distance').textContent=`Δx = ${distance.toFixed(0)} logical px · 共同距离`},reset(){timingForward=false;[0,1,2].forEach(i=>{K.cancelAnimations($('#timing-'+i));$('#timing-'+i).style.transform='translateX(0px)'});timingSpring.jump(0)}};
+ $('#timing-replay').onclick=()=>lab.timing.replay();$('#timing-reset').onclick=()=>lab.timing.reset();lab.resetters[5]=()=>lab.timing.reset();
+ ['y1','y2'].forEach(key=>$('#bezier-'+key).oninput=()=>{$('#bezier-'+key+'-value').textContent=$('#bezier-'+key).value;$('#bezier-curve').textContent=`cubic-bezier(.22,${$('#bezier-y1').value},.36,${$('#bezier-y2').value})`});
+ lab.morph=own(6,K.mountMorph($('#identity-host'),{compact:{w:440,h:220},expanded:{w:1420,h:440}}));lab.resetters[6]=()=>lab.morph.reset();
+ lab.camera=own(7,new K.SceneMotion($('#camera-stage'),[...$('#camera-stage').children]));const cameraText=text($('#camera-note'));
+ [['detail',1,'overview-detail','深入同一个 A：共享对象放大并移入焦点。'],['overview',0,'detail-overview','沿同一空间路径返回概览。'],['focus',2,'focus-transfer','A 降低权重，B 成为新的视觉焦点。'],['chapter',3,'chapter-boundary','以平静 Fade 建立新的章节节奏。']].forEach(([id,n,relation,note])=>$('#camera-'+id).onclick=()=>{lab.camera.go(n,relation);cameraText.set(note)});
+ lab.resetters[7]=()=>{lab.camera.go(0,'scene-reset',true);cameraText.set('选择内容关系；镜头由明确的语义映射决定。',{instant:true})};
+ lab.growth=own(8,K.mountPath($('#growth-path'),[...$('#growth-nodes').children]));let growthStep=0;const growthText=text($('#growth-description'));
+ function growth(n,instant=false){growthStep=Math.max(0,Math.min(4,n));instant?lab.growth.spring.jump(growthStep/4):lab.growth.set(growthStep/4);growthText.set(['IF · 获取指令','ID · 识别指令与源寄存器','EX · 计算结果或地址','MEM · 按需访问数据存储器','WB · 按需更新目的寄存器'][growthStep],{instant});$('#growth-count').textContent=`${growthStep} / 4`;$('#growth-prev').disabled=growthStep===0;$('#growth-next').disabled=growthStep===4}
+ $('#growth-next').onclick=()=>growth(growthStep+1);$('#growth-prev').onclick=()=>growth(growthStep-1);$('#growth-reset').onclick=()=>growth(0,true);lab.resetters[8]=()=>growth(0,true);growth(0,true);
+ lab.arrival=own(9,K.mountArrivalComparison($('#arrival-comparison')));['replay','interrupt','reverse','reset'].forEach(name=>$('#arrival-'+name).onclick=()=>lab.arrival[name==='replay'?'play':name]());lab.resetters[9]=()=>lab.arrival.reset();
+ let presses=0;const pressText=text($('#micro-feedback'));$('#micro-press').onclick=()=>pressText.set(`Pressed ${++presses}`);lab.microSegments=K.mountSegments($('#micro-segments'));$('#micro-range').oninput=()=>{$('#micro-value').textContent=$('#micro-range').value+'%';$('#micro-press').style.boxShadow=`0 0 0 ${Number($('#micro-range').value)*.08}px #007aff22`};
+ lab.capsule=own(10,K.mountMorph($('#micro-capsule'),{compact:{w:280,h:90},expanded:{w:650,h:210},capsule:true}));lab.card=own(10,K.mountMorph($('#micro-card'),{compact:{w:360,h:100},expanded:{w:700,h:220}}));lab.resetters[10]=()=>{presses=0;pressText.set('Ready',{instant:true});lab.microSegments.select(0,true);$('#micro-range').value=50;$('#micro-range').oninput();lab.capsule.reset();lab.card.reset()};
+ const fsmText=text($('#fsm-description')),states=['Idle','Ready','Running','Completed'];const stateVisuals=[...document.querySelectorAll('[data-fsm-node]')].map(n=>own(11,K.mountVisual(n,[{elements:n,property:'borderColor',from:'#d5dfec',to:'#007aff'},{elements:n,property:'color',from:'#56697f',to:'#005fc7'}])));
+ lab.machine=new K.StateMachine('Idle',{Idle:{ready:'Ready'},Ready:{start:'Running'},Running:{complete:'Completed'}},state=>{fsmText.set(state+' · '+['尚未开始','准备就绪','执行中','结果已提交'][states.indexOf(state)]);states.forEach((s,i)=>stateVisuals[i].set(s===state?1:0));$('#fsm-ready').disabled=state!=='Idle';$('#fsm-start').disabled=state!=='Ready';$('#fsm-complete').disabled=state!=='Running'});
+ ['ready','start','complete'].forEach(name=>$('#fsm-'+name).onclick=()=>lab.machine.dispatch(name));lab.resetters[11]=()=>{lab.machine.reset();K.settleFeedback($('#state'))};$('#fsm-reset').onclick=lab.resetters[11];
+ let burstFrame=0;const pressureSpring=new K.Spring({onUpdate:()=>{$('#pressure-object').style.transform=`translateX(${pressureSpring.x}px)`;$('#pressure-readout').textContent=`x ${pressureSpring.x.toFixed(1)} / v ${pressureSpring.v.toFixed(1)}`}});
+ const stopBurst=()=>{cancelAnimationFrame(burstFrame);burstFrame=0};lab.pressure=own(12,{spring:pressureSpring,settle(){stopBurst();pressureSpring.jump(pressureSpring.target)},reset(){stopBurst();pressureSpring.jump(0)},target(i){stopBurst();pressureSpring.retarget(i*($('#pressure-track').clientWidth-140)/3)},burst(){stopBurst();const sequence=[3,0,2,1,3,1,0,3,2,0,1,3];let start=performance.now(),last=-1;const tick=now=>{if(document.hidden||globalThis.deck?.current!==12){stopBurst();return}const i=Math.min(11,Math.floor((now-start)/75));if(i!==last){last=i;pressureSpring.retarget(sequence[i]*($('#pressure-track').clientWidth-140)/3)}if(i<11)burstFrame=requestAnimationFrame(tick);else burstFrame=0};burstFrame=requestAnimationFrame(tick)}});
+ [0,1,2,3].forEach(i=>$('#target-'+i).onclick=()=>lab.pressure.target(i));$('#pressure-burst').onclick=()=>lab.pressure.burst();$('#pressure-reset').onclick=()=>lab.pressure.reset();lab.resetters[12]=()=>lab.pressure.reset();
+ document.addEventListener('visibilitychange',()=>{if(document.hidden)stopBurst()});
+ const accessSpring=new K.Spring({onUpdate:()=>$('#access-object').style.transform=`translateX(${accessSpring.x}px)`});own(13,{settle:()=>accessSpring.jump(accessSpring.target)});lab.accessSpring=accessSpring;
+ function sampleAccess(){$('#access-readout').textContent=`活动 Spring：${K.springStats().active} · 动态${K.reduced()?'已减少':'开启'}`}
+ $('#access-reduce').onclick=()=>{K.setReducedMotion(!document.documentElement.classList.contains('reduce-motion'));$('#access-reduce').setAttribute('aria-pressed',String(document.documentElement.classList.contains('reduce-motion')));sampleAccess()};$('#access-static').onclick=()=>{deck.action('static');$('#access-static').setAttribute('aria-pressed',String(document.documentElement.classList.contains('static')));sampleAccess()};$('#access-opaque').onclick=()=>{const on=document.documentElement.classList.toggle('opaque');$('#access-opaque').setAttribute('aria-pressed',String(on))};$('#access-move').onclick=()=>accessSpring.retarget(accessSpring.target?0:$('#access-track').clientWidth-125);$('#access-sample').onclick=sampleAccess;lab.resetters[13]=()=>{accessSpring.jump(0);sampleAccess()};
+ lab.workflow=own(14,K.mountPath($('#workflow-path'),[...$('#workflow-nodes').children]));$('#workflow-replay').onclick=()=>{lab.workflow.reset();lab.workflow.set(1)};$('#workflow-settlement').onclick=()=>deck.go(9,'scene-reset');$('#release-label').textContent=`SWUST Apple Keynote v${release.version}`;lab.resetters[14]=()=>lab.workflow.reset();
+ const settleController=c=>{if(c.settle)c.settle();else if(c.spring)c.spring.jump(c.spring.target);else if(c instanceof K.SceneMotion)c.go(c.current,'soft-fade',true)};
+ document.addEventListener('keynote-slide',e=>{if(e.detail.previous!==e.detail.index){lab.controllers.filter(x=>x.i===e.detail.previous).forEach(({c})=>settleController(c));K.cancelAnimations(stage.children[e.detail.previous]);K.settleFeedback(stage.children[e.detail.previous])}});
+ globalThis.deck=new K.Presentation({stage,notes:globalThis.showcaseNotes,onReset:i=>{lab.resetters[i]?.();lab.controllers.filter(x=>x.i===i).forEach(({c})=>settleController(c));K.settleFeedback(deck.slides[i])}});
+ lab.controllers.forEach(({c})=>settleController(c));K.settleSprings();K.settleFeedback();
+ lab.go=(i)=>deck.go(i);lab.settle=()=>{lab.controllers.forEach(({c})=>settleController(c));K.settleSprings();K.settleFeedback();K.cancelAnimations()};
+})();
+
+</script></body></html>

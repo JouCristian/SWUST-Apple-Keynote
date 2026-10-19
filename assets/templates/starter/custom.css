@@ -1,0 +1,2 @@
+/* Keep domain-specific layouts here; do not patch core navigation to add a slide. */
+.scene>.lead{max-width:1400px}
