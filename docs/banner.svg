@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="560" viewBox="0 0 1600 560" role="img" aria-labelledby="title desc">
+  <title id="title">SWUST Apple Keynote — Motion with Meaning</title>
+  <desc id="desc">A navy cinematic banner with blue glass ribbons and the message Interactive HTML presentations, designed to explain.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#030917"/><stop offset=".55" stop-color="#092348"/><stop offset="1" stop-color="#03132C"/></linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2=".7"><stop stop-color="#C8E9FF" stop-opacity=".08"/><stop offset=".28" stop-color="#3599F8" stop-opacity=".3"/><stop offset=".55" stop-color="#E4F7FF" stop-opacity=".68"/><stop offset=".79" stop-color="#007AFF" stop-opacity=".28"/><stop offset="1" stop-color="#B7E9FF" stop-opacity=".04"/></linearGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#278BFF" stop-opacity=".05"/><stop offset=".4" stop-color="#7BC5FF"/><stop offset=".7" stop-color="#F5FCFF"/><stop offset="1" stop-color="#007AFF" stop-opacity=".15"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#1688FF" stop-opacity=".4"/><stop offset="1" stop-color="#1688FF" stop-opacity="0"/></radialGradient>
+    <filter id="soft"><feGaussianBlur stdDeviation="31"/></filter>
+  </defs>
+  <rect width="1600" height="560" fill="url(#bg)"/>
+  <ellipse cx="1180" cy="280" rx="550" ry="350" fill="url(#glow)"/>
+  <path d="M 810 398 C 1050 75 1350 35 1510 185 C 1630 295 1370 495 1080 418 C 940 381 860 280 1150 190 C 1370 118 1515 214 1540 390" fill="none" stroke="#53B2FF" stroke-width="50" opacity=".2" filter="url(#soft)"/>
+  <path d="M 755 384 C 922 107 1261 14 1448 126 C 1595 214 1419 505 1145 460 C 938 428 836 305 1142 194 C 1345 121 1467 196 1606 290 L 1606 520 C 1260 570 1015 432 755 384 Z" fill="url(#glass)" opacity=".77"/>
+  <path d="M 755 384 C 922 107 1261 14 1448 126 C 1595 214 1419 505 1145 460 C 938 428 836 305 1142 194 C 1345 121 1467 196 1606 290" fill="none" stroke="url(#line)" stroke-width="4"/>
+  <path d="M 760 452 C 1055 228 1224 560 1584 315" fill="none" stroke="url(#line)" stroke-width="2.5" opacity=".8"/>
+  <path d="M 1000 83 C 1208 240 1428 226 1597 83" fill="none" stroke="#7FCDFF" stroke-width="2" opacity=".6"/>
+  <rect x="84" y="88" width="61" height="5" rx="2.5" fill="#1688FF"/>
+  <g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif">
+    <text x="164" y="98" font-size="23" font-weight="500" letter-spacing="2" fill="#AEC9E8">SWUST  /  CODEX SKILL</text>
+    <text x="83" y="247" font-size="83" font-weight="700" letter-spacing="-2" fill="#FFFFFF">Motion</text>
+    <text x="83" y="335" font-size="83" font-weight="700" letter-spacing="-2" fill="#F1F7FF">with Meaning.</text>
+    <text x="86" y="408" font-size="29" fill="#C8D9EF">Interactive HTML presentations,</text>
+    <text x="86" y="446" font-size="29" fill="#C8D9EF">designed to explain.</text>
+    <text x="87" y="529" font-size="19" letter-spacing="1" fill="#9DB5D3">SWUST APPLE KEYNOTE  ·  v1.0.0</text>
+  </g>
+</svg>
